@@ -1,0 +1,61 @@
+name: Vibe Coding Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      task_title:
+        description: 'Short title for the task (e.g. "Build a REST API")'
+        required: true
+        type: string
+      task_description:
+        description: 'Detailed description of what to build'
+        required: true
+        type: string
+      max_iterations:
+        description: 'Maximum retry iterations (default: 3)'
+        required: false
+        default: '3'
+        type: string
+
+jobs:
+  vibe-coding-pipeline:
+    name: Run Vibe Coding Pipeline
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Vibe Coding Pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          VIBE_MODEL: ${{ vars.VIBE_MODEL || 'gpt-4o' }}
+          VIBE_MAX_ITERATIONS: ${{ inputs.max_iterations }}
+          VIBE_LOGS_DIR: logs
+          VIBE_TASKS_DIR: tasks
+        run: |
+          python -m orchestrator.main run \
+            --title "${{ inputs.task_title }}" \
+            --description "${{ inputs.task_description }}"
+
+      - name: Upload pipeline logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 30
+
+      - name: Print pipeline status
+        if: always()
+        run: python -m orchestrator.main status
