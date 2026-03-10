@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.env
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Pytest
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Logs (keep .gitkeep but ignore generated logs)
+logs/*.md
+logs/*.json
+logs/*.log
+!logs/.gitkeep
+
+# Tasks (keep .gitkeep but ignore generated tasks)
+tasks/*.json
+tasks/*.md
+!tasks/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
