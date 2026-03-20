@@ -1,0 +1,196 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "C:/Users/JIANG/AppData/Local/Programs/Python/Python312/python.exe": true,
+        "/^python -m pytest tests/test_sample\\.py -v 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "pytest": true,
+        "Copy-Item": true,
+        "/^python -m pytest tests/test_universe\\.py -v 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^New-Item -ItemType Directory -Force -Path \"c:\\\\Users\\\\JIANG\\\\Desktop\\\\AutoPrograming\\\\runs\\\\logs\\\\run_004\" \\| Out-Null ; Write-Host \"done\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_scaffold_imports\\.py -v$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_chip_strategy_contracts\\.py tests/test_tw_quant_flow_strategy_contracts\\.py tests/test_tw_quant_market_structure_strategy_contracts\\.py -v$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "ForEach-Object": true,
+        "/^python -m pytest tests/test_tw_quant_chip_strategy_contracts\\.py tests/test_tw_quant_flow_strategy_contracts\\.py tests/test_tw_quant_market_structure_strategy_contracts\\.py tests/test_tw_quant_scaffold_imports\\.py -v --tb=short 2>&1 \\| head -100$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_chip_strategy_contracts\\.py tests/test_tw_quant_flow_strategy_contracts\\.py tests/test_tw_quant_market_structure_strategy_contracts\\.py tests/test_tw_quant_scaffold_imports\\.py -v --tb=line 2>&1 \\| Select-Object -Last 30$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_selection_contracts\\.py tests/test_tw_quant_scaffold_imports\\.py -v 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_backtest_engine\\.py -v 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_scaffold_imports\\.py -v 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/ -v --tb=short 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "New-Item": true,
+        "Out-Null": true,
+        "/^python -m pytest tests/test_tw_quant_exit_rules\\.py tests/test_tw_quant_scaffold_imports\\.py tests/test_tw_quant_backtest_engine\\.py -v --tb=short 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest --tb=short -q 2>&1 \\| tail -5$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest --tb=short -q 2>&1 \\| Select-Object -Last 5$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "git rev-list": true,
+        "git reflog": true,
+        "/^python -c \"import marshal, pathlib, dis, types; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_technical_strategy_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); data=p\\.read_bytes\\(\\)\\[16:\\]; code=marshal\\.loads\\(data\\); print\\('module const function names:'\\); print\\(\\[c\\.co_name for c in code\\.co_consts if isinstance\\(c, types\\.CodeType\\)\\]\\); print\\('\\\\n--- disassemble module ---'\\); dis\\.dis\\(code\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_technical_strategy_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\nobjs=\\[\\]\ndef walk\\(c,prefix=''\\):\n    import types\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            objs\\.append\\(\\(const\\.co_name,const\\.co_firstlineno,const\\.co_varnames,const\\.co_argcount,const\\.co_consts\\[:12\\]\\)\\)\n            walk\\(const,prefix\\+const\\.co_name\\+'\\.'\\)\nwalk\\(code\\)\nfor o in objs:\n    print\\(o\\[0\\], 'line', o\\[1\\], 'args', o\\[2\\]\\[:o\\[3\\]\\]\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types, dis; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_technical_strategy_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\n\ndef find\\(c,name\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            if const\\.co_name==name:\n                return const\n            found=find\\(const,name\\)\n            if found: return found\n    return None\nfor name in \\['_pullback_feature_source_stub','test_pullback_generate_signals_emits_buy_and_warmup_hold'\\]:\n    c=find\\(code,name\\); print\\('\\\\n===',name,'line',c\\.co_firstlineno,'==='\\); dis\\.dis\\(c\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types, dis; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_technical_features_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\n\ndef find\\(c,name\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            if const\\.co_name==name: return const\n            found=find\\(const,name\\)\n            if found: return found\n    return None\n# print function names\nnames=\\[\\]\ndef walk\\(c\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            names\\.append\\(\\(const\\.co_name,const\\.co_firstlineno\\)\\); walk\\(const\\)\nwalk\\(code\\)\nprint\\('FUNCTIONS:'\\);\nfor n,l in names: print\\(n,l\\)\nfor name in \\['test_exponential_moving_average_returns_expected_sequence','test_rolling_max_and_min_shape_and_warmup_none_entries','test_rolling_negative_min_supports_prior_window_excluding_current','test_prior_rolling_negative_min_uses_history_only_and_excludes_current','test_macd_histogram_preserves_input_shape_and_none_warmup','test_slope_up_uses_last_and_lookback_values'\\]:\n    c=find\\(code,name\\)\n    if c:\n        print\\('\\\\n===',name,'line',c\\.co_firstlineno,'==='\\)\n        dis\\.dis\\(c\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_technical_features_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\n\ndef find\\(c,name\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            if const\\.co_name==name: return const\n            found=find\\(const,name\\)\n            if found: return found\n    return None\nnames=\\['test_rolling_max_and_min_shape_and_warmup_none_entries','test_exponential_moving_average_returns_expected_sequence','test_macd_histogram_matches_input_length','test_rolling_negative_min_supports_prior_window_excluding_current','test_rolling_negative_min_returns_none_when_window_has_no_negative'\\]\nfor name in names:\n    c=find\\(code,name\\)\n    print\\('\\\\n===',name,'==='\\)\n    print\\(c\\.co_consts\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_scaffold_imports\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\nobjs=\\[\\]\ndef walk\\(c\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            objs\\.append\\(\\(const\\.co_name,const\\.co_firstlineno,const\\.co_consts\\)\\)\n            walk\\(const\\)\nwalk\\(code\\)\nfor name,line,consts in objs:\n    if 'pullback' in name\\.lower\\(\\) or 'technical_exports' in name\\.lower\\(\\) or 't15' in name\\.lower\\(\\):\n        print\\('\\\\n',name,'line',line\\)\n        print\\(consts\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import marshal, pathlib, types, dis; p=pathlib\\.Path\\('tests/__pycache__/test_tw_quant_selection_contracts\\.cpython-312-pytest-9\\.0\\.2\\.pyc'\\); code=marshal\\.loads\\(p\\.read_bytes\\(\\)\\[16:\\]\\);\n\ndef find\\(c,name\\):\n    for const in c\\.co_consts:\n        if isinstance\\(const, types\\.CodeType\\):\n            if const\\.co_name==name: return const\n            found=find\\(const,name\\)\n            if found: return found\n    return None\nname='test_selection_pipeline_accepts_pullback_strategy_signals'; c=find\\(code,name\\); print\\('line',c\\.co_firstlineno\\); print\\(c\\.co_consts\\); dis\\.dis\\(c\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^c:/Users/JIANG/Desktop/AutoPrograming/\\.venv/Scripts/python\\.exe -m src\\.tw_quant\\.runner --help;c:/Users/JIANG/Desktop/AutoPrograming/\\.venv/Scripts/python\\.exe -m src\\.tw_quant\\.runner backtest-batch --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "c:/Users/JIANG/Desktop/AutoPrograming/.venv/Scripts/python.exe": true,
+        "/^python -m pytest tests/test_tw_quant_technical_strategy_contracts\\.py tests/test_tw_quant_backtest_exits\\.py tests/test_tw_quant_live_workflows_contracts\\.py -v --tb=short 2>&1 \\| Select-Object -First 120$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_technical_strategy_contracts\\.py tests/test_tw_quant_backtest_exits\\.py tests/test_tw_quant_live_workflows_contracts\\.py -v --tb=short 2>&1 \\| Select-Object -Last 30$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/ -q --tb=short 2>&1 \\| Select-Object -Last 20$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -NoProfile -Command \"\\[void\\]\\[System\\.Management\\.Automation\\.Language\\.Parser\\]::ParseFile\\('c:\\\\Users\\\\JIANG\\\\Desktop\\\\AutoPrograming\\\\scripts\\\\run_pullback_backtest_all\\.ps1',\\[ref\\]\\$null,\\[ref\\]\\$null\\); if \\(\\$\\?\\) \\{ 'OK' \\}\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"from tests\\.test_tw_quant_technical_strategy_contracts import _build_pullback_optimized_payload; from src\\.tw_quant\\.strategy\\.technical\\.pullback_trend_compression import PullbackTrend120dOptimizedStrategy; from src\\.tw_quant\\.strategy\\.interfaces import StrategyContext; from src\\.tw_quant\\.schema\\.models import FeatureFrameRef; payload=_build_pullback_optimized_payload\\(\\); s=PullbackTrend120dOptimizedStrategy\\(feature_source=lambda _: \\{'OPT\\.TW': payload\\}\\); ctx=StrategyContext\\(strategy_name='x', as_of='2026-03-11', feature_ref=FeatureFrameRef\\(frame_id='f', as_of='2026-03-11', symbols=\\['OPT\\.TW'\\], columns=\\['open','high','low','close','volume'\\]\\)\\); sig=s\\.generate_signals\\(ctx\\)\\[0\\]; print\\(sig\\.signal\\); print\\(sig\\.metadata\\.get\\('failure_reason'\\)\\); print\\(sig\\.metadata\\['module_debug'\\]\\['price_contraction'\\]\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import ast; ast\\.parse\\(open\\(r'c:\\\\Users\\\\JIANG\\\\Desktop\\\\AutoPrograming\\\\src\\\\tw_quant\\\\strategy\\\\technical\\\\pullback_trend_compression\\.py'\\)\\.read\\(\\)\\); print\\('Syntax OK'\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -c \"import ast; ast\\.parse\\(open\\('src/tw_quant/strategy/technical/pullback_trend_compression\\.py'\\)\\.read\\(\\)\\); print\\('Syntax OK'\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_technical_strategy_contracts\\.py -q 2>&1 \\| head -60$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_technical_strategy_contracts\\.py -q 2>&1 \\| Select-Object -First 80$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/ -q --tb=short 2>&1 \\| Select-Object -Last 30$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_technical_strategy_contracts\\.py tests/test_tw_quant_backtest_exits\\.py tests/test_tw_quant_live_workflows_contracts\\.py -q$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "Set-ExecutionPolicy": true,
+        "/^Set-Location \\.\\.; python -m src\\.tw_quant\\.runner backtest-batch --symbols 2492\\.TW --start 2022-01-01 --end 2022-03-31 --strategy ma_cross --params \"\\{\\\\\"short\\\\\":5,\\\\\"long\\\\\":20\\}\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m src\\.tw_quant\\.runner backtest-batch --symbols 2492\\.TW --start 2022-01-01 --end 2022-03-31 --strategy ma_cross --params '\\{\"short\":5,\"long\":20\\}'$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m src\\.tw_quant\\.runner backtest-batch --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Set-Location \\.\\.; python -m src\\.tw_quant\\.runner backtest-batch --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Set-Location scripts; powershell -NoProfile -ExecutionPolicy Bypass -File \\.\\\\run_pullback_6_parallel\\.ps1 -DryRun$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -NoProfile -ExecutionPolicy Bypass -File \\.\\\\run_pullback_6_parallel\\.ps1 -DryRun$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "Test-Path": true,
+        "Start-Job": true,
+        "Wait-Job": true,
+        "Receive-Job": true,
+        "Remove-Job": true,
+        "/^python -m pytest -q tests/test_parser\\.py tests/test_tw_quant_mvp_validation_harness\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m src\\.tw_quant\\.runner daily-selection --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        ".\\run_single_strategy_chunk_parallel.ps1": true,
+        "/^powershell -NoProfile -ExecutionPolicy Bypass -File \"c:\\\\Users\\\\JIANG\\\\Desktop\\\\AutoPrograming\\\\scripts\\\\run_single_strategy_chunk_parallel\\.ps1\" -MaxSymbols 12 -ChunkSize 5 -MaxParallel 6 -DryRun$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -NoProfile -ExecutionPolicy Bypass -File \"c:\\\\Users\\\\JIANG\\\\Desktop\\\\AutoPrograming\\\\scripts\\\\run_single_strategy_chunk_parallel\\.ps1\" -MaxSymbols 10 -ChunkSize 4 -MaxParallel 6 -DryRun$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python -m pytest tests/test_tw_quant_qizhang_selection_strategy\\.py -q$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

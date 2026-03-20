@@ -1,0 +1,7 @@
+﻿"Name","Status","ExitCode","StartedAt","EndedAt","LogPath"
+"case01_win_a","FAILED","999","2026/3/19 下午 01:06:13","2026/3/19 下午 01:06:13","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case01_win_a.log"
+"case02_win_b","FAILED","999","2026/3/19 下午 01:06:13","2026/3/19 下午 01:06:13","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case02_win_b.log"
+"case03_win_c","FAILED","999","2026/3/19 下午 01:06:13","2026/3/19 下午 01:06:14","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case03_win_c.log"
+"case04_ret_a","FAILED","999","2026/3/19 下午 01:06:14","2026/3/19 下午 01:06:14","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case04_ret_a.log"
+"case05_ret_b","FAILED","999","2026/3/19 下午 01:06:14","2026/3/19 下午 01:06:14","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case05_ret_b.log"
+"case06_ret_c","FAILED","999","2026/3/19 下午 01:06:14","2026/3/19 下午 01:06:14","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_status\run_20260319_130613\case06_ret_c.log"

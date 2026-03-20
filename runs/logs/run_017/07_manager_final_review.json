@@ -1,0 +1,11 @@
+{
+  "task_id": "T16",
+  "task_title": "Reporting outputs and artifacts",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Mark T16 as complete based on QA PASS; no further implementation or QA reroute is required.",
+  "summary": "T16 is complete. QA PASS confirms reporting outputs and artifact persistence meet the approved T16 specification, including required artifact set, metadata contracts, KPI calculation behavior, resolver compatibility, and scope boundaries.",
+  "next_action": "Close T16 and return control to the orchestrator for the next task.",
+  "success": true
+}

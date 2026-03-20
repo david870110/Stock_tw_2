@@ -1,0 +1,8 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "manager",
+  "decision": "APPROVE_SPEC",
+  "spec_review": "All 13 acceptance criteria fully covered. SelectionPipeline, SelectionConfig, filter_signals, rank_signals, select_top, WeightedRankingModel, ConfiguredSelector all specified with exact signatures. Anti-spillover section explicitly excludes BacktestEngine, OrderIntent, ReportArtifact, SignalGenerator, BatchRunner. Spec is implementation-ready.",
+  "success": true
+}

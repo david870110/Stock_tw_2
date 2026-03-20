@@ -1,0 +1,3553 @@
+{
+  "as_of": "2026-03-12",
+  "strategy_name": "ma_bullish_stack",
+  "signal_count": 200,
+  "selection_count": 20,
+  "signals": [
+    {
+      "symbol": "1101.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 24.699999618530274,
+        "ma_mid": 25.564999866485596,
+        "ma_long": 24.47666670481364
+      }
+    },
+    {
+      "symbol": "1102.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 34.210000610351564,
+        "ma_mid": 35.02250022888184,
+        "ma_long": 36.25249983469645
+      }
+    },
+    {
+      "symbol": "1103.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 13.550000190734863,
+        "ma_mid": 13.872500038146972,
+        "ma_long": 13.959999990463256
+      }
+    },
+    {
+      "symbol": "1104.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 28.879999923706055,
+        "ma_mid": 29.47499990463257,
+        "ma_long": 30.029166634877523
+      }
+    },
+    {
+      "symbol": "1108.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.019999885559082,
+        "ma_mid": 15.115000009536743,
+        "ma_long": 15.028333266576132
+      }
+    },
+    {
+      "symbol": "1109.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.350000190734864,
+        "ma_mid": 15.49500002861023,
+        "ma_long": 15.50499997138977
+      }
+    },
+    {
+      "symbol": "1110.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.870000076293945,
+        "ma_mid": 16.19000005722046,
+        "ma_long": 16.345833237965902
+      }
+    },
+    {
+      "symbol": "1201.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 14.130000114440918,
+        "ma_mid": 14.380000019073487,
+        "ma_long": 14.525
+      }
+    },
+    {
+      "symbol": "1203.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 39.24000015258789,
+        "ma_mid": 39.97999992370605,
+        "ma_long": 39.79083360036214
+      }
+    },
+    {
+      "symbol": "1210.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 51.220000457763675,
+        "ma_mid": 51.080000495910646,
+        "ma_long": 51.4016668955485
+      }
+    },
+    {
+      "symbol": "1213.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 9.73799991607666,
+        "ma_mid": 9.866999959945678,
+        "ma_long": 10.158833344777426
+      }
+    },
+    {
+      "symbol": "1215.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 158.2,
+        "ma_mid": 152.625,
+        "ma_long": 145.75
+      }
+    },
+    {
+      "symbol": "1216.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 70.85999908447266,
+        "ma_mid": 72.64999923706054,
+        "ma_long": 74.70499979654947
+      }
+    },
+    {
+      "symbol": "1217.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.289999961853027,
+        "ma_mid": 10.437499904632569,
+        "ma_long": 10.49583330154419
+      }
+    },
+    {
+      "symbol": "1218.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 18.110000228881837,
+        "ma_mid": 18.152499961853028,
+        "ma_long": 18.208333269755045
+      }
+    },
+    {
+      "symbol": "1219.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 13.579999923706055,
+        "ma_mid": 13.5625,
+        "ma_long": 13.536666711171469
+      }
+    },
+    {
+      "symbol": "1220.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 12.999999809265137,
+        "ma_mid": 12.977500009536744,
+        "ma_long": 12.72583335240682
+      }
+    },
+    {
+      "symbol": "1225.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 32.46999969482422,
+        "ma_mid": 30.19749994277954,
+        "ma_long": 29.414999866485594
+      }
+    },
+    {
+      "symbol": "1227.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 29.469999694824217,
+        "ma_mid": 29.417499923706053,
+        "ma_long": 29.82749999364217
+      }
+    },
+    {
+      "symbol": "1229.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 44.13999938964844,
+        "ma_mid": 44.72500019073486,
+        "ma_long": 46.21166674296061
+      }
+    },
+    {
+      "symbol": "1231.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 83.95999908447266,
+        "ma_mid": 88.88500061035157,
+        "ma_long": 93.85000012715658
+      }
+    },
+    {
+      "symbol": "1232.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 151.1,
+        "ma_mid": 149.625,
+        "ma_long": 146.75833333333333
+      }
+    },
+    {
+      "symbol": "1233.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 32.23000030517578,
+        "ma_mid": 32.4875,
+        "ma_long": 32.23833316167195
+      }
+    },
+    {
+      "symbol": "1234.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 36.31999969482422,
+        "ma_mid": 36.89250011444092,
+        "ma_long": 37.350833320617674
+      }
+    },
+    {
+      "symbol": "1235.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 40.029999542236325,
+        "ma_mid": 42.22749977111816,
+        "ma_long": 44.32500012715658
+      }
+    },
+    {
+      "symbol": "1236.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 27.86999969482422,
+        "ma_mid": 26.96749973297119,
+        "ma_long": 25.868333276112875
+      }
+    },
+    {
+      "symbol": "1256.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 166.3,
+        "ma_mid": 160.65,
+        "ma_long": 152.70833333333334
+      }
+    },
+    {
+      "symbol": "1301.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 47.720000457763675,
+        "ma_mid": 47.722500228881835,
+        "ma_long": 43.81833349863688
+      }
+    },
+    {
+      "symbol": "1303.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 79.78000030517578,
+        "ma_mid": 80.6300006866455,
+        "ma_long": 70.51333363850911
+      }
+    },
+    {
+      "symbol": "1304.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 12.810000038146972,
+        "ma_mid": 12.09500002861023,
+        "ma_long": 11.67750005722046
+      }
+    },
+    {
+      "symbol": "1305.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 12.990000152587891,
+        "ma_mid": 12.262500047683716,
+        "ma_long": 11.778333361943563
+      }
+    },
+    {
+      "symbol": "1307.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 33.92000045776367,
+        "ma_mid": 33.08000001907349,
+        "ma_long": 32.57833325068156
+      }
+    },
+    {
+      "symbol": "1308.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 14.619999885559082,
+        "ma_mid": 13.909999895095826,
+        "ma_long": 13.67583327293396
+      }
+    },
+    {
+      "symbol": "1309.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 13.939999961853028,
+        "ma_mid": 12.685000085830689,
+        "ma_long": 12.01083337465922
+      }
+    },
+    {
+      "symbol": "1310.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 10.860000038146973,
+        "ma_mid": 9.553999996185302,
+        "ma_long": 9.057833321889241
+      }
+    },
+    {
+      "symbol": "1312.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 13.570000076293946,
+        "ma_mid": 13.15750002861023,
+        "ma_long": 12.555000034968058
+      }
+    },
+    {
+      "symbol": "1313.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 12.770000076293945,
+        "ma_mid": 11.397499942779541,
+        "ma_long": 10.842666641871135
+      }
+    },
+    {
+      "symbol": "1314.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 8.857999992370605,
+        "ma_mid": 8.286500024795533,
+        "ma_long": 8.083166686693827
+      }
+    },
+    {
+      "symbol": "1315.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 63.76000061035156,
+        "ma_mid": 64.3950008392334,
+        "ma_long": 64.3916669845581
+      }
+    },
+    {
+      "symbol": "1316.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.930000114440919,
+        "ma_mid": 13.477500009536744,
+        "ma_long": 14.453333314259847
+      }
+    },
+    {
+      "symbol": "1319.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 90.2,
+        "ma_mid": 99.6,
+        "ma_long": 99.28499959309896
+      }
+    },
+    {
+      "symbol": "1321.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 33.619999694824216,
+        "ma_mid": 33.45000019073486,
+        "ma_long": 34.23916664123535
+      }
+    },
+    {
+      "symbol": "1323.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 18.59000015258789,
+        "ma_mid": 18.654999923706054,
+        "ma_long": 19.065833314259848
+      }
+    },
+    {
+      "symbol": "1324.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.519999885559082,
+        "ma_mid": 10.594999980926513,
+        "ma_long": 10.731666660308838
+      }
+    },
+    {
+      "symbol": "1325.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 27.39000015258789,
+        "ma_mid": 29.00250005722046,
+        "ma_long": 30.136666679382323
+      }
+    },
+    {
+      "symbol": "1326.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 44.24000015258789,
+        "ma_mid": 43.61000022888184,
+        "ma_long": 37.134166685740155
+      }
+    },
+    {
+      "symbol": "1337.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 5.740000057220459,
+        "ma_mid": 5.46949999332428,
+        "ma_long": 5.184999998410543
+      }
+    },
+    {
+      "symbol": "1338.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 16.260000038146973,
+        "ma_mid": 18.300000047683717,
+        "ma_long": 19.700833368301392
+      }
+    },
+    {
+      "symbol": "1339.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 41.67000045776367,
+        "ma_mid": 42.695000076293944,
+        "ma_long": 43.45749988555908
+      }
+    },
+    {
+      "symbol": "1340.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 7.1,
+        "ma_mid": 6.915000033378601,
+        "ma_long": 7.089833331108093
+      }
+    },
+    {
+      "symbol": "1341.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 59.24000015258789,
+        "ma_mid": 59.920000076293945,
+        "ma_long": 58.713333447774254
+      }
+    },
+    {
+      "symbol": "1342.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 90.01249389648437,
+        "ma_mid": 92.45919876098633,
+        "ma_long": 87.82358373006186
+      }
+    },
+    {
+      "symbol": "1402.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 28.58000030517578,
+        "ma_mid": 28.410000133514405,
+        "ma_long": 28.270833269755045
+      }
+    },
+    {
+      "symbol": "1409.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.139999961853027,
+        "ma_mid": 15.149999952316284,
+        "ma_long": 15.139166641235352
+      }
+    },
+    {
+      "symbol": "1410.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 32.6,
+        "ma_mid": 33.21249980926514,
+        "ma_long": 33.805833371480304
+      }
+    },
+    {
+      "symbol": "1413.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 9.789999961853027,
+        "ma_mid": 9.911500024795533,
+        "ma_long": 9.961333322525025
+      }
+    },
+    {
+      "symbol": "1414.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 20.629999923706055,
+        "ma_mid": 19.94499988555908,
+        "ma_long": 19.175815232594807
+      }
+    },
+    {
+      "symbol": "1416.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.55999984741211,
+        "ma_mid": 11.677499914169312,
+        "ma_long": 11.756666564941407
+      }
+    },
+    {
+      "symbol": "1417.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 8.679999923706054,
+        "ma_mid": 8.72249994277954,
+        "ma_long": 8.836333338419596
+      }
+    },
+    {
+      "symbol": "1418.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 19.079999923706055,
+        "ma_mid": 19.522500038146973,
+        "ma_long": 19.730833307902017
+      }
+    },
+    {
+      "symbol": "1419.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 63.900000762939456,
+        "ma_mid": 67.1850004196167,
+        "ma_long": 70.44166698455811
+      }
+    },
+    {
+      "symbol": "1423.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 38.90999984741211,
+        "ma_mid": 38.30749988555908,
+        "ma_long": 38.27583332061768
+      }
+    },
+    {
+      "symbol": "1432.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 17.190000152587892,
+        "ma_mid": 18.220000076293946,
+        "ma_long": 18.23166666030884
+      }
+    },
+    {
+      "symbol": "1434.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 17.060000228881837,
+        "ma_mid": 17.460000133514406,
+        "ma_long": 16.63666671117147
+      }
+    },
+    {
+      "symbol": "1435.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 20.25,
+        "ma_mid": 21.57249984741211,
+        "ma_long": 22.01583334604899
+      }
+    },
+    {
+      "symbol": "1436.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 54.00000076293945,
+        "ma_mid": 56.9,
+        "ma_long": 60.84666659037272
+      }
+    },
+    {
+      "symbol": "1437.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 31.489999771118164,
+        "ma_mid": 32.25000009536743,
+        "ma_long": 32.9226674079895
+      }
+    },
+    {
+      "symbol": "1438.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 30.639999771118163,
+        "ma_mid": 32.06250009536743,
+        "ma_long": 32.949166774749756
+      }
+    },
+    {
+      "symbol": "1439.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 27.440000152587892,
+        "ma_mid": 29.080000019073488,
+        "ma_long": 29.215000025431316
+      }
+    },
+    {
+      "symbol": "1440.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.79000015258789,
+        "ma_mid": 13.194999933242798,
+        "ma_long": 13.455000034968059
+      }
+    },
+    {
+      "symbol": "1441.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 9.98400001525879,
+        "ma_mid": 10.018499946594238,
+        "ma_long": 10.260999997456869
+      }
+    },
+    {
+      "symbol": "1442.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 26.759999465942382,
+        "ma_mid": 28.617499828338623,
+        "ma_long": 29.73333320617676
+      }
+    },
+    {
+      "symbol": "1443.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 25.479999923706053,
+        "ma_mid": 26.59999990463257,
+        "ma_long": 26.90249999364217
+      }
+    },
+    {
+      "symbol": "1444.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 6.108000087738037,
+        "ma_mid": 6.261000037193298,
+        "ma_long": 6.210000014305114
+      }
+    },
+    {
+      "symbol": "1445.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 13.260000228881836,
+        "ma_mid": 14.547500038146973,
+        "ma_long": 13.755000066757201
+      }
+    },
+    {
+      "symbol": "1446.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.350000190734864,
+        "ma_mid": 16.13499994277954,
+        "ma_long": 17.37749989827474
+      }
+    },
+    {
+      "symbol": "1447.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 5.523999977111816,
+        "ma_mid": 5.464499926567077,
+        "ma_long": 5.451333276430765
+      }
+    },
+    {
+      "symbol": "1449.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.560000038146972,
+        "ma_mid": 10.832499933242797,
+        "ma_long": 11.171666622161865
+      }
+    },
+    {
+      "symbol": "1451.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 18.25999984741211,
+        "ma_mid": 18.032499885559083,
+        "ma_long": 17.674999872843426
+      }
+    },
+    {
+      "symbol": "1452.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.19000015258789,
+        "ma_mid": 11.522500038146973,
+        "ma_long": 11.7399999777476
+      }
+    },
+    {
+      "symbol": "1453.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.279999923706054,
+        "ma_mid": 12.865000009536743,
+        "ma_long": 12.58333330154419
+      }
+    },
+    {
+      "symbol": "1454.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.9,
+        "ma_mid": 14.00750002861023,
+        "ma_long": 13.41999994913737
+      }
+    },
+    {
+      "symbol": "1455.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 8.672000122070312,
+        "ma_mid": 8.529000043869019,
+        "ma_long": 8.189666692415873
+      }
+    },
+    {
+      "symbol": "1456.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 13.079999923706055,
+        "ma_mid": 13.132500076293946,
+        "ma_long": 13.09666666984558
+      }
+    },
+    {
+      "symbol": "1457.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.439999961853028,
+        "ma_mid": 15.375000047683717,
+        "ma_long": 15.564166673024495
+      }
+    },
+    {
+      "symbol": "1459.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.85,
+        "ma_mid": 11.929999923706054,
+        "ma_long": 11.85416669845581
+      }
+    },
+    {
+      "symbol": "1460.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 6.714000034332275,
+        "ma_mid": 6.766500043869018,
+        "ma_long": 6.50116666952769
+      }
+    },
+    {
+      "symbol": "1463.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 17.960000228881835,
+        "ma_mid": 18.05,
+        "ma_long": 18.32416671117147
+      }
+    },
+    {
+      "symbol": "1464.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.94000015258789,
+        "ma_mid": 11.02000002861023,
+        "ma_long": 11.232499965031941
+      }
+    },
+    {
+      "symbol": "1465.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.399999809265136,
+        "ma_mid": 12.400000047683715,
+        "ma_long": 12.55250005722046
+      }
+    },
+    {
+      "symbol": "1466.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 17.2,
+        "ma_mid": 17.16499991416931,
+        "ma_long": 15.23083332379659
+      }
+    },
+    {
+      "symbol": "1467.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 7.165999984741211,
+        "ma_mid": 7.360999989509582,
+        "ma_long": 7.403833365440368
+      }
+    },
+    {
+      "symbol": "1468.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.699999809265137,
+        "ma_mid": 12.99249997138977,
+        "ma_long": 12.38249994913737
+      }
+    },
+    {
+      "symbol": "1470.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 23.06999969482422,
+        "ma_mid": 23.119999885559082,
+        "ma_long": 22.95833330154419
+      }
+    },
+    {
+      "symbol": "1471.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.3,
+        "ma_mid": 12.405000019073487,
+        "ma_long": 10.670666631062826
+      }
+    },
+    {
+      "symbol": "1472.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 90.5,
+        "ma_mid": 89.95999946594239,
+        "ma_long": 89.22833290100098
+      }
+    },
+    {
+      "symbol": "1473.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 24.120000076293945,
+        "ma_mid": 24.839999961853028,
+        "ma_long": 24.840833282470705
+      }
+    },
+    {
+      "symbol": "1474.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.110000038146973,
+        "ma_mid": 10.21500005722046,
+        "ma_long": 10.543333419164021
+      }
+    },
+    {
+      "symbol": "1475.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 28.85999984741211,
+        "ma_mid": 30.239999866485597,
+        "ma_long": 31.25166654586792
+      }
+    },
+    {
+      "symbol": "1476.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 384.7,
+        "ma_mid": 407.925,
+        "ma_long": 402.3833333333333
+      }
+    },
+    {
+      "symbol": "1477.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 297.2,
+        "ma_mid": 310.9,
+        "ma_long": 307.7416666666667
+      }
+    },
+    {
+      "symbol": "1503.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 208.7,
+        "ma_mid": 214.25,
+        "ma_long": 196.03333333333333
+      }
+    },
+    {
+      "symbol": "1504.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 71.14000091552734,
+        "ma_mid": 77.76000022888184,
+        "ma_long": 83.03833351135253
+      }
+    },
+    {
+      "symbol": "1506.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.420000076293945,
+        "ma_mid": 11.64500002861023,
+        "ma_long": 11.873333342870076
+      }
+    },
+    {
+      "symbol": "1512.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 7.272000122070312,
+        "ma_mid": 7.6980000019073485,
+        "ma_long": 7.71800000667572
+      }
+    },
+    {
+      "symbol": "1513.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 155.8,
+        "ma_mid": 163.425,
+        "ma_long": 158.65
+      }
+    },
+    {
+      "symbol": "1514.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 114.6,
+        "ma_mid": 120.775,
+        "ma_long": 112.50499992370605
+      }
+    },
+    {
+      "symbol": "1515.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 25.20999984741211,
+        "ma_mid": 26.039999961853027,
+        "ma_long": 27.220833237965902
+      }
+    },
+    {
+      "symbol": "1516.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 23.89000015258789,
+        "ma_mid": 22.232500076293945,
+        "ma_long": 21.88333330154419
+      }
+    },
+    {
+      "symbol": "1517.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.69000015258789,
+        "ma_mid": 11.880000066757201,
+        "ma_long": 11.65750002861023
+      }
+    },
+    {
+      "symbol": "1519.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 918.4,
+        "ma_mid": 959.0,
+        "ma_long": 879.9
+      }
+    },
+    {
+      "symbol": "1521.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 25.270000076293947,
+        "ma_mid": 26.270000076293947,
+        "ma_long": 25.49083334604899
+      }
+    },
+    {
+      "symbol": "1522.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 41.31999969482422,
+        "ma_mid": 44.5375,
+        "ma_long": 46.80999997456868
+      }
+    },
+    {
+      "symbol": "1524.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 29.2,
+        "ma_mid": 30.69749994277954,
+        "ma_long": 30.463333257039388
+      }
+    },
+    {
+      "symbol": "1525.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 62.0,
+        "ma_mid": 62.77499961853027,
+        "ma_long": 63.48999989827474
+      }
+    },
+    {
+      "symbol": "1526.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 18.420000076293945,
+        "ma_mid": 19.630000019073485,
+        "ma_long": 18.6450000445048
+      }
+    },
+    {
+      "symbol": "1527.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 32.880000305175784,
+        "ma_mid": 33.69750003814697,
+        "ma_long": 33.813333384195964
+      }
+    },
+    {
+      "symbol": "1528.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 21.9,
+        "ma_mid": 23.830000019073488,
+        "ma_long": 22.501666688919066
+      }
+    },
+    {
+      "symbol": "1529.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 26.549999618530272,
+        "ma_mid": 24.864999961853027,
+        "ma_long": 22.187499968210854
+      }
+    },
+    {
+      "symbol": "1530.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 27.190000152587892,
+        "ma_mid": 28.42750005722046,
+        "ma_long": 28.05166664123535
+      }
+    },
+    {
+      "symbol": "1531.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.710000038146973,
+        "ma_mid": 12.112499952316284,
+        "ma_long": 12.098333311080932
+      }
+    },
+    {
+      "symbol": "1532.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 23.42000045776367,
+        "ma_mid": 23.95750026702881,
+        "ma_long": 25.39833335876465
+      }
+    },
+    {
+      "symbol": "1533.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 30.079999923706055,
+        "ma_mid": 30.482499980926512,
+        "ma_long": 31.736666615804037
+      }
+    },
+    {
+      "symbol": "1535.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 50.2,
+        "ma_mid": 49.31500015258789,
+        "ma_long": 51.795000076293945
+      }
+    },
+    {
+      "symbol": "1536.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 54.01999969482422,
+        "ma_mid": 58.910000038146975,
+        "ma_long": 59.07666664123535
+      }
+    },
+    {
+      "symbol": "1537.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 123.1,
+        "ma_mid": 123.525,
+        "ma_long": 124.06666666666666
+      }
+    },
+    {
+      "symbol": "1538.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 18.399999618530273,
+        "ma_mid": 23.3,
+        "ma_long": 25.287499968210856
+      }
+    },
+    {
+      "symbol": "1539.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 16.800000381469726,
+        "ma_mid": 17.707500171661376,
+        "ma_long": 17.836666615804038
+      }
+    },
+    {
+      "symbol": "1540.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 22.38000030517578,
+        "ma_mid": 23.530000114440917,
+        "ma_long": 23.9
+      }
+    },
+    {
+      "symbol": "1541.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 24.41999969482422,
+        "ma_mid": 24.802499771118164,
+        "ma_long": 24.49083331425985
+      }
+    },
+    {
+      "symbol": "1558.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 94.4,
+        "ma_mid": 96.10999946594238,
+        "ma_long": 99.40499979654948
+      }
+    },
+    {
+      "symbol": "1560.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 473.8,
+        "ma_mid": 455.45,
+        "ma_long": 415.6666666666667
+      }
+    },
+    {
+      "symbol": "1563.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 42.029999542236325,
+        "ma_mid": 44.22749996185303,
+        "ma_long": 45.06666666666667
+      }
+    },
+    {
+      "symbol": "1568.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 21.57999954223633,
+        "ma_mid": 22.53249979019165,
+        "ma_long": 22.87583325703939
+      }
+    },
+    {
+      "symbol": "1582.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 86.44000091552735,
+        "ma_mid": 74.30999984741212,
+        "ma_long": 69.0666665395101
+      }
+    },
+    {
+      "symbol": "1583.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 45.07999954223633,
+        "ma_mid": 47.607500076293945,
+        "ma_long": 46.85249983469645
+      }
+    },
+    {
+      "symbol": "1587.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 38.59000015258789,
+        "ma_mid": 42.63499984741211,
+        "ma_long": 47.46666660308838
+      }
+    },
+    {
+      "symbol": "1589.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 7.225999927520752,
+        "ma_mid": 12.810999941825866,
+        "ma_long": 15.803666774431864
+      }
+    },
+    {
+      "symbol": "1590.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 1020.8,
+        "ma_mid": 1151.7,
+        "ma_long": 1031.8333333333333
+      }
+    },
+    {
+      "symbol": "1597.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 73.60000152587891,
+        "ma_mid": 77.11500053405761,
+        "ma_long": 76.16666692097982
+      }
+    },
+    {
+      "symbol": "1598.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 19.45,
+        "ma_mid": 19.58750009536743,
+        "ma_long": 20.432500076293945
+      }
+    },
+    {
+      "symbol": "1603.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 36.73999938964844,
+        "ma_mid": 38.1125,
+        "ma_long": 38.552500089009605
+      }
+    },
+    {
+      "symbol": "1604.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 24.089999771118165,
+        "ma_mid": 24.08249988555908,
+        "ma_long": 24.213333257039388
+      }
+    },
+    {
+      "symbol": "1605.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 32.25,
+        "ma_mid": 34.975,
+        "ma_long": 35.4299999554952
+      }
+    },
+    {
+      "symbol": "1608.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 33.98999938964844,
+        "ma_mid": 34.52499942779541,
+        "ma_long": 36.88999970753988
+      }
+    },
+    {
+      "symbol": "1609.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 37.02000045776367,
+        "ma_mid": 38.78250026702881,
+        "ma_long": 39.4783332824707
+      }
+    },
+    {
+      "symbol": "1611.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 12.729999923706055,
+        "ma_mid": 13.027500009536743,
+        "ma_long": 13.079999987284342
+      }
+    },
+    {
+      "symbol": "1612.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 34.12999954223633,
+        "ma_mid": 35.27999992370606,
+        "ma_long": 35.31166667938233
+      }
+    },
+    {
+      "symbol": "1614.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 32.98999938964844,
+        "ma_mid": 33.78249988555908,
+        "ma_long": 34.01000010172526
+      }
+    },
+    {
+      "symbol": "1615.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 45.20000076293945,
+        "ma_mid": 47.25499992370605,
+        "ma_long": 48.57416636149089
+      }
+    },
+    {
+      "symbol": "1616.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 27.210000228881835,
+        "ma_mid": 28.070000076293944,
+        "ma_long": 28.452500025431316
+      }
+    },
+    {
+      "symbol": "1617.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 15.020000076293945,
+        "ma_mid": 15.639999914169312,
+        "ma_long": 15.360833311080933
+      }
+    },
+    {
+      "symbol": "1618.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 42.439999389648435,
+        "ma_mid": 44.25,
+        "ma_long": 43.70749994913737
+      }
+    },
+    {
+      "symbol": "1623.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 201.0,
+        "ma_mid": 216.4,
+        "ma_long": null,
+        "reason": "insufficient_history",
+        "required_bars": 60,
+        "provided_bars": 35
+      }
+    },
+    {
+      "symbol": "1626.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.669999885559083,
+        "ma_mid": 10.865000009536743,
+        "ma_long": 11.186666695276896
+      }
+    },
+    {
+      "symbol": "1702.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 36.7,
+        "ma_mid": 37.454999923706055,
+        "ma_long": 38.07916647593181
+      }
+    },
+    {
+      "symbol": "1707.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 120.5,
+        "ma_mid": 121.675,
+        "ma_long": 123.263267771403
+      }
+    },
+    {
+      "symbol": "1708.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 36.06999969482422,
+        "ma_mid": 35.60249977111816,
+        "ma_long": 33.799999713897705
+      }
+    },
+    {
+      "symbol": "1709.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 16.90999984741211,
+        "ma_mid": 16.804999828338623,
+        "ma_long": 16.85166660944621
+      }
+    },
+    {
+      "symbol": "1710.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 13.45,
+        "ma_mid": 13.044999980926514,
+        "ma_long": 12.716666650772094
+      }
+    },
+    {
+      "symbol": "1711.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 26.64000015258789,
+        "ma_mid": 25.219999980926513,
+        "ma_long": 22.018333276112873
+      }
+    },
+    {
+      "symbol": "1712.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 47.00999984741211,
+        "ma_mid": 46.25249977111817,
+        "ma_long": 45.172499910990396
+      }
+    },
+    {
+      "symbol": "1713.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 45.66999969482422,
+        "ma_mid": 47.03750019073486,
+        "ma_long": 46.77333329518636
+      }
+    },
+    {
+      "symbol": "1714.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 9.847999954223633,
+        "ma_mid": 9.51549997329712,
+        "ma_long": 8.911166659990947
+      }
+    },
+    {
+      "symbol": "1717.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 60.75999908447265,
+        "ma_mid": 60.08499965667725,
+        "ma_long": 53.757500139872235
+      }
+    },
+    {
+      "symbol": "1718.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 7.381999874114991,
+        "ma_mid": 7.1379999876022335,
+        "ma_long": 7.056666668256124
+      }
+    },
+    {
+      "symbol": "1720.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 63.959999084472656,
+        "ma_mid": 62.51000003814697,
+        "ma_long": 61.29333343505859
+      }
+    },
+    {
+      "symbol": "1721.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 16.690000152587892,
+        "ma_mid": 17.575000095367432,
+        "ma_long": 16.103333393732708
+      }
+    },
+    {
+      "symbol": "1722.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 46.9,
+        "ma_mid": 46.575,
+        "ma_long": 46.879166793823245
+      }
+    },
+    {
+      "symbol": "1723.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 68.7999984741211,
+        "ma_mid": 71.31999969482422,
+        "ma_long": 70.4199998219808
+      }
+    },
+    {
+      "symbol": "1725.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 27.460000228881835,
+        "ma_mid": 27.667500019073486,
+        "ma_long": 27.680000019073486
+      }
+    },
+    {
+      "symbol": "1726.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 75.93999938964843,
+        "ma_mid": 76.41499977111816,
+        "ma_long": 76.16500027974446
+      }
+    },
+    {
+      "symbol": "1727.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 47.630000305175784,
+        "ma_mid": 45.33500003814697,
+        "ma_long": 44.3766668955485
+      }
+    },
+    {
+      "symbol": "1730.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 53.279999542236325,
+        "ma_mid": 53.264999580383304,
+        "ma_long": 52.979999987284344
+      }
+    },
+    {
+      "symbol": "1731.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 21.920000076293945,
+        "ma_mid": 21.942500114440918,
+        "ma_long": 21.879166698455812
+      }
+    },
+    {
+      "symbol": "1732.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 26.4,
+        "ma_mid": 27.300000286102296,
+        "ma_long": 28.037500222524006
+      }
+    },
+    {
+      "symbol": "1733.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 29.11999969482422,
+        "ma_mid": 29.772499752044677,
+        "ma_long": 30.120833174387613
+      }
+    },
+    {
+      "symbol": "1734.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 30.75999984741211,
+        "ma_mid": 30.692499923706055,
+        "ma_long": 30.684166685740152
+      }
+    },
+    {
+      "symbol": "1735.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 19.770000076293947,
+        "ma_mid": 18.41250009536743,
+        "ma_long": 17.349166679382325
+      }
+    },
+    {
+      "symbol": "1736.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 135.1,
+        "ma_mid": 137.4,
+        "ma_long": 146.31666666666666
+      }
+    },
+    {
+      "symbol": "1737.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 31.559999847412108,
+        "ma_mid": 31.585000038146973,
+        "ma_long": 31.599166711171467
+      }
+    },
+    {
+      "symbol": "1752.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 36.76999969482422,
+        "ma_mid": 36.785000228881835,
+        "ma_long": 37.0741668065389
+      }
+    },
+    {
+      "symbol": "1760.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 60.42000045776367,
+        "ma_mid": 61.76000003814697,
+        "ma_long": 63.746666463216144
+      }
+    },
+    {
+      "symbol": "1762.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 28.549999618530272,
+        "ma_mid": 27.08499984741211,
+        "ma_long": 25.86666669845581
+      }
+    },
+    {
+      "symbol": "1773.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 145.0,
+        "ma_mid": 147.05,
+        "ma_long": 146.99166666666667
+      }
+    },
+    {
+      "symbol": "1776.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 14.929999923706054,
+        "ma_mid": 15.077500057220458,
+        "ma_long": 15.240833314259847
+      }
+    },
+    {
+      "symbol": "1783.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 42.43000030517578,
+        "ma_mid": 44.08000011444092,
+        "ma_long": 44.30749994913737
+      }
+    },
+    {
+      "symbol": "1786.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 68.3,
+        "ma_mid": 72.24499893188477,
+        "ma_long": 75.31833292643229
+      }
+    },
+    {
+      "symbol": "1789.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 21.039999771118165,
+        "ma_mid": 22.005000019073485,
+        "ma_long": 21.247499910990395
+      }
+    },
+    {
+      "symbol": "1795.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 264.4,
+        "ma_mid": 298.65,
+        "ma_long": 298.8
+      }
+    },
+    {
+      "symbol": "1802.TW",
+      "timestamp": "2026-03-12",
+      "signal": "buy",
+      "score": 1.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": true,
+        "ma_short": 56.4,
+        "ma_mid": 54.172499656677246,
+        "ma_long": 44.32749989827474
+      }
+    },
+    {
+      "symbol": "1805.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 10.629999732971191,
+        "ma_mid": 11.449999952316285,
+        "ma_long": 11.68083332379659
+      }
+    },
+    {
+      "symbol": "1806.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 8.795999717712402,
+        "ma_mid": 8.862499904632568,
+        "ma_long": 9.00149998664856
+      }
+    },
+    {
+      "symbol": "1808.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 29.560000610351562,
+        "ma_mid": 30.775000190734865,
+        "ma_long": 32.32416664759318
+      }
+    },
+    {
+      "symbol": "1809.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 24.660000228881835,
+        "ma_mid": 24.840000057220458,
+        "ma_long": 21.779166730244956
+      }
+    },
+    {
+      "symbol": "1810.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 17.979999923706053,
+        "ma_mid": 18.57749996185303,
+        "ma_long": 18.380833276112874
+      }
+    },
+    {
+      "symbol": "1817.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 38.67000045776367,
+        "ma_mid": 38.770000267028806,
+        "ma_long": 38.574166742960614
+      }
+    },
+    {
+      "symbol": "1903.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 51.37999954223633,
+        "ma_mid": 53.40499973297119,
+        "ma_long": 55.09499994913737
+      }
+    },
+    {
+      "symbol": "1904.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 17.799999618530272,
+        "ma_mid": 18.077499771118163,
+        "ma_long": 17.870000012715657
+      }
+    },
+    {
+      "symbol": "1905.TW",
+      "timestamp": "2026-03-12",
+      "signal": "hold",
+      "score": 0.0,
+      "metadata": {
+        "strategy": "ma_bullish_stack",
+        "indicator": "ma_bullish_stack",
+        "short_window": 5,
+        "mid_window": 20,
+        "long_window": 60,
+        "stack": false,
+        "ma_short": 11.910000038146972,
+        "ma_mid": 12.077500009536744,
+        "ma_long": 12.005833339691161
+      }
+    }
+  ],
+  "selections": [
+    {
+      "symbol": "1215.TW",
+      "timestamp": "2026-03-12",
+      "rank": 1,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1219.TW",
+      "timestamp": "2026-03-12",
+      "rank": 2,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1220.TW",
+      "timestamp": "2026-03-12",
+      "rank": 3,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1225.TW",
+      "timestamp": "2026-03-12",
+      "rank": 4,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1232.TW",
+      "timestamp": "2026-03-12",
+      "rank": 5,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1236.TW",
+      "timestamp": "2026-03-12",
+      "rank": 6,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1256.TW",
+      "timestamp": "2026-03-12",
+      "rank": 7,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1304.TW",
+      "timestamp": "2026-03-12",
+      "rank": 8,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1305.TW",
+      "timestamp": "2026-03-12",
+      "rank": 9,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1307.TW",
+      "timestamp": "2026-03-12",
+      "rank": 10,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1308.TW",
+      "timestamp": "2026-03-12",
+      "rank": 11,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1309.TW",
+      "timestamp": "2026-03-12",
+      "rank": 12,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1310.TW",
+      "timestamp": "2026-03-12",
+      "rank": 13,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1312.TW",
+      "timestamp": "2026-03-12",
+      "rank": 14,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1313.TW",
+      "timestamp": "2026-03-12",
+      "rank": 15,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1314.TW",
+      "timestamp": "2026-03-12",
+      "rank": 16,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1326.TW",
+      "timestamp": "2026-03-12",
+      "rank": 17,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1337.TW",
+      "timestamp": "2026-03-12",
+      "rank": 18,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1402.TW",
+      "timestamp": "2026-03-12",
+      "rank": 19,
+      "weight": 0.05,
+      "reason": "buy"
+    },
+    {
+      "symbol": "1414.TW",
+      "timestamp": "2026-03-12",
+      "rank": 20,
+      "weight": 0.05,
+      "reason": "buy"
+    }
+  ]
+}

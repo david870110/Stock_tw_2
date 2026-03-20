@@ -1,0 +1,25 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "QA",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "qa",
+    "status": "PASS",
+    "summary": "Implementation satisfies the approved clarified specification based on schema-aligned static evidence and file inspection.",
+    "next_action": "Return validation result to Manager for post-QA routing.",
+    "success": true
+  },
+  "parsed_response": {
+    "status": "PASS",
+    "failed_criteria_count": 0,
+    "required_fixes_count": 0
+  },
+  "extracted_status": "PASS",
+  "decision": "RETURN_TO_MANAGER",
+  "next_action": "Manager decides completion",
+  "iteration_count": 1
+}

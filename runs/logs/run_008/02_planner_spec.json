@@ -1,0 +1,9 @@
+{
+  "task_id": "T06",
+  "task_title": "Incremental update workflow",
+  "role": "planner",
+  "status": "READY",
+  "ready_for_coder": true,
+  "summary": "Implementation-ready T06 spec with deterministic missing-window rules and plan-attempt-collect orchestration.",
+  "success": true
+}

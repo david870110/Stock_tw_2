@@ -1,0 +1,11 @@
+{
+  "task_id": "T15",
+  "task_title": "Batch backtest runner",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "QA passed and confirms approved T15 scope and anti-spillover constraints; no further implementation or QA action is required.",
+  "summary": "Final review accepted: QA status is PASS with confirmation that implementation satisfies the approved T15 specification and anti-spillover constraints.",
+  "next_action": "Mark T15 closed and proceed to the next queued task.",
+  "success": true
+}

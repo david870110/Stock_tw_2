@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Planner",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "planner",
+    "status": "READY",
+    "ready_for_coder": true,
+    "summary": "Specification is implementation-ready and fully resolves prior helper identity/contract/location/export ambiguities that caused SPEC_GAP.",
+    "next_action": "Send this planner spec to Manager for review and handoff to Coder.",
+    "success": true
+  },
+  "parsed_response": {
+    "status": "READY",
+    "ready_for_coder": true,
+    "open_questions_count": 0
+  },
+  "extracted_status": "READY",
+  "decision": "RETURN_TO_MANAGER",
+  "next_action": "Manager reviews clarified spec",
+  "iteration_count": 1
+}

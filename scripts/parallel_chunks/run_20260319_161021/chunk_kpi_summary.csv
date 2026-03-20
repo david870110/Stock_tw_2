@@ -1,0 +1,10 @@
+﻿"Chunk","Symbols","BatchLabel","Status","ExitCode","BatchId","TotalReturn","BenchReturn","EndEquity","StocksUsed","UniverseSize","BacktestSummaryPath","LogPath","ReadError","TotalChunks","SuccessChunks","FailedChunks","AvgTotalReturn","SumTotalReturn","AvgBenchReturn","SumBenchReturn"
+"run_chunk001","150","win_c_chunk001","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk001.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk002","150","win_c_chunk002","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk002.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk003","150","win_c_chunk003","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk003.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk004","150","win_c_chunk004","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk004.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk005","150","win_c_chunk005","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk005.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk006","150","win_c_chunk006","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk006.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk007","150","win_c_chunk007","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk007.log","batch_id_not_found_in_log",,,,,,,
+"run_chunk008","150","win_c_chunk008","SUCCESS","0","",,,,,,"","C:\Users\JIANG\Desktop\AutoPrograming\scripts\parallel_chunks\run_20260319_161021\logs\run_chunk008.log","batch_id_not_found_in_log",,,,,,,
+"ALL_CHUNKS_SUMMARY","1200","","SUMMARY","","",,,,,,"","","","8","8","0",,,,

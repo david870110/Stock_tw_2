@@ -1,0 +1,39 @@
+{
+  "task_id": "T03",
+  "task_title": "Market-data provider contracts",
+  "role": "planner",
+  "status": "SPEC_READY",
+  "spec": {
+    "overview": "Add a new in-memory stub module for data providers that exactly implements the three existing Protocol contracts using seeded records and pure in-memory filtering. Filtering must be symbol-based plus inclusive date boundaries, with date normalization handled by a shared _to_date helper. Add a dedicated contract test file mirroring the T02 universe style with at least 13 tests and no external I/O.",
+    "files": [
+      {
+        "path": "src/tw_quant/data/stubs.py",
+        "action": "create",
+        "description": "_to_date helper + InMemoryMarketDataProvider + InMemoryFundamentalDataProvider + InMemoryCorporateActionProvider"
+      },
+      {
+        "path": "src/tw_quant/data/__init__.py",
+        "action": "update",
+        "description": "Add stub imports and extend __all__"
+      },
+      {
+        "path": "tests/test_tw_quant_data_contracts.py",
+        "action": "create",
+        "description": "22 contract tests covering all ACs"
+      }
+    ],
+    "tests_count": 22,
+    "acceptance_criteria_mapping": {
+      "AC1": "stubs.py InMemoryMarketDataProvider + 5 OHLCV tests",
+      "AC2": "stubs.py InMemoryFundamentalDataProvider + 5 fundamental tests",
+      "AC3": "stubs.py InMemoryCorporateActionProvider + 6 action tests",
+      "AC4": "__init__.py + test_data_package_exports_stub_provider_names",
+      "AC5": "tests/test_tw_quant_data_contracts.py (22 tests)",
+      "AC6": "Boundary/symbol/multi-symbol/empty-seed tests across all providers",
+      "AC7": "No HTTP or file I/O in stubs or tests",
+      "AC8": "72 pre-existing tests remain green"
+    }
+  },
+  "ambiguities": [],
+  "notes": "Pure filtering over seeded records, defensive list copies, inclusive date comparisons via _to_date."
+}

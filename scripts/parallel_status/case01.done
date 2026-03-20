@@ -1,0 +1,8 @@
+﻿{
+    "case_id":  "case01",
+    "exit_code":  0,
+    "renamed_batch":  "batch_case01_20260319_122529",
+    "started_at":  "2026-03-19T12:03:15",
+    "ended_at":  "2026-03-19T12:25:29",
+    "log_path":  "C:\\Users\\JIANG\\Desktop\\AutoPrograming\\scripts\\parallel_status\\case01.log"
+}

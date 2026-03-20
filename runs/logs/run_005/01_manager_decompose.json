@@ -1,0 +1,8 @@
+{
+  "task_id": "T03",
+  "task_title": "Market-data provider contracts",
+  "role": "manager",
+  "status": "READY",
+  "decision": "ROUTE_TO_PLANNER",
+  "notes": "T03 scope confirmed. No real fetching, caching, or normalization. New deliverables: InMemory stubs for three Protocol contracts + dedicated contract tests following T02 pattern."
+}

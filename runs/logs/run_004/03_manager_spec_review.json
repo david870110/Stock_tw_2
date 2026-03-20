@@ -1,0 +1,7 @@
+{
+  "task_id": "T02",
+  "role": "manager",
+  "spec_review": "APPROVED",
+  "rejection_reason": null,
+  "notes": "All 3 ACs covered. Scope contained within T02. Patterns consistent with existing codebase. Spec is implementation-ready."
+}

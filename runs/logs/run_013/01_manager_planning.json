@@ -1,0 +1,31 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "manager",
+  "decision": "ROUTE_TO_PLANNER",
+  "anti_spillover_constraints": [
+    "Do NOT implement backtest engine internals (deferred to T13)",
+    "Do NOT implement exit-rule execution logic of any kind",
+    "Do NOT implement reporting, formatting, or output-display logic (deferred to T16)",
+    "Do NOT implement signal generation or signal orchestration (deferred to T11)",
+    "Do NOT implement batch runner scaffolding (deferred to T14)",
+    "Do NOT extend schema models beyond SignalRecord and SelectionRecord usage",
+    "Do NOT introduce new fetch, normalization, or storage logic",
+    "Do NOT absorb responsibilities from T11, T13, T14, or T16 under any framing"
+  ],
+  "acceptance_criteria": [
+    "SelectionPipeline class accepts List[SignalRecord], returns List[SelectionRecord]",
+    "Filtering stage configurable via min_score and signal_type_whitelist",
+    "Ranking stage configurable via score_weights dict",
+    "Selection stage configurable via top_n integer and optional score cutoff",
+    "SelectionConfig is a dataclass(slots=True) with all required config fields",
+    "Filter, rank, select are independently callable and unit-testable",
+    "selection/__init__.py exports SelectionPipeline and SelectionConfig",
+    "RankingModel and Selector protocol stubs from interfaces.py are wired in",
+    "Contract tests verify input/output types and required SelectionRecord fields",
+    "No backtest, exit-rule, or reporting logic is present in any T12 file"
+  ],
+  "priority": "high",
+  "summary": "T12 is well-scoped and ready for Planner. The stock selection pipeline is a standalone signal-to-candidate transformation module. Anti-spillover constraints clearly defined.",
+  "success": true
+}

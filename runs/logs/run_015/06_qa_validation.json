@@ -1,0 +1,34 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "qa",
+  "status": "FAIL",
+  "findings": [
+    "The implementation adds the scoped exit module, rule/policy contracts, engine parameters, exports, and targeted tests for exit-rule handling within the per-symbol backtest engine.",
+    "Deterministic single-close behavior is implemented when triggers fire: the engine selects one trigger via the close policy and replaces same-step intents with exactly one full-position sell intent.",
+    "The approved spec is not satisfied for holding-period semantics: OpenPositionState does not track holding_bar_count, and MaxHoldingPeriodRule uses calendar-day difference from opened_at instead of bar-backed holding_bar_count.",
+    "The approved spec is not satisfied for price-trigger semantics: StopLossRule evaluates against bar.low and TakeProfitRule evaluates against bar.high, while the spec requires inclusive comparisons using current bar.close against average entry price.",
+    "The approved spec is not satisfied for no-trigger behavior when exit rules are enabled: the engine pre-filters intents to buy-only before trigger evaluation, so raw intents are not executed unchanged when no trigger fires.",
+    "The flat-position behavior is not preserved under configured exit rules: raw sell intents are filtered out even when the engine is flat, which violates the requirement to preserve current engine behavior for flat raw sells.",
+    "Test coverage is incomplete relative to the approved spec because the current tests do not enforce bar-backed holding_bar_count behavior, close-price stop-loss/take-profit semantics, or unchanged raw-intent execution when exit rules are configured but no triggers fire."
+  ],
+  "failed_criteria": [
+    "MaxHoldingPeriodRule must use bar-backed holding_bar_count rather than raw calendar-day difference.",
+    "Internal open-position state must support holding_bar_count semantics for open long positions.",
+    "StopLossRule must use current bar.close against average entry price with inclusive threshold comparison.",
+    "TakeProfitRule must use current bar.close against average entry price with inclusive threshold comparison.",
+    "If exit rules are configured and no triggers fire, the engine must execute raw intents unchanged.",
+    "If the engine is flat, raw sell signals must preserve current engine behavior even when exit rules are configured.",
+    "Tests must cover the missing rule semantics and backward-compatibility cases above."
+  ],
+  "required_fixes": [
+    "Extend the open-position state and engine bookkeeping to maintain holding_bar_count for open long positions and evaluate MaxHoldingPeriodRule from that bar-backed count.",
+    "Change StopLossRule and TakeProfitRule to compare the current bar.close against the position's average entry price using inclusive threshold checks.",
+    "Adjust SymbolBacktestEngine intent handling so raw intents remain unchanged unless an exit trigger is actually selected; do not pre-filter to buy-only before confirming a close decision.",
+    "Preserve existing flat-position raw sell behavior when exit rules are enabled.",
+    "Add tests that lock in holding_bar_count semantics, close-based stop-loss/take-profit behavior, no-trigger raw-intent pass-through, and flat-position backward compatibility under configured exit rules."
+  ],
+  "summary": "Static validation fails because several required T14 behaviors are implemented incorrectly: holding-period logic uses calendar days instead of holding bars, stop-loss and take-profit use intrabar extremes instead of close price, and enabling exit rules changes raw-intent behavior even when no trigger fires or the engine is flat.",
+  "next_action": "Return validation result to Manager.",
+  "success": false
+}

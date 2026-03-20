@@ -1,0 +1,21 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Revised the per-symbol backtest exit handling to keep T14 narrowly scoped. Added holding_bar_count to open-position state, switched max-holding evaluation to bar-backed counts, changed stop-loss and take-profit to use inclusive comparisons against current bar.close and average entry price, and updated SymbolBacktestEngine so raw intents pass through unchanged unless a close trigger is actually selected. Preserved full-position deterministic close replacement when a trigger fires and kept flat-position raw sell behavior intact under configured exit rules.",
+  "files_modified": [
+    "src/tw_quant/backtest/exits.py",
+    "src/tw_quant/backtest/engine.py",
+    "tests/test_tw_quant_backtest_exits.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_backtest_exits.py"
+  ],
+  "test_execution_summary": "Static validation only. Targeted diagnostics reported no errors in the modified files: src/tw_quant/backtest/exits.py, src/tw_quant/backtest/engine.py, and tests/test_tw_quant_backtest_exits.py. Runtime tests were not executed in this revision.",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T14 revision is implemented with localized engine and exit-rule fixes plus targeted tests covering holding_bar_count semantics, close-price inclusive thresholds, no-trigger raw-intent pass-through, and flat-position sell compatibility.",
+  "next_action": "Send implementation to Manager for QA validation.",
+  "success": true
+}

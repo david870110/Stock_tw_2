@@ -1,0 +1,18 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Created src/tw_quant/selection/pipeline.py with SelectionConfig (slots dataclass), private helper _compute_weighted_score, pure functions filter_signals/rank_signals/select_top, stub implementations WeightedRankingModel and ConfiguredSelector, and SelectionPipeline wiring them together. Modified src/tw_quant/selection/__init__.py to re-export SelectionPipeline and SelectionConfig alongside the existing RankingModel and Selector protocol exports. Created tests/test_tw_quant_selection_contracts.py with exactly 17 test methods covering pipeline contracts, filter/rank/select unit tests, and protocol conformance tests. Updated tests/test_tw_quant_scaffold_imports.py to add src.tw_quant.selection.pipeline to MODULES list and test_tw_quant_t12_exports_verify_all_symbols test.",
+  "files_created": [
+    "src/tw_quant/selection/pipeline.py",
+    "tests/test_tw_quant_selection_contracts.py"
+  ],
+  "files_modified": [
+    "src/tw_quant/selection/__init__.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "test_execution_summary": "Ran pytest: 20 passed in 0.18s. 17 test_tw_quant_selection_contracts.py tests + 3 test_tw_quant_scaffold_imports.py tests (including 2 T12-specific).",
+  "summary": "T12 implementation COMPLETE. Three-stage filter->rank->select pipeline implemented. All anti-spillover constraints met. No backtest, exit-rule, or reporting logic introduced.",
+  "success": true
+}

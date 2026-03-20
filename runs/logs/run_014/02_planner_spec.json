@@ -1,0 +1,44 @@
+{
+  "task_id": "T13",
+  "task_title": "Backtest Engine Core",
+  "role": "planner",
+  "status": "READY",
+  "spec_approved": false,
+  "files": [
+    {
+      "path": "src/tw_quant/backtest/engine.py",
+      "action": "create",
+      "description": "Concrete implementations: SimpleExecutionModel, InMemoryPortfolioBook, SymbolBacktestEngine. Includes _to_date() helper and _iter_dates() generator."
+    },
+    {
+      "path": "src/tw_quant/backtest/__init__.py",
+      "action": "modify",
+      "description": "Add imports of three new concrete classes; extend __all__ to include all six names."
+    },
+    {
+      "path": "tests/test_tw_quant_backtest_engine.py",
+      "action": "create",
+      "description": "5 pytest tests covering AC#9a, AC#9b, AC#9c."
+    }
+  ],
+  "implementation_notes": {
+    "SimpleExecutionModel": "Injected data_provider at __init__; fills at close price; None bar no fill; fee=0.0 always.",
+    "InMemoryPortfolioBook": "Tracks _cash, _holdings, _last_prices; NAV = cash + sum(qty*price); initial_cash configurable.",
+    "SymbolBacktestEngine": "Single symbol; run() iterates every calendar day inclusive; strict event sequence; BacktestResult with final_nav, total_return, num_trades; equity_curve_ref=None.",
+    "edge_cases": "Zero-cash division guard, empty signal_source, None-bar fallback, 1-day window."
+  },
+  "test_outline": [
+    "test_simple_execution_model_single_intent",
+    "test_simple_execution_model_no_bar_produces_no_fill",
+    "test_in_memory_portfolio_book_nav_after_buy",
+    "test_in_memory_portfolio_book_initial_snapshot",
+    "test_symbol_backtest_engine_three_date_window"
+  ],
+  "risks": [
+    "InMemoryPortfolioBook NAV uses last fill price (stale price acceptable per event-sequence contract)",
+    "Calendar-day iteration includes weekends (harmless, no market-data = empty fills)",
+    "Zero-division guard: denominator=1.0 when initial_nav=0"
+  ],
+  "ready_for_coder": true,
+  "success": true
+}

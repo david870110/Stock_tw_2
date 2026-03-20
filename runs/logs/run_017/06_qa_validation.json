@@ -1,0 +1,22 @@
+{
+  "task_id": "T16",
+  "task_title": "Reporting outputs and artifacts",
+  "role": "qa",
+  "status": "PASS",
+  "findings": [
+    "Static-first validation completed via direct file inspection of reporting/storage modules and targeted reporting contract tests, using schema v0.1 QA response requirements.",
+    "Concrete protocol-backed implementations are present: BacktestMetricsCalculator implements MetricsCalculator.calculate(result) and ArtifactReportBuilder implements ReportBuilder.build(result).",
+    "ArtifactReportBuilder.build persists all required artifact types through ArtifactStore.save_artifact: summary_json, summary_csv, trades_json, trades_csv, equity_curve_csv, drawdown_csv, strategy_metrics_json, and report_markdown.",
+    "Reporting-side supplemental input handling is keyed by run_id via InMemoryReportingInputResolver; BacktestResult remains unchanged with equity_curve_ref optional and compatibility is explicitly exercised in tests.",
+    "BacktestMetricsCalculator.calculate(result) returns the required normalized KPI set and resolves from result.metrics first with fills/snapshots fallbacks; explicit missing-input ValueError behavior is implemented.",
+    "ArtifactReportBuilder.build(result) calls metrics_calculator.calculate(result) exactly once, renders all required payloads, persists each artifact, and returns ReportArtifact metadata entries.",
+    "T16 artifact metadata includes required keys run_id, strategy_name, format, schema_version=0.1, generated_from, and row_count for tabular outputs.",
+    "Targeted output-shape tests verify minimum contracts for summary JSON/CSV, trades JSON/CSV, equity curve CSV, drawdown CSV, strategy metrics JSON, markdown, persisted artifact set, equity_curve_ref=None compatibility, and explicit missing-input failure behavior.",
+    "Anti-spillover checks are clean for T16 scope: no evidence of T15 batch-orchestration ownership or T17 generalized validation-framework expansion in inspected reporting files/tests."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "T16 reporting-layer implementation satisfies the approved specification and acceptance criteria based on static code and test evidence. Required artifacts, KPI contracts, metadata contracts, resolver behavior, and scope boundaries are all met.",
+  "next_action": "Return validation result to Manager.",
+  "success": true
+}

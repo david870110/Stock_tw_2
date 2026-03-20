@@ -1,0 +1,25 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "QA",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "qa",
+    "status": "SPEC_GAP",
+    "summary": "Validation result is SPEC_GAP: the current spec is too ambiguous to support reliable QA validation, and coder non-implementation is appropriate under the no-guessing constraint.",
+    "next_action": "Return this SPEC_GAP judgment to Manager so the task can be rerouted for specification clarification before coding resumes.",
+    "success": true
+  },
+  "parsed_response": {
+    "status": "SPEC_GAP",
+    "failed_criteria_count": 2,
+    "required_fixes_count": 5
+  },
+  "extracted_status": "SPEC_GAP",
+  "decision": "REROUTE_PLANNER",
+  "next_action": "Manager requests clarified spec",
+  "iteration_count": 1
+}

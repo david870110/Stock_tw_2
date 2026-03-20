@@ -1,0 +1,9 @@
+{
+  "task_id": "T05",
+  "task_title": "Local cache layer",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_PLANNER",
+  "summary": "T05 isolated to cache layer contracts/stubs only; excludes T06/T07 and real APIs.",
+  "success": true
+}

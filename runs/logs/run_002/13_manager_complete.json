@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "DONE",
+    "decision": "COMPLETE",
+    "summary": "The earlier QA SPEC_GAP was correctly rerouted to Planner, ambiguity was resolved, implementation and supporting test/README updates were completed, and final QA returned PASS against the clarified specification.",
+    "next_action": "Close T01 and archive run artifacts for SPEC_GAP reroute validation evidence.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "COMPLETE",
+    "status": "DONE",
+    "next_action": "Close task"
+  },
+  "extracted_status": "DONE",
+  "decision": "COMPLETE",
+  "next_action": "Close task",
+  "iteration_count": 1
+}

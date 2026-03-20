@@ -1,0 +1,15 @@
+{
+  "task_id": "T06",
+  "task_title": "Incremental update workflow",
+  "role": "qa",
+  "status": "PASS",
+  "findings": [
+    "Missing-window computation validated.",
+    "Plan-attempt-collect orchestration validated.",
+    "No T05 internals rewrite or T07 normalization spillover."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "T06 static QA pass.",
+  "success": true
+}

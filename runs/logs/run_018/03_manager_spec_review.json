@@ -1,0 +1,29 @@
+{
+  "task_id": "T17",
+  "task_title": "System tests and validation harness",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T17",
+      "title": "Implement static-first MVP validation harness for TW quant flow",
+      "description": "Add and configure deterministic, tests-only validation coverage for Taiwan stock research/backtesting MVP contracts and workflow boundaries, with strict anti-spillover to T13-T16 and no feature expansion.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Create tests in tests/test_tw_quant_mvp_validation_harness.py that validate architecture/contracts/interfaces/workflow-safe assumptions for MVP boundaries using static-first deterministic fixtures.",
+        "Limit code changes to tests/test_tw_quant_mvp_validation_harness.py, tests/conftest.py, and pyproject.toml marker config; any source edit is allowed only as a minimal supporting fix strictly required to make tests executable and must not introduce new features or broaden runtime semantics.",
+        "Apply tw_mvp markers and ensure selection works for both commands: pytest -q -m \"tw_mvp and not integration\" and pytest -q -m \"tw_mvp\".",
+        "Resolve symbol rule question conservatively by validating current MVP behavior only (.TW vs .TWO) without broadening acceptance in source logic.",
+        "Resolve missing AppContext dependencies conservatively by asserting and documenting current contract behavior (explicit exception or graceful no-op), without forcing new runtime behavior.",
+        "Treat pytest -q -m \"tw_mvp\" as required T17 gate evidence; full-suite pytest -q is optional supplemental evidence only.",
+        "Include anti-spillover assertions or test scope guards to ensure T17 does not modify or rely on unfinished/uncertain behavior from T13-T16.",
+        "Tests must be deterministic, non-networked, and reproducible in CI/local runs."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_CODER",
+  "instruction": "## Task: System tests and validation harness\n\n**Description:** Implement T17 as tests/validation only for Taiwan stock research/backtesting MVP. Keep scope static-first, deterministic, and workflow-safe. Preserve schema v0.1 role boundaries and do not expand into feature work.\n\n**Priority:** CRITICAL\n\n**Specification:**\n- Scope constraints:\n  - Continue with T17 only.\n  - Strictly limit work to tests/validation for MVP architecture/contracts/interfaces/workflow boundaries.\n  - No unrelated new features.\n  - Do not expand into T13-T16, except minimal supporting fixes only if a test cannot run otherwise.\n  - Default to static validation patterns (fixtures/mocks/stubs), deterministic behavior, and no network dependence.\n- File touch plan:\n  - Primary: tests/test_tw_quant_mvp_validation_harness.py\n  - Supporting: tests/conftest.py (only as needed for stable fixtures/markers)\n  - Config: pyproject.toml (marker configuration for tw_mvp if needed)\n  - Optional minimal source fix only when strictly required by tests; keep behavior unchanged.\n- Conservative resolutions to planner open questions:\n  1) Symbol rules (.TW vs .TWO): validate current MVP behavior only; do not broaden accepted symbol formats.\n  2) Missing AppContext dependencies: assert/document current contract behavior (explicit exception OR graceful no-op as currently implemented); do not impose new runtime semantics.\n  3) T17 gate: pytest -q -m \"tw_mvp\" is required evidence; pytest -q full suite is optional extra evidence.\n- Required verification evidence:\n  - Command A: pytest -q -m \"tw_mvp and not integration\"\n  - Command B (required gate): pytest -q -m \"tw_mvp\"\n  - Report concise pass/fail outputs and any known external blockers.\n- Anti-spillover boundaries:\n  - No speculative assertions about unfinished capabilities.\n  - No contract rewrites outside currently documented/observable behavior.\n  - Any unavoidable source edit must be minimal, localized, and justified as test-enablement only.\n\n**Your Task:**\nPlease implement the solution according to the specification above.\n\nRequirements:\n1. Follow the approved specification exactly.\n2. Satisfy all acceptance criteria contained in the specification.\n3. Keep changes as small and targeted as possible.\n4. Update or add tests when required by the specification.\n5. Report blockers or uncertainties clearly if they prevent safe implementation.\n\nYour response must remain within the Coder role boundary:\n- Do not perform final QA judgment.\n- Do not declare PASS, FAIL, or SPEC_GAP.\n- Do not declare the workflow complete.\n- Do not act as Manager, QA, or Orchestrator.\n- If you run tests, report them only as implementation evidence.\n\nReturn valid JSON only.",
+  "summary": "Planner spec for T17 is accepted as implementation-ready. Routing to Coder with explicit static-first, tests-only boundaries, anti-spillover constraints, and conservative resolutions for symbol behavior, dependency-contract behavior, and required gate command.",
+  "next_action": "Wait for Coder implementation JSON with changed files and required tw_mvp test command evidence.",
+  "success": true
+}

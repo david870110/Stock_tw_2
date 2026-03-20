@@ -1,0 +1,21 @@
+{
+  "task_id": "T05",
+  "task_title": "Local cache layer",
+  "role": "planner",
+  "status": "READY",
+  "ready_for_coder": true,
+  "sections": [
+    "Overview",
+    "Scope Boundaries",
+    "Contract Design",
+    "API Contracts",
+    "Initial Scaffolding Design",
+    "Module/File Plan",
+    "Test Plan",
+    "Acceptance Coverage Mapping",
+    "Ambiguities and Assumptions"
+  ],
+  "summary": "Implementation-ready T05 spec for local cache contracts and static-first in-memory/file-safe scaffolding.",
+  "next_action": "Send spec to Manager for review.",
+  "success": true
+}

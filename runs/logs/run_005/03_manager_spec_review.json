@@ -1,0 +1,8 @@
+{
+  "task_id": "T03",
+  "task_title": "Market-data provider contracts",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_CODER",
+  "notes": "Spec complete, aligned with existing Protocol contracts, within scope limits. T02 pattern alignment confirmed."
+}

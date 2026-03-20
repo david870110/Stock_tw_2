@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "READY",
+    "decision": "SEND_TO_CODER",
+    "summary": "Revised Planner output is implementation-safe and resolves prior SPEC_GAP ambiguity with explicit helper signature, validation contract, test scope, documentation update location, and file-boundary constraints.",
+    "next_action": "Route to Coder for targeted implementation and evidence of test execution.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "SEND_TO_CODER",
+    "status": "READY",
+    "next_action": "Call Coder"
+  },
+  "extracted_status": "READY",
+  "decision": "SEND_TO_CODER",
+  "next_action": "Call Coder",
+  "iteration_count": 1
+}

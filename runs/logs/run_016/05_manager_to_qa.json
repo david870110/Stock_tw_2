@@ -1,0 +1,27 @@
+{
+  "task_id": "T15",
+  "task_title": "Batch backtest runner",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T15",
+      "title": "Batch backtest runner",
+      "description": "Implement deterministic batch orchestration for Taiwan universe symbols with parameter grids/windows, failure isolation, run-level error capture, static validation default behavior, and strict scope boundaries.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Batch orchestration runs over Taiwan universe symbols with parameter grid and windows.",
+        "run_id, batch_id, and artifact paths are deterministic.",
+        "Failure isolation allows partial completion and captures run-level errors.",
+        "Execution result collection and aggregation boundaries are implemented without rich reporting/visualization.",
+        "Static validation is the default behavior.",
+        "No spillover into T13/T14/T16/T17 responsibilities, rich reporting, or visualization."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_QA",
+  "instruction": "## Task: Batch backtest runner\n\n**Description:** Implement and validate deterministic batch orchestration for Taiwan universe backtests with strict scope boundaries and static-first validation posture.\n\n**Specification:**\n- Batch orchestration over Taiwan universe symbols with parameter grid and windows.\n- Deterministic `run_id`, `batch_id`, and artifact paths.\n- Failure isolation with partial completion and run-level error capture.\n- Aggregation boundaries limited to batch-level counters/records.\n- Static validation by default.\n- Must not absorb T13/T14/T16/T17 responsibilities or rich reporting/visualization.\n- Anti-spillover checks are mandatory: explicitly verify no implementation behavior or interfaces extend into T13/T14/T16/T17 domains.\n\n**Implementation Log:**\n- Coder status: DONE.\n- Files modified:\n  - `src/tw_quant/batch/interfaces.py`\n  - `src/tw_quant/batch/runner.py`\n  - `src/tw_quant/batch/__init__.py`\n  - `src/tw_quant/schema/models.py`\n  - `src/tw_quant/schema/__init__.py`\n  - `tests/test_tw_quant_batch_runner.py`\n- Implemented `DeterministicBatchRunner`, deterministic helper functions, pre-validation, checkpoint hooks, and `BatchRunRecord` model extension.\n- Static diagnostics on touched files are clean.\n\n**Your Task:**\nPlease validate the implementation against the specification.\n\nRequirements:\n1. Check whether the implementation satisfies the approved specification.\n2. Check whether the acceptance criteria are satisfied.\n3. Identify missing behavior, incorrect behavior, or scope mismatches.\n4. Prefer lightweight validation first, including file inspection, spec coverage, and test evidence.\n5. If runtime validation is unavailable or unnecessary, return the best decision from available evidence.\n6. Perform strict anti-spillover validation for T13/T14/T16/T17 and call out any coupling or responsibility leakage.\n7. Include a clear static-first validation note in your assessment.\n\nYour response must remain within the QA role boundary:\n- Do not implement code.\n- Do not declare the workflow complete.\n- Do not act as Manager, Coder, or Orchestrator.\n- Your final judgment must be exactly one of: PASS, FAIL, or SPEC_GAP.\n\nReturn valid JSON only.",
+  "summary": "T15 coder output is complete and aligned with the approved scope at face value; route to QA for specification conformance, acceptance validation, and strict anti-spillover checks.",
+  "next_action": "QA performs static-first validation and returns PASS, FAIL, or SPEC_GAP with explicit T13/T14/T16/T17 spillover assessment.",
+  "success": true
+}

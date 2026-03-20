@@ -1,0 +1,9 @@
+{
+  "task_id": "T06",
+  "task_title": "Incremental update workflow",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_CODER",
+  "summary": "Planner spec approved and routed to Coder with strict T06 boundary.",
+  "success": true
+}

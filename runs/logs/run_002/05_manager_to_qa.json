@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "READY",
+    "decision": "SEND_TO_QA",
+    "summary": "Coder evidence is consistent with intentional non-speculative blocking under an ambiguous planner spec, so QA must now issue a formal PASS/FAIL/SPEC_GAP judgment from evidence only.",
+    "next_action": "Wait for QA validation result and then route based on the QA decision.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "SEND_TO_QA",
+    "status": "READY",
+    "next_action": "Call QA"
+  },
+  "extracted_status": "READY",
+  "decision": "SEND_TO_QA",
+  "next_action": "Call QA",
+  "iteration_count": 0
+}

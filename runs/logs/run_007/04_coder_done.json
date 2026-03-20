@@ -1,0 +1,17 @@
+{
+  "task_id": "T05",
+  "task_title": "Local cache layer",
+  "role": "coder",
+  "status": "DONE",
+  "files_modified": [
+    "src/tw_quant/storage/cache/models.py",
+    "src/tw_quant/storage/cache/interfaces.py",
+    "src/tw_quant/storage/cache/stubs.py",
+    "src/tw_quant/storage/cache/__init__.py",
+    "src/tw_quant/storage/__init__.py",
+    "tests/test_tw_quant_cache_contracts.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "summary": "Implemented local cache scaffolding and tests within T05 scope.",
+  "success": true
+}

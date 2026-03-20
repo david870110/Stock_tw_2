@@ -1,0 +1,24 @@
+{
+  "task_id": "T15",
+  "task_title": "Batch backtest runner",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Implemented T15 batch orchestration with deterministic IDs/artifact paths, static pre-validation, failure-isolated per-run execution, checkpoint hook callbacks, and backward-compatible schema/interface updates. Added a concrete deterministic runner (`DeterministicBatchRunner`) that executes the cartesian grid of parameter sets × symbols × windows, captures successful results only in `results`, records both success/failure in `run_records`, and aggregates `run_count`, `success_count`, and `failed_count` correctly.",
+  "files_modified": [
+    "src/tw_quant/batch/interfaces.py",
+    "src/tw_quant/batch/runner.py",
+    "src/tw_quant/batch/__init__.py",
+    "src/tw_quant/schema/models.py",
+    "src/tw_quant/schema/__init__.py",
+    "tests/test_tw_quant_batch_runner.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_batch_runner.py"
+  ],
+  "test_execution_summary": "Runtime tests were not executed (static-validation-first). Added focused unit coverage for accepted grid inputs, deterministic run_id/batch_id stability, deterministic artifact path template, failure isolation with partial completion, aggregate counters correctness, mixed success/failure run_records, checkpoint hook events, and malformed input pre-validation. Recommended command: pytest tests/test_tw_quant_batch_runner.py -q",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T15 batch runner functionality is implemented within scope: deterministic batch orchestration for Taiwan symbol subsets, checkpointable execution flow, and partial-result resilience on per-run errors, with required contract/schema extensions kept backward-compatible.",
+  "next_action": "Route to Manager/QA for T15 validation against acceptance criteria and focused batch-runner tests.",
+  "success": true
+}

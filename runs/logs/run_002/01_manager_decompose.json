@@ -1,0 +1,42 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "READY",
+    "tasks": [
+      {
+        "task_id": "T01",
+        "title": "Produce a clarification-first implementation spec for the utility-helper request",
+        "description": "Create a Planner specification for adding one small utility helper, one matching pytest unit test, and one short README usage note in the existing project style, while preserving the intentionally missing concrete details so downstream QA can detect unresolved specification gaps instead of guessing.",
+        "priority": "HIGH",
+        "acceptance_criteria": [
+          "The spec identifies the intended change scope as exactly one small utility helper, one matching unit test, and one short README usage note.",
+          "The spec preserves and explicitly calls out unresolved ambiguities, including helper name, input/output contract, target package location, and whether any __init__.py export is required.",
+          "The spec aligns with existing repository conventions: small pure helpers under src/utils, simple pytest function tests under tests, and brief README usage notes.",
+          "The spec references the known relevant files and current exports only as existing context, without inventing new behavior or mandating concrete implementation details that are not specified.",
+          "If the task cannot be made implementation-safe without clarification, the spec states that uncertainty clearly and leaves open questions for downstream handling rather than guessing."
+        ]
+      }
+    ],
+    "decision": "SEND_TO_PLANNER",
+    "instruction": "Produce a clarification-first implementation spec for the utility-helper request.",
+    "summary": "Task decomposed into a single ambiguity-preserving planning task.",
+    "next_action": "Wait for Planner output and then review it.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "SEND_TO_PLANNER",
+    "status": "READY",
+    "next_action": "Wait for Planner output and then review it."
+  },
+  "extracted_status": "READY",
+  "decision": "SEND_TO_PLANNER",
+  "next_action": "Call Planner",
+  "iteration_count": 0
+}

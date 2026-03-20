@@ -1,0 +1,26 @@
+{
+  "task_id": "T17",
+  "task_title": "System tests and validation harness",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T17",
+      "title": "QA validation for T17 boundaries and evidence",
+      "description": "Validate coder-completed T17 test/validation work using static-first checks and deterministic evidence only, ensuring strict scope adherence.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "QA verifies changes are limited to tests/validation intent and do not introduce feature expansion.",
+        "QA confirms anti-spillover: no T13-T16 feature work is introduced, except minimal test-enablement fixes.",
+        "QA confirms deterministic/static-first assumptions for architecture/contracts/interfaces/workflow-safe MVP boundaries.",
+        "QA verifies required test evidence includes `pytest -q -m \"tw_mvp\"` with reported outcome 7 passed, 255 deselected.",
+        "QA issues final status strictly as PASS, FAIL, or SPEC_GAP with concrete findings tied to T17 scope."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_QA",
+  "instruction": "## Task: System tests and validation harness (T17)\n\n**Description:**\nValidate the completed T17 implementation strictly within approved scope: tests/validation only, static-first, deterministic fixtures, architecture/contracts/interfaces/workflow-safe assumptions/MVP boundaries. No feature expansion is allowed.\n\n**Specification:**\n- Approved scope: test and validation harness coverage only for Taiwan stock research/backtesting MVP boundaries.\n- Must remain static-first and deterministic where applicable.\n- Explicit anti-spillover requirement: no T13-T16 feature work, except minimal test-enablement fixes.\n- Required evidence must include `pytest -q -m \"tw_mvp\"`.\n- Coder reported evidence:\n  - `pytest -q -m \"tw_mvp and not integration\"` => 7 passed, 255 deselected\n  - `pytest -q -m \"tw_mvp\"` => 7 passed, 255 deselected\n- Files touched by Coder:\n  - `tests/test_tw_quant_mvp_validation_harness.py`\n  - `pyproject.toml`\n\n**Implementation Log:**\n- Coder status: DONE\n- Updated/added tests: `tests/test_tw_quant_mvp_validation_harness.py`\n- Execution summary includes required marker run and deterministic pass results.\n- Blockers: none\n\n**Your Task:**\nPlease validate the implementation against the specification.\n\nRequirements:\n1. Check whether the implementation satisfies the approved specification.\n2. Check whether the acceptance criteria are satisfied.\n3. Identify missing behavior, incorrect behavior, or scope mismatches.\n4. Prefer lightweight validation first, including file inspection, spec coverage, and test evidence.\n5. Enforce static-first QA: do not require unnecessary runtime expansion beyond provided deterministic evidence unless contradiction is found.\n6. Perform explicit anti-spillover checks against T13-T16 feature work; flag any non-minimal feature additions as scope violations.\n7. Confirm required evidence contains `pytest -q -m \"tw_mvp\"` and reported result consistency.\n8. If runtime validation is unavailable or unnecessary, return the best decision from available evidence.\n\nYour response must remain within the QA role boundary:\n- Do not implement code.\n- Do not declare the workflow complete.\n- Do not act as Manager, Coder, or Orchestrator.\n- Your final judgment must be exactly one of: PASS, FAIL, or SPEC_GAP.\n\nReturn valid JSON only.",
+  "summary": "Coder completed T17 with targeted test-harness updates and required tw_mvp evidence; routing to QA for strict boundary validation and anti-spillover checks.",
+  "next_action": "Wait for QA decision and findings for T17.",
+  "success": true
+}

@@ -1,0 +1,24 @@
+{
+  "task_id": "T09",
+  "task_title": "Technical strategy support module",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T09",
+      "title": "Technical strategy support module",
+      "description": "Implement technical-indicator strategy support primitives and at least one reference technical strategy adapter using the strategy base interface.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Technical feature computation utilities are modular and reusable",
+        "At least one technical strategy (e.g., MA crossover) emits canonical signals",
+        "Tests validate deterministic signals on fixture data"
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: Technical strategy support module\n\n**Description:** Implement technical-indicator strategy support primitives and at least one reference technical strategy adapter using the strategy base interface.\n\n**Priority:** HIGH\n\n**Acceptance Criteria:**\n1) Technical feature computation utilities are modular and reusable\n2) At least one technical strategy (e.g., MA crossover) emits canonical signals\n3) Tests validate deterministic signals on fixture data\n\n**Your Task:**\nPlease create a detailed implementation spec for the Coder to implement.\n\nRequirements:\n1. Address all acceptance criteria listed above.\n2. Define scope clearly and do not expand the task beyond what is requested.\n3. Include enough technical detail so the Coder can implement without guessing.\n4. Identify any ambiguity or missing information explicitly.\n5. If the task cannot be specified safely due to missing information, state the uncertainty clearly.\n6. Continue with T09 only; do not absorb T10, T11, T12, or later responsibilities.\n7. Keep T09 strictly limited to technical strategy module support and strategy-layer plug-in contracts/scaffolding.\n8. Do not implement chip-flow strategy support, selection pipeline logic, or full backtest logic.\n9. Preserve strict anti-spillover boundaries demonstrated in T05/T06/T07.\n10. Use static validation by default in the plan and verification approach.\n11. Preserve schema v0.1 role boundaries.\n\nYour response must remain within the Planner role boundary:\n- Do not implement code.\n- Do not perform QA.\n- Do not declare the task complete.\n\nReturn valid JSON only.",
+  "summary": "T09 is ready for Planner routing with strict boundary control: technical-strategy support only, anti-spillover enforced, and static validation-first as default.",
+  "next_action": "Planner drafts a detailed implementation spec for T09 within schema v0.1 boundaries, explicitly excluding future-task scope and using static validation by default.",
+  "success": true
+}

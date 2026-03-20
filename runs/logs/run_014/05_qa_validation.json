@@ -1,0 +1,21 @@
+{
+  "task_id": "T13",
+  "task_title": "Backtest Engine Core",
+  "role": "qa",
+  "result": "PASS",
+  "criteria_results": [
+    {"criterion": "AC1 SimpleExecutionModel behavior", "result": "PASS", "evidence": "execute() fills at bar.close, skips None bars, fee=0.0; covered by 2 dedicated tests."},
+    {"criterion": "AC2 InMemoryPortfolioBook accounting", "result": "PASS", "evidence": "Tracks _cash/_holdings/_last_prices; NAV = cash + sum(holding*last_price); initial_cash configurable; covered by 2 tests."},
+    {"criterion": "AC3 BacktestResult metrics", "result": "PASS", "evidence": "run() returns BacktestResult with keys final_nav, total_return, num_trades in metrics dict."},
+    {"criterion": "AC4 Per-symbol engine", "result": "PASS", "evidence": "Constructor requires single symbol; run loop calls signal_source(self._symbol, current_date)."},
+    {"criterion": "AC5 Event ordering", "result": "PASS", "evidence": "Loop executes: signal_source → execute → extend fills → apply_fills → snapshot, no conditional skip."},
+    {"criterion": "AC6 interfaces.py unchanged", "result": "PASS", "evidence": "interfaces.py contains only original three Protocol contracts unchanged."},
+    {"criterion": "AC7 __init__.py exports 6 names", "result": "PASS", "evidence": "__all__ includes all 6: ExecutionModel, PortfolioBook, BacktestEngine, SimpleExecutionModel, InMemoryPortfolioBook, SymbolBacktestEngine."},
+    {"criterion": "AC8 Test coverage", "result": "PASS", "evidence": "5 tests in test_tw_quant_backtest_engine.py + scaffold T13 export test; all pass."},
+    {"criterion": "AC9 No prohibited scope leakage", "result": "PASS", "evidence": "No batch execution, exit-rule, or reporting imports in engine.py."},
+    {"criterion": "Regression evidence", "result": "PASS", "evidence": "222 passed, 0 failed, 5 pre-existing warnings."}
+  ],
+  "anti_spillover_check": "CLEAN",
+  "notes": "T13 implementation matches approved scope and acceptance criteria. No T14/T15/T16 logic detected.",
+  "success": true
+}

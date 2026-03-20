@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Planner",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "planner",
+    "status": "NEEDS_CLARIFICATION",
+    "ready_for_coder": false,
+    "summary": "The specification intentionally preserves unresolved helper details so the workflow can validate the SPEC_GAP reroute path.",
+    "next_action": "Send this planner output back to Manager so the workflow can trigger SPEC_GAP handling instead of proceeding to coding with guessed requirements.",
+    "success": true
+  },
+  "parsed_response": {
+    "status": "NEEDS_CLARIFICATION",
+    "ready_for_coder": false,
+    "open_questions_count": 7
+  },
+  "extracted_status": "NEEDS_CLARIFICATION",
+  "decision": "RETURN_TO_MANAGER",
+  "next_action": "Manager reviews planner ambiguity",
+  "iteration_count": 0
+}

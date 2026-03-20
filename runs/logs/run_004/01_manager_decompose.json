@@ -1,0 +1,8 @@
+{
+  "task_id": "T02",
+  "task_title": "Universe abstraction for Taiwan stocks",
+  "role": "manager",
+  "status": "READY",
+  "decision": "ROUTE_TO_PLANNER",
+  "notes": "T02 scope confirmed. No OHLCV, chip-flow, or real data fetching. Existing patterns: @dataclass(slots=True), Protocol, Symbol/DateLike types."
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "T06",
+  "task_title": "Incremental update workflow",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_PLANNER",
+  "summary": "T06 scoped to incremental planning/execution only; excludes T05 internals and T07 normalization.",
+  "success": true
+}

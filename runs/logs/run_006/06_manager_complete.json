@@ -1,0 +1,8 @@
+{
+  "task_id": "T04",
+  "task_title": "Raw historical data fetch orchestration scaffolding",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "notes": "QA returned PASS with no failed criteria or required fixes; T04 is approved and closed in run_006."
+}

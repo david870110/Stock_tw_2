@@ -1,0 +1,26 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "qa",
+  "status": "PASS",
+  "decision": "PASS",
+  "findings": [
+    "pipeline.py exists with all 8 required components: SelectionConfig, _compute_weighted_score, filter_signals, rank_signals, select_top, WeightedRankingModel, ConfiguredSelector, SelectionPipeline.",
+    "SelectionConfig is @dataclass(slots=True) with all 5 required fields correctly typed.",
+    "filter_signals correctly drops score < min_score AND drops by whitelist when non-empty.",
+    "rank_signals performs stable descending sort using _compute_weighted_score.",
+    "select_top applies score_cutoff, slices top_n, assigns 1-based rank, equal weight (1/len), sets reason=s.signal.",
+    "SelectionPipeline.run() accepts Sequence[SignalRecord], returns list[SelectionRecord].",
+    "WeightedRankingModel.score() conforms to RankingModel protocol; ConfiguredSelector.select() conforms to Selector protocol.",
+    "selection/__init__.py exports all 4 required symbols with __all__ defined.",
+    "17 contract tests all PASSED. 2 scaffold imports tests PASSED.",
+    "Anti-spillover verified: no BacktestEngine, OrderIntent, ReportArtifact, SignalGenerator, or BatchRunner present.",
+    "No exit-rule logic, backtest internals, or reporting found in any T12 file.",
+    "Runtime evidence: 20 passed in 0.18s."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "All 13 acceptance criteria satisfied. Static inspection and runtime evidence confirm correct three-stage pipeline implementation.",
+  "next_action": "Return validation result to Manager for final decision.",
+  "success": true
+}

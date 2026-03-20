@@ -1,0 +1,14 @@
+{
+  "id": "task-001",
+  "title": "Implement user authentication module",
+  "description": "Create a JWT-based authentication module with login/logout endpoints",
+  "priority": "HIGH",
+  "status": "NEW",
+  "iteration_count": 0,
+  "acceptance_criteria": [
+    "JWT token generation on login",
+    "Token validation middleware",
+    "Secure logout with token invalidation"
+  ],
+  "artifacts": {}
+}

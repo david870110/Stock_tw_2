@@ -1,0 +1,31 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Coder",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "coder",
+    "status": "DONE",
+    "summary": "Specified helper behavior was implemented with minimal, localized edits in utility code, tests, and README documentation.",
+    "next_action": "Send implementation to Manager for QA routing.",
+    "success": true
+  },
+  "parsed_response": {
+    "status": "DONE",
+    "files_modified": [
+      "src/utils/kebab_case.py",
+      "tests/test_kebab_case.py",
+      "README.md"
+    ],
+    "tests_added_or_updated": [
+      "tests/test_kebab_case.py"
+    ]
+  },
+  "extracted_status": "DONE",
+  "decision": "RETURN_TO_MANAGER",
+  "next_action": "Manager routes to QA",
+  "iteration_count": 1
+}

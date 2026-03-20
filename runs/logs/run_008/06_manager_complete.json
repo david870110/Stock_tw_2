@@ -1,0 +1,9 @@
+{
+  "task_id": "T06",
+  "task_title": "Incremental update workflow",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "summary": "QA PASS confirmed; T06 closed.",
+  "success": true
+}

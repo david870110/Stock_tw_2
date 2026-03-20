@@ -1,0 +1,24 @@
+{
+  "task_id": "T17",
+  "task_title": "System tests and validation harness",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T17",
+      "title": "System tests and validation harness",
+      "description": "Add a layered, test-only validation harness for the Taiwan stock research/backtesting MVP covering architecture contracts, interfaces, normalization, workflow safety assumptions, backtest/reporting boundaries, and deterministic CI execution.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Test suite includes unit, contract, and integration coverage across all MVP layers.",
+        "Validation fixtures cover Taiwan-universe-specific edge cases and missing data paths.",
+        "CI-ready test command passes with deterministic fixtures."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: System tests and validation harness (T17)\n\n**Description:** Add layered tests and validation checks for the Taiwan stock research/backtesting MVP only. Prioritize static-validation-first and test-only coverage for workflow-safety assumptions and MVP boundary contracts.\n\n**Priority:** CRITICAL\n\n**Acceptance Criteria:**\n1. Test suite includes unit, contract, and integration coverage across all layers.\n2. Validation fixtures cover Taiwan-universe-specific edge cases and missing data.\n3. CI-ready test command passes with deterministic fixtures.\n\n**Your Task:**\nPlease create a detailed implementation spec for the Coder to implement.\n\nRequirements:\n1. Address all acceptance criteria listed above.\n2. Define scope clearly and do not expand the task beyond what is requested.\n3. Include enough technical detail so the Coder can implement without guessing.\n4. Identify any ambiguity or missing information explicitly.\n5. If the task cannot be specified safely due to missing information, state the uncertainty clearly.\n\nAdditional T17 constraints (must be explicit in your spec):\n- Scope is strictly tests/validation for Taiwan stock research/backtesting MVP; no new product features.\n- Emphasize architecture/contracts/interfaces/workflow-safety assumptions/MVP validation boundaries.\n- Prefer static validation by default; runtime integration checks should remain minimal and deterministic.\n- Anti-spillover boundary: DO NOT expand or re-implement T13-T16 feature work; only minimal supporting fixes are allowed if tests strictly require them.\n- Include deterministic fixture strategy for Taiwan-universe symbol/date/missing-data edge cases (e.g., symbol format, empty datasets, start>end windows, partial-failure shapes).\n- Include a CI-ready pytest command and grouping strategy (unit/contract/integration markers or equivalent) that remains deterministic.\n\nYour response must remain within the Planner role boundary:\n- Do not implement code.\n- Do not perform QA.\n- Do not declare the task complete.\n\nReturn valid JSON only.",
+  "summary": "T17 is ready for Planner. Routing is constrained to a static-validation-first, test-only MVP harness with explicit anti-spillover limits and no expansion into T13-T16 implementation.",
+  "next_action": "Wait for Planner to return an implementation-ready T17 spec with explicit test scope, deterministic fixtures, and CI command.",
+  "success": true
+}

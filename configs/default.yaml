@@ -1,0 +1,10 @@
+orchestrator:
+  max_iterations: 5
+  max_retries: 3
+  parser_mode: json
+  storage_path: runs
+  prompts_path: prompts
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

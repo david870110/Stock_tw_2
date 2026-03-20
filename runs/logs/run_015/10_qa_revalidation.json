@@ -1,0 +1,28 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "qa",
+  "status": "FAIL",
+  "findings": [
+    "Static inspection confirms the revision stays within T14 scope: it remains limited to per-symbol exit-rule handling and related close-policy behavior, with no batch execution or final reporting expansion.",
+    "Stop-loss and take-profit logic now match the approved anchors by using current bar.close with inclusive threshold comparisons against the position entry price.",
+    "When exit rules are configured and no trigger fires, raw intents are now passed through unchanged, and flat-position raw sell behavior is preserved under configured exit rules.",
+    "When a configured trigger fires, the engine still replaces same-step intents with exactly one deterministic full-position sell intent selected through the close policy.",
+    "The remaining acceptance gap is the holding-bar semantics: the implementation initializes holding_bar_count at 1 on entry fills and increments it before exit evaluation for already-open positions, while the approved planner spec requires creation-time 0 and increment only after a completed bar-backed evaluation step while the position remains open.",
+    "Because of that sequencing, MaxHoldingPeriodRule can trigger earlier than the approved behavior, which is an off-by-one mismatch against the authoritative holding-period semantics.",
+    "The updated holding-period tests reinforce the revised off-by-one behavior rather than the approved planner semantics, so the acceptance criteria for max-holding handling are still not satisfied."
+  ],
+  "failed_criteria": [
+    "MaxHoldingPeriodRule does not fully satisfy the approved bar-backed holding_bar_count semantics because holding_bar_count is not creation-time 0 and is advanced before, rather than after, the completed evaluation step.",
+    "Acceptance for holding-count-driven max-holding behavior is not met because the current tests validate the revised pre-evaluation increment model instead of the approved post-step increment model."
+  ],
+  "required_fixes": [
+    "Create new open positions with holding_bar_count set to 0 at entry fill creation.",
+    "Advance holding_bar_count only after a bar-backed evaluation step completes and only if the long position remains open after fills for that step.",
+    "Evaluate MaxHoldingPeriodRule against the start-of-step holding_bar_count, not a count already incremented for the current step.",
+    "Update the max-holding unit tests so they enforce the approved post-step bar-backed semantics and fail on the current off-by-one behavior."
+  ],
+  "summary": "Most revised T14 behavior now matches the approved anchors, but the max-holding-period implementation still violates the planner-approved holding_bar_count lifecycle. The current sequencing leaves an off-by-one mismatch, so acceptance criteria are not yet fully satisfied.",
+  "next_action": "Return validation result to Manager.",
+  "success": false
+}

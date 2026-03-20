@@ -1,0 +1,22 @@
+roles:
+  manager:
+    enabled: true
+    description: "Manages project, analyzes requirements, breaks into tasks, makes decisions"
+  planner:
+    enabled: true
+    description: "Writes implementation specs based on Manager instructions"
+  coder:
+    enabled: true
+    description: "Implements code based on Planner specs"
+  qa:
+    enabled: true
+    description: "Validates implementation against spec"
+
+agent_backends:
+  default: mock
+  options:
+    mock:
+      type: mock
+    github_copilot:
+      type: github_copilot
+      api_url: "https://api.github.com"

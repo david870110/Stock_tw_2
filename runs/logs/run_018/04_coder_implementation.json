@@ -1,0 +1,20 @@
+{
+  "task_id": "T17",
+  "task_title": "System tests and validation harness",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Implemented T17 as a static-first MVP validation harness focused on architecture/contracts/workflow boundaries. Added a new tw_mvp-marked test suite that validates current symbol acceptance behavior (.TW allowed, .TWO rejected), AppContext placeholder dependency contract behavior, deterministic batch workflow record/metadata shapes, failure isolation record behavior, and reporting compatibility from batch BacktestResult shape using in-memory reporting/store stubs. Added pytest marker registration for tw_mvp with no source feature changes.",
+  "files_modified": [
+    "tests/test_tw_quant_mvp_validation_harness.py",
+    "pyproject.toml"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_mvp_validation_harness.py"
+  ],
+  "test_execution_summary": "Command A: `pytest -q -m \"tw_mvp and not integration\"` -> 7 passed, 255 deselected in 0.27s. Command B (required gate): `pytest -q -m \"tw_mvp\"` -> 7 passed, 255 deselected in 0.16s.",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T17 validation harness is implemented within scope as deterministic tests/config only, with required tw_mvp gate evidence captured.",
+  "next_action": "Send T17 implementation to Manager/QA for specification and boundary validation.",
+  "success": true
+}

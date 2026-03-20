@@ -1,0 +1,9 @@
+{
+  "task_id": "T07",
+  "task_title": "Canonical normalization format",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_CODER",
+  "summary": "Planner spec approved and routed to Coder with strict T07 boundary.",
+  "success": true
+}

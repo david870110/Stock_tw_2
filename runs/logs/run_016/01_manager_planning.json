@@ -1,0 +1,24 @@
+{
+  "task_id": "T15",
+  "task_title": "Batch backtest runner",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T15",
+      "title": "Batch backtest runner",
+      "description": "Create batch execution module to run many symbols/strategies/time windows with reproducible run IDs, checkpointing hooks, and summary aggregation, strictly for Taiwan stock universe orchestration.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Batch runner accepts parameter grid and symbol universe subsets.",
+        "Each run emits metadata, status, and deterministic artifact paths.",
+        "Failure isolation allows partial completion with error reports."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: Batch backtest runner\n\n**Description:** Create batch execution module to run many symbols/strategies/time windows with reproducible run IDs, checkpointing hooks, and summary aggregation. Scope is strictly limited to batch execution across the Taiwan stock universe, including orchestration of task flow across symbols, aggregation boundaries, and execution result collection.\n\n**Priority:** HIGH\n\n**Acceptance Criteria:**\n1) Batch runner accepts parameter grid and symbol universe subsets.\n2) Each run emits metadata, status, and deterministic artifact paths.\n3) Failure isolation allows partial completion with error reports.\n\n**Your Task:**\nPlease create a detailed implementation spec for the Coder to implement.\n\nRequirements:\n1. Address all acceptance criteria listed above.\n2. Define scope clearly and do not expand the task beyond what is requested.\n3. Include enough technical detail so the Coder can implement without guessing.\n4. Identify any ambiguity or missing information explicitly.\n5. If the task cannot be specified safely due to missing information, state the uncertainty clearly.\n\nMandatory scope constraints:\n- Keep T15 strictly limited to batch execution across the Taiwan stock universe.\n- Focus on orchestration for running backtests across many stocks, task flow across symbols, aggregation boundaries, and execution result collection.\n- Do NOT expand into rich reporting, visualization, or validation-heavy runtime workflows.\n- Do NOT absorb T13, T14, T16, or T17 responsibilities.\n- Use static validation by default.\n- Preserve schema v0.1 role boundaries.\n\nYour response must remain within the Planner role boundary:\n- Do not implement code.\n- Do not perform QA.\n- Do not declare the task complete.\n\nReturn valid JSON only.",
+  "summary": "T15 remains in-scope as a high-priority orchestration task for Taiwan-universe batch backtests; routed to Planner for an implementation-ready spec with strict non-expansion constraints.",
+  "next_action": "Await Planner JSON spec for T15, then review for scope adherence and routing to Coder.",
+  "success": true
+}

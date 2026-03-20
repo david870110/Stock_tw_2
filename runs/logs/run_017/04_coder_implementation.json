@@ -1,0 +1,25 @@
+{
+  "task_id": "T16",
+  "task_title": "Reporting outputs and artifacts",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Implemented a reporting-only T16 layer with reporting-side supplemental input registration, a concrete KPI calculator, a concrete artifact report builder, and a minimal artifact store stub behind the existing contracts. The new reporting flow computes the required normalized KPIs by blending BacktestResult metrics with registered fills and portfolio snapshots, builds the eight required artifacts, persists them through ArtifactStore.save_artifact, preserves BacktestResult and equity_curve_ref behavior, and raises explicit missing-input errors when required reporting-side data is absent.",
+  "files_modified": [
+    "src/tw_quant/reporting/models.py",
+    "src/tw_quant/reporting/__init__.py",
+    "src/tw_quant/reporting/metrics.py",
+    "src/tw_quant/reporting/builder.py",
+    "src/tw_quant/storage/stubs.py",
+    "src/tw_quant/storage/__init__.py",
+    "tests/test_tw_quant_reporting_contracts.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_reporting_contracts.py"
+  ],
+  "test_execution_summary": "Static validation only. Diagnostics reported no errors in the new reporting modules, storage stub, package exports, and the new reporting contract test file. Runtime tests were not executed. Recommended targeted command: pytest tests/test_tw_quant_reporting_contracts.py -q",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T16 reporting outputs and artifact persistence are implemented within the approved scope only: concrete reporting components now generate normalized KPIs, summary/trade/equity/drawdown/strategy-metrics/markdown artifacts, persist artifact bytes through the storage contract, and include targeted contract-shape tests plus explicit missing-input behavior.",
+  "next_action": "Send T16 implementation to Manager/QA for validation against the approved reporting artifact and KPI contracts.",
+  "success": true
+}

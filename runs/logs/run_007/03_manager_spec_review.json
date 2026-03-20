@@ -1,0 +1,9 @@
+{
+  "task_id": "T05",
+  "task_title": "Local cache layer",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_CODER",
+  "summary": "Planner spec approved; routed to Coder with strict T05-only boundary.",
+  "success": true
+}

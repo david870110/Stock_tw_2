@@ -1,0 +1,200 @@
+{
+  "task_id": "T01",
+  "task_title": "MVP Decomposition for Taiwan Stock Quant Research and Backtesting System",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T01",
+      "title": "Bootstrap architecture and core interface scaffolding",
+      "description": "Create MVP-first repository/module skeleton and typed interfaces for all major layers: data acquisition, cache/storage, canonical schema, strategy, signal pipeline, selection pipeline, backtest core, batch runner, reporting, and tests. Focus on contracts, config stubs, and dependency boundaries; no runtime-heavy implementation.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Project structure contains modules for each required layer with placeholder files/classes",
+        "Core abstract interfaces/protocols are defined and importable without circular dependencies",
+        "Basic configuration and dependency wiring stubs exist, and tests can discover modules"
+      ]
+    },
+    {
+      "task_id": "T02",
+      "title": "Universe abstraction for Taiwan stocks",
+      "description": "Define a stock-universe domain model and provider interface supporting full TW universe, symbol identity, metadata fields, and effective-date snapshots.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Universe model includes symbol, exchange/market, listing status, and update timestamp",
+        "Universe provider interface supports full snapshot retrieval and point-in-time access",
+        "At least one mock/in-memory universe provider is available for tests"
+      ]
+    },
+    {
+      "task_id": "T03",
+      "title": "Data provider interface contracts",
+      "description": "Define pluggable market/chip/flow data provider interfaces with unified method signatures, error model, pagination, and rate-limit metadata.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Provider interfaces cover OHLCV and chip/flow/market-structure data categories",
+        "Common request/response contracts include symbol, date range, and granularity",
+        "Interface-level tests validate provider contract behavior via fakes"
+      ]
+    },
+    {
+      "task_id": "T04",
+      "title": "Raw fetch module skeleton",
+      "description": "Implement a non-production raw fetch orchestration module that calls provider interfaces, handles retries/backoff policy contracts, and emits raw payload artifacts.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Raw fetch orchestrator accepts provider implementation via dependency injection",
+        "Retry/backoff and error classification hooks are present and testable",
+        "Raw payload persistence contract is invoked with metadata for traceability"
+      ]
+    },
+    {
+      "task_id": "T05",
+      "title": "Local cache layer",
+      "description": "Build local cache abstraction and initial file/db-backed implementation for raw and normalized datasets with keying, versioning, and read/write APIs.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Cache API supports put/get/exists/list for symbol-date partitions",
+        "Cache entries include schema version, source, and created/updated timestamps",
+        "Unit tests verify deterministic cache keying and retrieval behavior"
+      ]
+    },
+    {
+      "task_id": "T06",
+      "title": "Incremental update workflow",
+      "description": "Add incremental update planner/executor that computes missing date windows per symbol and updates cache without full refetch.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Incremental planner computes deltas from last successful watermark per dataset",
+        "Executor updates only missing partitions and preserves idempotency",
+        "Tests cover first-load, no-op update, partial-gap fill, and retry-safe rerun"
+      ]
+    },
+    {
+      "task_id": "T07",
+      "title": "Canonical normalization format",
+      "description": "Define canonical schema for market and chip/flow records, implement normalization mappers from raw provider payloads, and enforce schema validation.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Canonical models specify required fields, dtypes, timezone/date semantics, and null policy",
+        "Normalizer transforms provider-specific payloads into canonical records",
+        "Validation catches malformed records with explicit error messages"
+      ]
+    },
+    {
+      "task_id": "T08",
+      "title": "Strategy base interface",
+      "description": "Create strategy base contracts for parameter schema, required data dependencies, signal generation entrypoints, and metadata (name/version/tags).",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Strategy interface defines standardized input context and output signal schema",
+        "Parameter validation contract exists for runtime-safe strategy initialization",
+        "A minimal example strategy compiles and runs against synthetic data"
+      ]
+    },
+    {
+      "task_id": "T09",
+      "title": "Technical strategy support module",
+      "description": "Implement technical-indicator strategy support primitives and at least one reference technical strategy adapter using the strategy base interface.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Technical feature computation utilities are modular and reusable",
+        "At least one technical strategy (e.g., MA crossover) emits canonical signals",
+        "Tests validate deterministic signals on fixture data"
+      ]
+    },
+    {
+      "task_id": "T10",
+      "title": "Chip/flow strategy support module",
+      "description": "Implement chip/flow/market-structure strategy support primitives and at least one reference strategy adapter using canonical chip/flow fields.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Chip/flow feature utilities are separated from technical feature utilities",
+        "At least one chip/flow strategy emits canonical signals with parameterization",
+        "Tests verify expected signal outcomes on controlled fixtures"
+      ]
+    },
+    {
+      "task_id": "T11",
+      "title": "Signal pipeline orchestration",
+      "description": "Build signal pipeline to run selected strategies over prepared datasets, manage execution context, and output timestamped per-symbol signals.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Pipeline supports running one or multiple strategies with clear execution order",
+        "Signal output format is canonical and strategy-identifiable",
+        "Pipeline tests cover empty inputs, mixed strategy sets, and error isolation"
+      ]
+    },
+    {
+      "task_id": "T12",
+      "title": "Stock selection pipeline",
+      "description": "Implement selection layer that filters/ranks symbols from signal outputs and universe constraints to produce tradable candidate lists.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Selection API supports filter rules, ranking rules, and top-N selection",
+        "Selection respects universe membership and data availability constraints",
+        "Tests validate ranking and tie-break behavior"
+      ]
+    },
+    {
+      "task_id": "T13",
+      "title": "Backtest core engine",
+      "description": "Implement backtest core loop for portfolio state transitions: order simulation, position accounting, cash/equity updates, and event timeline.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Engine processes entry signals into simulated orders and positions",
+        "Portfolio accounting tracks cash, holdings, PnL, and equity curve consistently",
+        "Unit tests validate state transitions on deterministic scenarios"
+      ]
+    },
+    {
+      "task_id": "T14",
+      "title": "Exit and risk rule constraints",
+      "description": "Add optional exit/risk constraints: stop-loss, take-profit, max holding period, and rule-composition handling.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Exit rules are configurable and composable per strategy/backtest run",
+        "Engine enforces stop-loss/take-profit/holding-period consistently",
+        "Tests cover conflicting triggers and priority resolution"
+      ]
+    },
+    {
+      "task_id": "T15",
+      "title": "Batch backtest runner",
+      "description": "Create batch execution module to run many symbols/strategies/time windows with reproducible run IDs, checkpointing hooks, and summary aggregation.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Batch runner accepts parameter grid and symbol universe subsets",
+        "Each run emits metadata, status, and deterministic artifact paths",
+        "Failure isolation allows partial completion with error reports"
+      ]
+    },
+    {
+      "task_id": "T16",
+      "title": "Reporting outputs and artifacts",
+      "description": "Implement reporting layer for run summary, trades, equity curve, drawdown, and strategy-level metrics in machine-readable and human-readable outputs.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Reporter outputs at least JSON/CSV artifacts for core metrics and trades",
+        "Summary includes key KPIs (return, drawdown, win rate, turnover)",
+        "Report generation is decoupled from backtest engine internals"
+      ]
+    },
+    {
+      "task_id": "T17",
+      "title": "System tests and validation harness",
+      "description": "Add layered test suite and validation checks spanning interfaces, normalization, pipelines, backtest logic, and batch/reporting integration.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Test suite includes unit, contract, and integration coverage across all layers",
+        "Validation fixtures cover Taiwan-universe-specific edge cases and missing data",
+        "CI-ready test command passes with deterministic fixtures"
+      ]
+    }
+  ],
+  "decision": "DECOMPOSE",
+  "instruction": "Next step: SEND_TO_PLANNER for T01. Planner should produce an implementation-ready spec for foundational architecture and interface scaffolding only, with concrete module/file map, contracts, and acceptance-test plan while avoiding runtime-heavy data fetching/backtesting work.",
+  "summary": "Work is decomposed into an MVP-safe sequence from low-risk foundational scaffolding through data pipeline, strategy pipeline, backtest core, batch execution, reporting, and validation, covering all required capability areas.",
+  "next_action": "Route T01 to Planner for detailed spec and execution plan.",
+  "success": true
+}

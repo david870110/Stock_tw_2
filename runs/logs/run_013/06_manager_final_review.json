@@ -1,0 +1,15 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "manager",
+  "qa_result": "PASS",
+  "decision": "COMPLETE",
+  "summary": "QA returned PASS with all 13 acceptance criteria satisfied. Three-stage selection pipeline implemented correctly. Protocol conformance verified. Anti-spillover boundary clean. Runtime evidence: 20 passed in 0.18s. T12 is complete.",
+  "files_delivered": [
+    "src/tw_quant/selection/pipeline.py",
+    "src/tw_quant/selection/__init__.py",
+    "tests/test_tw_quant_selection_contracts.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "success": true
+}

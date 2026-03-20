@@ -1,0 +1,26 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Implemented T14 as a narrow per-symbol extension of the existing backtest engine. Added explicit exit-rule contracts and concrete rules in src/tw_quant/backtest/exits.py, wired optional exit_rules and close_policy into SymbolBacktestEngine, enforced deterministic full-position close behavior with no same-step close-and-reopen, and updated selective backtest exports plus focused unit/static-contract tests without adding batch or reporting behavior.",
+  "files_modified": [
+    "src/tw_quant/backtest/exits.py",
+    "src/tw_quant/backtest/engine.py",
+    "src/tw_quant/backtest/__init__.py",
+    "tests/test_tw_quant_backtest_exits.py",
+    "tests/test_tw_quant_interfaces_contracts.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_backtest_exits.py",
+    "tests/test_tw_quant_interfaces_contracts.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "test_execution_summary": "Static validation only: diagnostics reported no errors in all modified files. Runtime tests were not executed. Recommended targeted command: pytest tests/test_tw_quant_backtest_engine.py tests/test_tw_quant_backtest_exits.py tests/test_tw_quant_scaffold_imports.py -q",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T14 exit-rule handling is implemented within SymbolBacktestEngine only, with configurable signal-exit, stop-loss, take-profit, and max-holding-period rules plus deterministic priority-based close selection and backward-compatible no-rule behavior.",
+  "next_action": "Send T14 implementation to Manager/QA for scope and acceptance validation.",
+  "success": true
+}

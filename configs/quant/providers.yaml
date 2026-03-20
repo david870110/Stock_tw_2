@@ -1,0 +1,13 @@
+providers:
+  market:
+    id: stub_market
+    enabled: true
+    options: {}
+  fundamental:
+    id: stub_fundamental
+    enabled: true
+    options: {}
+  corporate_action:
+    id: stub_corporate_action
+    enabled: true
+    options: {}

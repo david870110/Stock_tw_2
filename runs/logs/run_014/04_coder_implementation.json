@@ -1,0 +1,18 @@
+{
+  "task_id": "T13",
+  "task_title": "Backtest Engine Core",
+  "role": "coder",
+  "status": "DONE",
+  "files_created": [
+    "src/tw_quant/backtest/engine.py",
+    "tests/test_tw_quant_backtest_engine.py"
+  ],
+  "files_modified": [
+    "src/tw_quant/backtest/__init__.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "implementation_notes": "Implemented all three concrete classes per spec. Private _to_date() and _iter_dates() helpers added. SimpleExecutionModel fills at close price with None-bar skip. InMemoryPortfolioBook tracks cash/holdings/last_prices with NAV computation. SymbolBacktestEngine drives strict 6-step event loop per date, returns BacktestResult with final_nav/total_return/num_trades. equity_curve_ref=None always. interfaces.py and schema/models.py untouched.",
+  "test_evidence": "5 targeted tests pass. Full suite: 222 passed, 0 failed, 5 warnings (pre-existing utcnow deprecation).",
+  "blockers": [],
+  "success": true
+}

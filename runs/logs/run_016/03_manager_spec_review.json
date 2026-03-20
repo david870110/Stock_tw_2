@@ -1,0 +1,28 @@
+{
+  "task_id": "T15",
+  "task_title": "Batch backtest runner",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T15",
+      "title": "Implement T15 batch backtest runner",
+      "description": "Implement Taiwan stock universe batch orchestration with deterministic run identity/pathing, per-symbol execution flow, failure isolation, and bounded aggregation/result collection only.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Scope is strictly T15 only and does not absorb T13, T14, T16, or T17.",
+        "Batch orchestration runs across Taiwan stock symbols with deterministic run/artifact IDs and paths.",
+        "Per-symbol failures are isolated and do not abort the entire batch unless explicitly specified by approved pre-validation rules.",
+        "Execution result collection and aggregation boundaries are implemented without rich reporting/visualization.",
+        "Static validation is the default behavior; avoid validation-heavy runtime workflows.",
+        "Contract/model changes are minimal, targeted, and aligned with schema v0.1 role boundaries.",
+        "Tests are added or updated for orchestration flow, deterministic identity rules, failure isolation, and aggregation boundaries."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_CODER",
+  "instruction": "## Task: Batch backtest runner\n\n**Description:** Implement T15 only for Taiwan stock universe batch orchestration. Focus on orchestration across symbols, task flow, aggregation boundaries, and execution result collection. Enforce deterministic run/artifact identity behavior and failure isolation semantics from the approved planner spec.\n\n**Priority:** HIGH\n\n**Specification:**\nUse the approved Planner T15 specification as the source of truth (status READY), including strict T15-only boundaries, deterministic IDs/paths, failure isolation, and static validation focus. Apply these explicit constraints:\n- In scope: Taiwan stock subset batch orchestration, symbol-level task flow, bounded aggregation, execution result collection.\n- Out of scope: rich reporting, visualization, and validation-heavy runtime workflows.\n- Must not absorb or implement work from T13, T14, T16, or T17.\n- Preserve schema v0.1 role boundaries in outputs and artifacts.\n- Where planner open questions are unresolved, implement conservative defaults that keep behavior deterministic and non-expansive (do not introduce extra product decisions beyond spec).\n\n**Your Task:**\nPlease implement the solution according to the specification above.\n\nRequirements:\n1. Follow the approved specification exactly.\n2. Satisfy all acceptance criteria contained in the specification.\n3. Keep changes as small and targeted as possible.\n4. Update or add tests when required by the specification.\n5. Report blockers or uncertainties clearly if they prevent safe implementation.\n\nYour response must remain within the Coder role boundary:\n- Do not perform final QA judgment.\n- Do not declare PASS, FAIL, or SPEC_GAP.\n- Do not declare the workflow complete.\n- Do not act as Manager, QA, or Orchestrator.\n- If you run tests, report them only as implementation evidence.\n\nReturn valid JSON only.",
+  "summary": "Planner output is implementation-ready for T15 and aligns with project constraints. Review approves routing to Coder with strict scope controls, deterministic orchestration requirements, default static validation, and explicit exclusions for adjacent tasks.",
+  "next_action": "Coder implements T15 batch runner and targeted tests, then returns coder-schema v0.1 JSON for Manager routing.",
+  "success": true
+}

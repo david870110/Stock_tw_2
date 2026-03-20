@@ -1,0 +1,32 @@
+{
+  "task_id": "T13",
+  "task_title": "Backtest Engine Core",
+  "role": "manager",
+  "decision": "ROUTE_TO_PLANNER",
+  "anti_spillover_constraints": [
+    "DO NOT implement batch execution across multiple symbols — that is T14 scope.",
+    "DO NOT implement exit-rule specialization (stop-loss, take-profit, trailing stops) — that is T15 scope.",
+    "DO NOT implement any reporting, chart generation, or artifact serialization — that is T16 scope.",
+    "DO NOT modify src/tw_quant/schema/models.py — all required dataclasses already exist and must be used as-is.",
+    "DO NOT alter or delete Protocol stubs in src/tw_quant/backtest/interfaces.py.",
+    "DO NOT implement cross-symbol portfolio aggregation or correlation logic.",
+    "DO NOT introduce external dependencies beyond the existing project environment.",
+    "DO NOT add equity-curve storage or FeatureFrameRef population — leave equity_curve_ref as None.",
+    "DO NOT implement slippage models, partial fills, or order-book simulation."
+  ],
+  "acceptance_criteria": [
+    "SimpleExecutionModel implements ExecutionModel Protocol: fills at close price, None bar → no fill, fee=0.0.",
+    "InMemoryPortfolioBook implements PortfolioBook Protocol: apply_fills updates cash and holdings; snapshot returns PortfolioSnapshot with nav = cash + holdings*prices; initial_cash configurable.",
+    "SymbolBacktestEngine implements BacktestEngine Protocol: run(start, end) iterates over dates inclusive, strict event sequence, returns BacktestResult with final_nav, total_return, num_trades.",
+    "SymbolBacktestEngine accepts symbol, data_provider, execution_model, portfolio_book, signal_source, run_id.",
+    "Per-symbol boundary: single symbol per engine instance, no cross-symbol aggregation.",
+    "Event sequence strictly: signal_source → execute → apply_fills → snapshot, no skip or reorder.",
+    "interfaces.py unchanged.",
+    "src/tw_quant/backtest/__init__.py exports all 6 names in __all__.",
+    "Unit tests in tests/test_tw_quant_backtest_engine.py: 5 tests covering AC#9a, AC#9b, AC#9c.",
+    "No batch, exit-rule, or reporting imports."
+  ],
+  "priority": "high",
+  "summary": "T13 scopes the concrete implementation of the three Protocol stubs: SimpleExecutionModel, InMemoryPortfolioBook, SymbolBacktestEngine. All batch, exit-rule, and reporting concerns explicitly excluded.",
+  "success": true
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "READY",
+    "decision": "SEND_TO_QA",
+    "summary": "Implementation evidence matches the clarified scope and is ready for independent QA judgment under schema v0.1.",
+    "next_action": "Wait for QA PASS/FAIL/SPEC_GAP result and then route accordingly.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "SEND_TO_QA",
+    "status": "READY",
+    "next_action": "Call QA"
+  },
+  "extracted_status": "READY",
+  "decision": "SEND_TO_QA",
+  "next_action": "Call QA",
+  "iteration_count": 1
+}

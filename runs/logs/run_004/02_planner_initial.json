@@ -1,0 +1,27 @@
+{
+  "task_id": "T02",
+  "task_title": "Universe abstraction for Taiwan stocks",
+  "role": "planner",
+  "status": "SPEC_READY",
+  "files": [
+    "src/tw_quant/universe/models.py",
+    "src/tw_quant/universe/interfaces.py",
+    "src/tw_quant/universe/stub.py",
+    "src/tw_quant/universe/__init__.py",
+    "tests/test_universe.py"
+  ],
+  "ambiguities_resolved": [
+    "listing_status: StrEnum (ListingStatus) for type safety",
+    "UniverseEntry: frozen=True, slots=True",
+    "exchange: plain str (open-world identifier)",
+    "as_of normalisation: _to_datetime helper in stub.py",
+    "get_universe(as_of=None): returns all entries without filtering",
+    "get_symbol: returns most-recent-valid-as-of entry"
+  ],
+  "scope_exclusions": [
+    "No OHLCV/chip-flow contracts",
+    "No real data fetching",
+    "No wiring/DI container changes"
+  ],
+  "ready_for_coder": true
+}

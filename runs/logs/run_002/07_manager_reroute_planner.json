@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Manager",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "manager",
+    "status": "READY",
+    "decision": "REROUTE_PLANNER",
+    "summary": "QA returned SPEC_GAP; rerouting to Planner with a concrete minimal helper contract to eliminate ambiguity.",
+    "next_action": "Wait for clarified Planner spec.",
+    "success": true
+  },
+  "parsed_response": {
+    "decision": "REROUTE_PLANNER",
+    "status": "READY",
+    "next_action": "Call Planner"
+  },
+  "extracted_status": "READY",
+  "decision": "REROUTE_PLANNER",
+  "next_action": "Call Planner",
+  "iteration_count": 1
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "T07",
+  "task_title": "Canonical normalization format",
+  "role": "planner",
+  "status": "READY",
+  "ready_for_coder": true,
+  "summary": "Implementation-ready T07 spec for canonical contracts, mapper scaffolding, and non-throwing validation boundaries.",
+  "success": true
+}

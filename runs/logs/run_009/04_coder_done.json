@@ -1,0 +1,15 @@
+{
+  "task_id": "T07",
+  "task_title": "Canonical normalization format",
+  "role": "coder",
+  "status": "DONE",
+  "files_modified": [
+    "src/tw_quant/normalization/models.py",
+    "src/tw_quant/normalization/mappers.py",
+    "src/tw_quant/normalization/__init__.py",
+    "tests/test_tw_quant_normalization_contracts.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "summary": "Implemented normalization scaffolding and tests within T07 scope.",
+  "success": true
+}

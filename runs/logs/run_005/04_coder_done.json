@@ -1,0 +1,15 @@
+{
+  "task_id": "T03",
+  "task_title": "Market-data provider contracts",
+  "role": "coder",
+  "status": "DONE",
+  "files_created": [
+    "src/tw_quant/data/stubs.py",
+    "tests/test_tw_quant_data_contracts.py"
+  ],
+  "files_updated": [
+    "src/tw_quant/data/__init__.py"
+  ],
+  "implementation_notes": "Implemented _to_date helper and three in-memory stubs with defensive copy, symbol filtering, and inclusive date-range filtering. 22 tests created. No I/O, no caching, no normalization.",
+  "blockers": []
+}

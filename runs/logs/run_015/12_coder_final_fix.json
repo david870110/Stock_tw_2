@@ -1,0 +1,21 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Implemented the final T14 holding-bar semantics fix only. The per-symbol backtest engine now evaluates MaxHoldingPeriodRule against the start-of-step holding_bar_count, initializes newly opened positions with holding_bar_count=0 at fill time, and advances holding_bar_count only after a bar-backed step completes and the long position remains open after that step's fills. Updated the targeted max-holding regression test to enforce the new post-step semantics and catch the prior off-by-one behavior.",
+  "files_modified": [
+    "src/tw_quant/backtest/exits.py",
+    "src/tw_quant/backtest/engine.py",
+    "tests/test_tw_quant_backtest_exits.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_backtest_exits.py"
+  ],
+  "test_execution_summary": "Static validation only: diagnostics reported no errors in src/tw_quant/backtest/exits.py, src/tw_quant/backtest/engine.py, and tests/test_tw_quant_backtest_exits.py. Recommended targeted runtime command: pytest tests/test_tw_quant_backtest_exits.py -q",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "The T14 fix is narrowly applied to exit-rule holding-bar semantics in the per-symbol backtest engine and the relevant max-holding regression test.",
+  "next_action": "Send T14 implementation to Manager/QA for validation of the updated holding-bar semantics.",
+  "success": true
+}

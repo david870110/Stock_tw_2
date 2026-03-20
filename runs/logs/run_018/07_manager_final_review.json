@@ -1,0 +1,11 @@
+{
+  "task_id": "T17",
+  "task_title": "System tests and validation harness",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Close T17 as complete based on QA PASS; no reroute or additional agent action is required.",
+  "summary": "QA confirms T17 meets the approved tests/validation-only scope, deterministic static-first posture, required tw_mvp evidence, and anti-spillover boundaries. Task is formally closed with no follow-up fixes.",
+  "next_action": "Finalize and archive T17 as completed; no further workflow steps for this task.",
+  "success": true
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "run_002",
+  "task_id": "T01",
+  "role": "Coder",
+  "timestamp": "2026-03-11",
+  "parse_success": true,
+  "raw_response": {
+    "task_id": "T01",
+    "task_title": "Specify ambiguous utility-helper change to exercise SPEC_GAP reroute",
+    "role": "coder",
+    "status": "BLOCKED",
+    "summary": "Safe implementation could not proceed without inventing missing specification details, so no changes were made.",
+    "next_action": "Request Planner/Manager clarification and then re-run Coder implementation.",
+    "success": false
+  },
+  "parsed_response": {
+    "status": "BLOCKED",
+    "files_modified": [],
+    "tests_added_or_updated": [],
+    "blocker_count": 5
+  },
+  "extracted_status": "BLOCKED",
+  "decision": "RETURN_TO_MANAGER",
+  "next_action": "Manager routes to QA",
+  "iteration_count": 0
+}

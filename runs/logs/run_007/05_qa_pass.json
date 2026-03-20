@@ -1,0 +1,16 @@
+{
+  "task_id": "T05",
+  "task_title": "Local cache layer",
+  "role": "qa",
+  "status": "PASS",
+  "findings": [
+    "Cache contracts/stubs present and coherent.",
+    "Deterministic key behavior covered.",
+    "Read/write outcomes covered.",
+    "No T06/T07 spillover detected."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "T05 static QA pass.",
+  "success": true
+}

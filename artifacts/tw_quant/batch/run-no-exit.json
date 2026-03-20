@@ -1,0 +1,70 @@
+{
+  "run_id": "run-no-exit",
+  "strategy_name": "ma_cross",
+  "start": "2024-01-01",
+  "end": "2024-01-05",
+  "metrics": {
+    "final_nav": 1000000.0,
+    "total_return": 0.0,
+    "num_trades": 1.0
+  },
+  "equity_curve_ref": null,
+  "trades": [
+    {
+      "stock_id": "2330",
+      "stock_name": "",
+      "signal_date": "2024-01-04",
+      "entry_date": "2024-01-04",
+      "entry_price": 2.0,
+      "exit_date": "",
+      "exit_price": "",
+      "holding_days": "",
+      "exit_reason": "",
+      "return_pct": "",
+      "exit_fraction": "",
+      "exit_shares": "",
+      "is_partial_exit": ""
+    }
+  ],
+  "equity_curve": [
+    {
+      "date": "2024-01-01",
+      "equity": 1.0,
+      "pos_count": 0,
+      "bench_equity": ""
+    },
+    {
+      "date": "2024-01-02",
+      "equity": 1.0,
+      "pos_count": 0,
+      "bench_equity": ""
+    },
+    {
+      "date": "2024-01-03",
+      "equity": 1.0,
+      "pos_count": 0,
+      "bench_equity": ""
+    },
+    {
+      "date": "2024-01-04",
+      "equity": 1.0,
+      "pos_count": 1,
+      "bench_equity": ""
+    },
+    {
+      "date": "2024-01-05",
+      "equity": 1.0,
+      "pos_count": 1,
+      "bench_equity": ""
+    }
+  ],
+  "metadata": {
+    "parameters": {
+      "short": 2,
+      "long": 3,
+      "exits": {
+        "stop_loss_pct": null
+      }
+    }
+  }
+}

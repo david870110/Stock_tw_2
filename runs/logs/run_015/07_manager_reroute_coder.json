@@ -1,0 +1,28 @@
+{
+  "task_id": "T14",
+  "task_title": "Configurable Exit-Rule Handling",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T14",
+      "title": "Fix exit-rule semantics in the per-symbol backtest engine",
+      "description": "Correct T14-only exit-rule behavior for the per-symbol backtest engine by aligning holding-period, stop-loss, take-profit, and raw-intent preservation semantics with the approved specification, without expanding into batch execution, orchestration, or reporting responsibilities.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "Open-position state tracks holding_bar_count for open long positions, and MaxHoldingPeriodRule evaluates from that bar-backed count rather than calendar-day differences.",
+        "StopLossRule compares current bar.close against average entry price using the configured inclusive threshold semantics.",
+        "TakeProfitRule compares current bar.close against average entry price using the configured inclusive threshold semantics.",
+        "When exit rules are configured and no trigger fires, the engine executes raw intents unchanged.",
+        "When the engine is flat, raw sell intents preserve existing engine behavior even when exit rules are configured.",
+        "When one or more exit triggers fire for an open position, the engine selects one trigger through the configured close policy and emits exactly one full-position close intent for that step.",
+        "Tests cover holding_bar_count behavior, close-based inclusive stop-loss and take-profit behavior, no-trigger raw-intent pass-through, and flat-position backward compatibility."
+      ]
+    }
+  ],
+  "decision": "REROUTE_CODER",
+  "instruction": "## Task: Configurable Exit-Rule Handling\n\n**Description:** Correct the T14 implementation so configurable exit-rule handling behaves exactly as approved for the per-symbol backtest engine. Keep scope strictly limited to exit conditions and related position-close policy contracts. Do not expand into batch execution, orchestration, portfolio aggregation, or final reporting logic. Do not absorb T13, T15, or T16 responsibilities.\n\n**Priority:** HIGH\n\n**Specification:**\nScope guard:\n- Limit changes to per-symbol backtest exit-rule handling and the supporting contracts/state needed for that behavior.\n- Preserve schema v0.1 role boundaries.\n- Use static validation by default and keep validation targeted to T14.\n\nRequired behavior:\n1. Extend internal open-position state and engine bookkeeping to maintain holding_bar_count for open long positions.\n2. Evaluate MaxHoldingPeriodRule from bar-backed holding_bar_count, not from calendar-day differences derived from opened_at.\n3. Change StopLossRule to compare the current bar.close against the position average entry price using the approved inclusive threshold semantics.\n4. Change TakeProfitRule to compare the current bar.close against the position average entry price using the approved inclusive threshold semantics.\n5. Do not use intrabar low/high for stop-loss or take-profit trigger decisions where the approved spec requires current bar.close.\n6. Adjust SymbolBacktestEngine intent handling so raw intents remain unchanged unless an exit trigger is actually selected.\n7. Do not pre-filter raw intents to buy-only before confirming a close decision.\n8. Preserve existing flat-position behavior for raw sell intents even when exit rules are configured.\n9. Preserve deterministic single-close behavior when triggers fire: use the configured close policy to select one trigger and replace same-step intents with exactly one full-position sell intent.\n10. Keep changes small and local to T14; do not introduce batch execution or reporting behavior.\n\nRequired tests:\n- Add or update targeted tests to lock in holding_bar_count semantics.\n- Add or update targeted tests to verify stop-loss uses current bar.close with inclusive comparison against average entry price.\n- Add or update targeted tests to verify take-profit uses current bar.close with inclusive comparison against average entry price.\n- Add or update targeted tests to verify raw intents pass through unchanged when exit rules are configured but no trigger fires.\n- Add or update targeted tests to verify flat-position raw sell behavior remains backward compatible under configured exit rules.\n\n**Your Task:**\nPlease implement the solution according to the specification above.\n\nRequirements:\n1. Follow the approved specification exactly.\n2. Satisfy all acceptance criteria contained in the specification.\n3. Keep changes as small and targeted as possible.\n4. Update or add tests when required by the specification.\n5. Report blockers or uncertainties clearly if they prevent safe implementation.\n\nYour response must remain within the Coder role boundary:\n- Do not perform final QA judgment.\n- Do not declare PASS, FAIL, or SPEC_GAP.\n- Do not declare the workflow complete.\n- Do not act as Manager, QA, or Orchestrator.\n- If you run tests, report them only as implementation evidence.\n\nReturn valid JSON only.",
+  "summary": "QA failed T14 because the implementation diverges from the approved spec in four constrained areas: holding-period logic uses calendar days instead of holding bars, stop-loss and take-profit use intrabar extremes instead of close price, enabling exit rules changes raw-intent behavior when no trigger fires, and flat-position raw sell behavior is not preserved. The fix is rerouted to Coder with scope held strictly to per-symbol exit-rule handling and related close-policy contracts.",
+  "next_action": "Coder implements the targeted T14 fixes and updates the required tests, then returns for another QA pass.",
+  "success": true
+}

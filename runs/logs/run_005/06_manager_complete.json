@@ -1,0 +1,8 @@
+{
+  "task_id": "T03",
+  "task_title": "Market-data provider contracts",
+  "role": "manager",
+  "status": "CLOSED",
+  "decision": "COMPLETE",
+  "notes": "QA returned PASS with all 8 acceptance criteria satisfied. 22/22 new tests and 72/72 existing tests passed. No findings or scope violations. T03 is formally closed."
+}

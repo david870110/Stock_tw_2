@@ -1,0 +1,24 @@
+{
+  "task_id": "T08",
+  "task_title": "Strategy base interface",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T08",
+      "title": "Strategy base interface",
+      "description": "Create strategy base contracts for parameter schema, required data dependencies, signal generation entrypoints, and metadata (name/version/tags) for Taiwan stock quant MVP progression.",
+      "priority": "CRITICAL",
+      "acceptance_criteria": [
+        "Strategy interface defines standardized input context and output signal schema",
+        "Parameter validation contract exists for runtime-safe strategy initialization",
+        "A minimal example strategy compiles and runs against synthetic data"
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: Strategy base interface\n\n**Description:** Create strategy base contracts for parameter schema, required data dependencies, signal generation entrypoints, and metadata (name/version/tags).\n\n**Priority:** CRITICAL\n\n**Acceptance Criteria:**\n- Strategy interface defines standardized input context and output signal schema\n- Parameter validation contract exists for runtime-safe strategy initialization\n- A minimal example strategy compiles and runs against synthetic data\n\n**Your Task:**\nPlease create a detailed implementation spec for the Coder to implement.\n\nRequirements:\n1. Address all acceptance criteria listed above.\n2. Define scope clearly and do not expand the task beyond what is requested.\n3. Include enough technical detail so the Coder can implement without guessing.\n4. Identify any ambiguity or missing information explicitly.\n5. If the task cannot be specified safely due to missing information, state the uncertainty clearly.\n\nAdditional boundary constraints for this task:\n- Continue with T08 only.\n- Keep T08 strictly limited to strategy base interface and common strategy contracts.\n- Focus on shared strategy abstractions, configuration interfaces, input/output contracts, and extension points for future strategy modules.\n- Do NOT implement concrete technical strategies, chip-flow strategies, or signal-selection pipeline logic.\n- Do NOT absorb T09, T10, or T11 responsibilities.\n- Use static validation by default.\n- Preserve schema v0.1 role boundaries.\n- Respect prior pass constraints from T06/T07: strict anti-spillover boundaries.\n\nYour response must remain within the Planner role boundary:\n- Do not implement code.\n- Do not perform QA.\n- Do not declare the task complete.\n\nReturn valid JSON only.",
+  "summary": "T08 is clearly defined, bounded, and ready for Planner specification authoring under schema v0.1 with strict anti-spillover constraints.",
+  "next_action": "Wait for Planner to return an implementation-ready spec for T08.",
+  "success": true
+}

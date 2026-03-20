@@ -1,0 +1,29 @@
+{
+  "task_id": "T12",
+  "task_title": "Stock Selection Pipeline",
+  "role": "planner",
+  "status": "READY",
+  "sections": [
+    "Overview",
+    "File Structure",
+    "SelectionConfig Dataclass",
+    "filter_signals Pure Function",
+    "rank_signals Pure Function",
+    "_compute_weighted_score Private Helper",
+    "select_top Pure Function",
+    "WeightedRankingModel Stub",
+    "ConfiguredSelector Stub",
+    "SelectionPipeline Class",
+    "selection/__init__.py Modification",
+    "Contract Test File",
+    "Imports Summary",
+    "Anti-Spillover Enforcement",
+    "Acceptance Criteria Traceability",
+    "Notes for Coder"
+  ],
+  "open_questions": [],
+  "ready_for_coder": true,
+  "summary": "Full implementation spec for T12. Creates pipeline.py with SelectionConfig (dataclass, slots=True), three individually testable pure functions (filter_signals, rank_signals, select_top), a private _compute_weighted_score helper, two protocol-conforming stubs (WeightedRankingModel, ConfiguredSelector), and the SelectionPipeline orchestrator. Modifies selection/__init__.py to export SelectionPipeline and SelectionConfig. Specifies 17 contract tests.",
+  "next_action": "Send spec to Manager for review.",
+  "success": true
+}

@@ -1,0 +1,148 @@
+app:
+  timezone: Asia/Taipei
+
+data:
+  wiring_mode: active
+  market_provider: yfinance_ohlcv
+  fundamental_provider: stub_fundamental
+  corporate_action_provider: stub_corporate_action
+  universe_provider: remote_universe
+  universe: []
+  universe_csv_path: ""
+  market_ohlcv_url_template: ""
+  universe_twse_url: "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
+  universe_tpex_url: "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes"
+  timeout_seconds: 15.0
+  max_retries: 2
+  retry_backoff_seconds: 0.25
+  min_interval_seconds: 0.3
+  batch_size: 20
+
+storage:
+  raw_store: memory
+  canonical_store: memory
+  artifact_store: local
+  base_path: ./artifacts
+
+backtest:
+  initial_cash: 1000000
+  commission_bps: 0.0
+  slippage_bps: 0.0
+  benchmark: TAIEX
+  timezone: Asia/Taipei
+
+reporting:
+  output_dir: ./reports
+  formats:
+    - json
+  timezone: Asia/Taipei
+
+strategy_examples:
+  ma_bullish_stack:
+    strategy_name: ma_bullish_stack
+    timeframe: 1d
+    indicator_set:
+      ma_windows: [5, 20, 60]
+    exits:
+      stop_loss_pct: 0.6
+      take_profit_pct: 0.6
+  pullback_trend_compression:
+    strategy_name: pullback_trend_compression
+    timeframe: 1d
+    indicator_set:
+      ma_windows: [60, 120, 200]
+      high_window: 60
+      low_window: 10
+      volume_ma_window: 5
+      macd: {fast: 12, slow: 26, signal: 9, lookback: 30}
+    exits:
+      stop_loss_pct: 0.60
+      take_profit_pct: 1.20
+  pullback_trend_120d_optimized:
+    strategy_name: pullback_trend_120d_optimized
+    timeframe: 1d
+    basic:
+      require_daily: true
+      min_bars: 200
+    liquidity:
+      liquidity_amt_ma20_min: 10000000
+      min_price_enabled: false
+      min_price: 10.0
+    ma:
+      ma_short: 20
+      ma20_slope_lookback: 5
+      ma_fast: 60
+      ma_mid: 120
+      ma_slow: 200
+      slope_lookback: 20
+      require_stack: true
+      require_ma20_up: true
+      require_ma60_slope_up: true
+      require_ma120_slope_up: true
+    pullback:
+      high_lookback: 80
+      drawdown_min: 0.08
+      drawdown_max: 0.22
+      ma60_dist_min: -0.05
+      ma60_dist_max: 0.08
+    entry:
+      entry_semantics_mode: legacy
+      setup_offset_bars: 1
+      reentry_cooldown_days: 30
+      cooldown_apply_on: any_exit
+      position_cash: 100000.0
+      risk_budget_pct: null
+      stop_distance_mode: atr_initial_stop
+      fallback_position_cash: 100000.0
+    volume:
+      volume_short_ma: 10
+      volume_long_ma: 20
+      volume_contract_enabled: true
+      volume_contract_ratio_max: 1.0
+      setup_volume_contract_enabled: true
+      setup_volume_contract_ratio_max: 1.0
+      trigger_volume_check_enabled: true
+      trigger_volume_ratio_warn_max: 1.2
+      trigger_volume_hard_block: false
+    chip:
+      enable_chip_filter: false
+      enable_foreign_buy_filter: false
+      enable_investment_trust_filter: false
+      chip_lookback: 20
+    margin:
+      enable_margin_filter: false
+      margin_lookback: 20
+      margin_growth_limit: 0.15
+    borrow:
+      enable_borrow_filter: false
+      borrow_lookback: 20
+      borrow_balance_growth_limit: 0.15
+    price_contraction:
+      price_contract_enabled: true
+      range_short_lookback: 5
+      range_long_lookback: 20
+      range_contract_ratio_max: 0.7
+      range_percentile_max: null
+    close_strength:
+      close_strength_enabled: true
+      close_vs_5d_high_min: 0.95
+      close_position_5d_min: null
+    short_momentum:
+      short_momentum_enabled: true
+      short_momentum_lookback: 5
+    exit:
+      initial_stop_mode: atr
+      atr_period: 14
+      atr_stop_mult: 2.5
+      trend_break:
+        ma60_window: 60
+        ma120_window: 120
+        trend_break_below_ma60_days: 3
+      profit_protection:
+        mode: percent_drawdown
+        atr_trailing_enabled: false
+        atr_period: 14
+        atr_trail_mult: 2.0
+        profit_protect_trigger: 0.25
+        profit_protect_pullback: 0.18
+      max_hold_days: 140

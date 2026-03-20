@@ -1,0 +1,11 @@
+{
+  "task_id": "T01",
+  "task_title": "Bootstrap architecture and core interface scaffolding",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_QA",
+  "instruction": "Validate scaffold implementation against approved specification and acceptance criteria.",
+  "summary": "Coder reported DONE and tests passed; task routed to QA.",
+  "next_action": "Wait for QA decision.",
+  "success": true
+}

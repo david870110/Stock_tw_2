@@ -1,0 +1,5 @@
+{
+  "spec": "## Implementation Spec\n\n### Overview\nImplement JWT authentication...",
+  "sections": ["Overview", "Data Models", "API Endpoints", "Security Considerations"],
+  "ready_for_coder": true
+}

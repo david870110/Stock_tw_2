@@ -1,0 +1,21 @@
+{
+  "task_id": "T04",
+  "task_title": "Raw historical data fetch orchestration scaffolding",
+  "role": "coder",
+  "status": "DONE",
+  "files_modified": [
+    "src/tw_quant/fetch/models.py",
+    "src/tw_quant/fetch/interfaces.py",
+    "src/tw_quant/fetch/stubs.py",
+    "src/tw_quant/fetch/__init__.py",
+    "tests/test_tw_quant_fetch_orchestration.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_fetch_orchestration.py",
+    "tests/test_tw_quant_scaffold_imports.py"
+  ],
+  "implementation_notes": "Implemented request flow scaffold, result handling placeholders, retry/backoff placeholders, and raw artifact boundaries using deterministic in-memory contracts/stubs only.",
+  "test_execution_summary": "Static validation only in this round; coder did not execute pytest.",
+  "blockers": []
+}
