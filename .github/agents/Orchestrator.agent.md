@@ -244,7 +244,7 @@ Rules:
 - QA `status: PASS` means validation passed, not workflow complete.
 - Only after Manager confirms completion may the Orchestrator output:
   - `current_state: "DONE"`
-  - `decision: "COMPLETE"` or `decision: "MARK_DONE"`
+  - `decision: "COMPLETE"`
 
 ## Instruction Template Routing Rules
 
@@ -263,6 +263,45 @@ Rules:
 5. If a template is unavailable, record that fact in the workflow notes and proceed with a structured fallback.
 
 Do not consider a role handoff complete unless the corresponding instruction template has been read and used by the Manager.
+
+## Skill Trigger Matrix
+
+Use this matrix to keep skill selection consistent across Manager and Orchestrator routing.
+
+1. New feature request without implementation-ready detail
+- Trigger: `write-spec`
+- Owner: Planner
+- Required references: `docs/schemas/planner_response_schema.md`, `prompts/templates/manager_to_planner.md`
+- Expected result: spec in `specs/` plus planner-contract JSON output
+
+2. Behavior-changing implementation ready for validation
+- Trigger: `run-qa-gate`
+- Owner: QA
+- Required references: `docs/schemas/qa_response_schema.md`, `prompts/templates/manager_to_qa.md`
+- Expected result: `PASS|FAIL|SPEC_GAP` with failed criteria and required fixes when applicable
+
+3. Incoming bug report with unclear scope or root cause
+- Trigger: `triage-bug`
+- Owner: Manager first, then Planner or Coder by routing decision
+- Required references: `docs/schemas/manager_response_schema.md`, `prompts/templates/manager_to_planner.md`, `prompts/templates/manager_to_coder.md`
+- Expected result: structured triage note and instruction-ready routing payload
+
+4. QA returns `SPEC_GAP`
+- Trigger order: `write-spec` then `run-qa-gate`
+- Owner: Planner then QA
+- Expected result: clarified spec, re-implementation if required, then fresh QA verdict
+
+5. QA returns `FAIL`
+- Trigger order: Manager reroute to Coder, then `run-qa-gate`
+- Owner: Coder then QA
+- Expected result: fix implementation, re-validate, and return final QA verdict
+
+## Skill Execution Rules
+
+- Do not skip `write-spec` when work changes behavior and no approved spec exists.
+- Do not skip `run-qa-gate` for behavior-changing tasks.
+- Use `triage-bug` before implementation when bug evidence is incomplete or conflicting.
+- If a required schema or template file is missing, record the gap and continue with the closest valid structure.
 
 ## Response Schema Compliance
 
