@@ -67,6 +67,7 @@ def parse_universe_csv_rows(
         entries.append(
             UniverseEntry(
                 symbol=symbol,
+                name=_extract_security_name(row),
                 exchange=exchange,
                 market=market,
                 listing_status=status,
@@ -97,6 +98,23 @@ def _normalize_symbol_for_exchange(value: str, *, exchange: str) -> str | None:
     return f"{raw}.{suffix}"
 
 
+def _extract_security_name(row: dict[str, str]) -> str:
+    for key in (
+        "name",
+        "stock_name",
+        "company_name",
+        "security_name",
+        "SecurityName",
+        "CompanyName",
+        "CompanyShortName",
+        "SecuritiesCompanyName",
+    ):
+        value = str(row.get(key, "") or "").strip()
+        if value:
+            return value
+    return ""
+
+
 @dataclass(slots=True)
 class CsvUniverseProvider:
     """Load universe snapshots from a CSV file.
@@ -121,6 +139,7 @@ class CsvUniverseProvider:
         return [
             UniverseEntry(
                 symbol=entry.symbol,
+                name=entry.name,
                 exchange=entry.exchange or self.default_exchange,
                 market=entry.market or self.default_market,
                 listing_status=entry.listing_status,

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import csv
 import json
+import sys
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from dataclasses import asdict
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -11,6 +13,7 @@ from typing import Any, Sequence
 
 from src.tw_quant.backtest import InMemoryPortfolioBook, SimpleExecutionModel, SymbolBacktestEngine
 from src.tw_quant.backtest.exit_builder import build_close_policy, build_exit_rules, canonicalize_strategy_name
+from src.tw_quant.config.models import AppConfig
 from src.tw_quant.config.models import BacktestConfig
 from src.tw_quant.core.types import DateLike, Symbol
 from src.tw_quant.data.interfaces import MarketDataProvider
@@ -23,7 +26,20 @@ from src.tw_quant.schema.models import (
     SignalRecord,
 )
 from src.tw_quant.selection import SelectionConfig, SelectionPipeline
+from src.tw_quant.reporting.csv_image import write_csv_preview_image
+from src.tw_quant.strategy.chip.indicators import (
+    chip_concentration,
+    chip_distribution,
+    cost_basis_ratio,
+)
+from src.tw_quant.strategy.flow.metrics import flow_momentum, flow_ratio, inflow_outflow
 from src.tw_quant.strategy.interfaces import StrategyContext
+from src.tw_quant.strategy.technical.features import (
+    macd_histogram,
+    rolling_max,
+    rolling_min,
+    simple_moving_average,
+)
 from src.tw_quant.strategy.technical.ma_bullish_stack import (
     MovingAverageBullishStackStrategy,
 )
@@ -32,8 +48,16 @@ from src.tw_quant.strategy.technical.pullback_trend_compression import (
     PullbackTrend120dOptimizedStrategy,
     PullbackTrendCompressionStrategy,
 )
+from src.tw_quant.strategy.technical.qizhang_signal import QizhangSignalStrategy
+from src.tw_quant.utils.indicators import calculate_rsi
 from src.tw_quant.universe.interfaces import UniverseProvider
 from src.tw_quant.universe.models import ListingStatus
+from src.tw_quant.wiring.container import build_app_context
+
+try:
+    from tqdm import tqdm
+except Exception:  # pragma: no cover - environment-dependent
+    tqdm = None
 
 
 class AtomicBacktestExecutor:
@@ -163,10 +187,17 @@ class DailySelectionRunner:
         universe_provider: UniverseProvider,
         market_data_provider: MarketDataProvider,
         output_base: str = "artifacts",
+        app_config: AppConfig | None = None,
     ) -> None:
         self._universe_provider = universe_provider
         self._market_data_provider = market_data_provider
         self._output_base = output_base
+        self._app_config = app_config
+        self._last_run_summary: dict[str, Any] = {}
+
+    @property
+    def last_run_summary(self) -> dict[str, Any]:
+        return dict(self._last_run_summary)
 
     def run(
         self,
@@ -176,6 +207,9 @@ class DailySelectionRunner:
         strategy_parameters: dict[str, Any] | None = None,
         lookback_bars: int = 220,
         selection_config: SelectionConfig | None = None,
+        max_workers: int = 1,
+        show_progress: bool | None = None,
+        progress_label: str | None = None,
     ) -> list[SelectionRecord]:
         as_of_date = _to_date(as_of)
         symbols = self._resolve_active_symbols(as_of_date)
@@ -188,63 +222,200 @@ class DailySelectionRunner:
             )
             return []
 
+        signals: list[SignalRecord] = []
+        parameters = dict(strategy_parameters or {})
+        use_progress = bool(show_progress) if show_progress is not None else (tqdm is not None and len(symbols) > 1)
+        requested_workers = max(1, int(max_workers))
+        parallel_mode, worker_count = _resolve_daily_selection_parallel_mode(
+            app_config=self._app_config,
+            requested_workers=requested_workers,
+            symbol_count=len(symbols),
+        )
+        chunk_size = _resolve_parallel_chunk_size(symbol_count=len(symbols), worker_count=worker_count)
+
+        if use_progress:
+            print(
+                f"{progress_label or 'Daily Selection'} mode={parallel_mode} requested_workers={requested_workers} effective_workers={worker_count} chunk_size={chunk_size} symbols={len(symbols)}",
+                file=sys.stdout,
+                flush=True,
+            )
+
+        if parallel_mode == "process-chunk" and worker_count > 1 and len(symbols) > 1 and self._app_config is not None:
+            symbols_with_history: set[Symbol] = set()
+            progress_bar = _create_progress_bar(
+                total=len(symbols),
+                desc=progress_label or "Daily Selection",
+                unit="symbol",
+            ) if use_progress else None
+            try:
+                with ProcessPoolExecutor(max_workers=worker_count) as executor:
+                    chunks = _chunk_symbols(symbols, chunk_size=chunk_size)
+                    future_map = {
+                        executor.submit(
+                            _process_daily_selection_chunk_task,
+                            app_config=self._app_config,
+                            symbols_chunk=chunk,
+                            as_of=as_of_date,
+                            strategy_name=strategy_name,
+                            parameters=parameters,
+                            lookback_bars=lookback_bars,
+                        ): len(chunk)
+                        for chunk in chunks
+                    }
+                    for future in as_completed(future_map):
+                        result = future.result()
+                        signals.extend(result["signals"])
+                        symbols_with_history.update(result["symbols_with_history"])
+                        if progress_bar is not None:
+                            progress_bar.update(int(future_map[future]))
+            finally:
+                if progress_bar is not None:
+                    progress_bar.close()
+            config = selection_config or SelectionConfig(signal_type_whitelist=["buy"], min_score=0.0, top_n=30)
+            selections = SelectionPipeline(config).run(signals, as_of_date)
+            self._persist_daily_selection(
+                as_of=as_of_date,
+                strategy_name=strategy_name,
+                signals=signals,
+                selections=selections,
+                universe_size=len(symbols),
+                symbols_with_history=symbols_with_history,
+                missing_symbols=[symbol for symbol in symbols if symbol not in symbols_with_history],
+            )
+            return selections
+
+        if parallel_mode == "thread-chunk-yfinance" and worker_count > 1 and len(symbols) > 1:
+            symbols_with_history: set[Symbol] = set()
+            progress_bar = _create_progress_bar(
+                total=len(symbols),
+                desc=progress_label or "Daily Selection",
+                unit="symbol",
+            ) if use_progress else None
+            start = as_of_date - timedelta(days=max(lookback_bars * 3, lookback_bars + 30))
+            fetch_end = as_of_date + timedelta(days=1)
+            try:
+                with ThreadPoolExecutor(max_workers=worker_count) as executor:
+                    chunks = _chunk_symbols(symbols, chunk_size=chunk_size)
+                    future_map = {
+                        executor.submit(
+                            _process_daily_selection_chunk_with_provider_task,
+                            market_data_provider=self._market_data_provider,
+                            symbols_chunk=chunk,
+                            as_of=as_of_date,
+                            strategy_name=strategy_name,
+                            parameters=parameters,
+                            start=start,
+                            fetch_end=fetch_end,
+                        ): len(chunk)
+                        for chunk in chunks
+                    }
+                    for future in as_completed(future_map):
+                        result = future.result()
+                        signals.extend(result["signals"])
+                        symbols_with_history.update(result["symbols_with_history"])
+                        if progress_bar is not None:
+                            progress_bar.update(int(future_map[future]))
+            finally:
+                if progress_bar is not None:
+                    progress_bar.close()
+
+            missing_symbols = [symbol for symbol in symbols if symbol not in symbols_with_history]
+            if missing_symbols:
+                recovered = _recover_missing_daily_selection_symbols(
+                    market_data_provider=self._market_data_provider,
+                    missing_symbols=missing_symbols,
+                    as_of=as_of_date,
+                    strategy_name=strategy_name,
+                    parameters=parameters,
+                    start=start,
+                    fetch_end=fetch_end,
+                )
+                signals.extend(recovered["signals"])
+                symbols_with_history.update(recovered["symbols_with_history"])
+                missing_symbols = [symbol for symbol in symbols if symbol not in symbols_with_history]
+
+            config = selection_config or SelectionConfig(signal_type_whitelist=["buy"], min_score=0.0, top_n=30)
+            selections = SelectionPipeline(config).run(signals, as_of_date)
+            self._persist_daily_selection(
+                as_of=as_of_date,
+                strategy_name=strategy_name,
+                signals=signals,
+                selections=selections,
+                universe_size=len(symbols),
+                symbols_with_history=symbols_with_history,
+                missing_symbols=missing_symbols,
+            )
+            return selections
+
         start = as_of_date - timedelta(days=max(lookback_bars * 3, lookback_bars + 30))
         fetch_end = as_of_date + timedelta(days=1)
         bars = self._market_data_provider.fetch_ohlcv(symbols, start, fetch_end)
         grouped = _group_bars_by_symbol(bars, as_of=as_of_date)
 
-        signals: list[SignalRecord] = []
-        parameters = dict(strategy_parameters or {})
-
-        # Progress bar integration
-        show_progress = False
-        try:
-            from tqdm import tqdm
-            show_progress = len(symbols) > 1
-        except ImportError:
-            show_progress = False
-
-        iterator = symbols
-        progress_bar = None
-        if show_progress:
-            progress_bar = tqdm(symbols, desc="Daily Selection", unit="symbol")
-            iterator = progress_bar
-
-        for symbol in iterator:
+        def _generate_for_symbol(symbol: Symbol) -> list[SignalRecord]:
             history = grouped.get(symbol, [])
             if not history:
-                continue
-            symbol_signals = _generate_strategy_signals(
+                return []
+            return _generate_strategy_signals(
                 strategy_name=strategy_name,
                 parameters=parameters,
                 as_of=as_of_date,
                 by_symbol_history={symbol: history},
             )
-            signals.extend(symbol_signals)
-            if progress_bar:
-                progress_bar.update(1)
 
-        if progress_bar:
-            progress_bar.close()
-        for symbol in symbols:
-            history = grouped.get(symbol, [])
-            if not history:
-                continue
-            symbol_signals = _generate_strategy_signals(
-                strategy_name=strategy_name,
-                parameters=parameters,
-                as_of=as_of_date,
-                by_symbol_history={symbol: history},
-            )
-            signals.extend(symbol_signals)
+        if worker_count > 1 and len(symbols) > 1:
+            progress_bar = _create_progress_bar(
+                total=len(symbols),
+                desc=progress_label or "Daily Selection",
+                unit="symbol",
+            ) if use_progress else None
+            try:
+                with ProcessPoolExecutor(max_workers=worker_count) as executor:
+                    chunks = _chunk_symbols(symbols, chunk_size=chunk_size)
+                    future_map = {
+                        executor.submit(
+                            _generate_signals_for_symbol_chunk_task,
+                            chunk_histories={
+                                symbol: grouped.get(symbol, [])
+                                for symbol in chunk
+                            },
+                            strategy_name=strategy_name,
+                            parameters=parameters,
+                            as_of=as_of_date,
+                        ): len(chunk)
+                        for chunk in chunks
+                    }
+                    for future in as_completed(future_map):
+                        signals.extend(future.result())
+                        if progress_bar is not None:
+                            progress_bar.update(int(future_map[future]))
+            finally:
+                if progress_bar is not None:
+                    progress_bar.close()
+        else:
+            iterator = _create_progress_iterable(
+                iterable=symbols,
+                desc=progress_label or "Daily Selection",
+                unit="symbol",
+            ) if use_progress else symbols
+            try:
+                for symbol in iterator:
+                    signals.extend(_generate_for_symbol(symbol))
+            finally:
+                if use_progress and hasattr(iterator, "close"):
+                    iterator.close()
 
         config = selection_config or SelectionConfig(signal_type_whitelist=["buy"], min_score=0.0, top_n=30)
         selections = SelectionPipeline(config).run(signals, as_of_date)
+        symbols_with_history = {symbol for symbol in symbols if grouped.get(symbol)}
         self._persist_daily_selection(
             as_of=as_of_date,
             strategy_name=strategy_name,
             signals=signals,
             selections=selections,
+            universe_size=len(symbols),
+            symbols_with_history=symbols_with_history,
+            missing_symbols=[symbol for symbol in symbols if symbol not in symbols_with_history],
         )
         return selections
 
@@ -270,14 +441,32 @@ class DailySelectionRunner:
         strategy_name: str,
         signals: Sequence[SignalRecord],
         selections: Sequence[SelectionRecord],
+        universe_size: int | None = None,
+        symbols_with_history: Sequence[Symbol] | None = None,
+        missing_symbols: Sequence[Symbol] | None = None,
     ) -> None:
         output_dir = Path(self._output_base) / "tw_quant" / "daily_selection" / as_of.isoformat()
         output_dir.mkdir(parents=True, exist_ok=True)
+        stock_name_by_symbol = self._resolve_stock_names(as_of)
+        symbols_with_history_list = sorted({str(symbol).strip() for symbol in (symbols_with_history or []) if str(symbol).strip()})
+        missing_symbols_list = sorted({str(symbol).strip() for symbol in (missing_symbols or []) if str(symbol).strip()})
+        buy_signal_count = sum(1 for signal in signals if str(signal.signal).strip().lower() == "buy")
+        selection_rows = _build_daily_selection_rows(signals=signals, selections=selections)
+        csv_rows = _build_daily_signal_rows(
+            signals=signals,
+            selections=selections,
+            stock_name_by_symbol=stock_name_by_symbol,
+        )
 
         payload = {
             "as_of": as_of.isoformat(),
             "strategy_name": strategy_name,
+            "universe_size": int(universe_size or 0),
+            "symbols_with_history_count": len(symbols_with_history_list),
+            "missing_history_count": len(missing_symbols_list),
+            "missing_history_sample": missing_symbols_list[:50],
             "signal_count": len(signals),
+            "buy_signal_count": buy_signal_count,
             "selection_count": len(selections),
             "signals": [
                 {
@@ -289,27 +478,160 @@ class DailySelectionRunner:
                 }
                 for signal in signals
             ],
-            "selections": [
-                {
-                    "symbol": selection.symbol,
-                    "timestamp": _serialize_date_like(selection.timestamp),
-                    "rank": selection.rank,
-                    "weight": selection.weight,
-                    "reason": selection.reason,
-                }
-                for selection in selections
-            ],
+            "selections": selection_rows,
+        }
+        self._last_run_summary = {
+            "as_of": payload["as_of"],
+            "strategy_name": strategy_name,
+            "universe_size": payload["universe_size"],
+            "symbols_with_history_count": payload["symbols_with_history_count"],
+            "missing_history_count": payload["missing_history_count"],
+            "missing_history_sample": list(payload["missing_history_sample"]),
+            "signal_count": payload["signal_count"],
+            "buy_signal_count": payload["buy_signal_count"],
+            "selection_count": payload["selection_count"],
+            "selections": [dict(row) for row in selection_rows],
+            "csv_rows": [dict(row) for row in csv_rows],
         }
 
         json_path = output_dir / f"{strategy_name}.json"
         json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
         csv_path = output_dir / f"{strategy_name}.csv"
+        selection_fieldnames = _resolve_selection_csv_fieldnames(csv_rows)
         with csv_path.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=["symbol", "timestamp", "rank", "weight", "reason"])
+            writer = csv.DictWriter(handle, fieldnames=selection_fieldnames)
             writer.writeheader()
-            for row in payload["selections"]:
-                writer.writerow(row)
+            for row in csv_rows:
+                writer.writerow({field: row.get(field, "") for field in selection_fieldnames})
+        write_csv_preview_image(
+            csv_path=csv_path,
+            fieldnames=selection_fieldnames,
+            rows=csv_rows,
+        )
+
+    def _resolve_stock_names(self, as_of: date) -> dict[str, str]:
+        entries = self._universe_provider.get_universe(as_of=as_of)
+        stock_name_by_symbol: dict[str, str] = {}
+        for entry in entries:
+            symbol = str(getattr(entry, "symbol", "")).strip()
+            if not symbol or symbol in stock_name_by_symbol:
+                continue
+            stock_name_by_symbol[symbol] = str(getattr(entry, "name", "") or "")
+        return stock_name_by_symbol
+
+
+def build_stock_report(
+    *,
+    symbol: Symbol,
+    start: DateLike,
+    end: DateLike,
+    market_data_provider: MarketDataProvider,
+    universe_provider: UniverseProvider | None = None,
+    warmup_days: int = 180,
+) -> dict[str, Any]:
+    start_date = _to_date(start)
+    end_date = _to_date(end)
+    if end_date < start_date:
+        raise ValueError("end must be greater than or equal to start")
+
+    warmup = max(1, int(warmup_days))
+    fetch_start = start_date - timedelta(days=warmup)
+    fetch_end = end_date + timedelta(days=1)
+    bars = market_data_provider.fetch_ohlcv([symbol], fetch_start, fetch_end)
+    history = sorted(
+        [bar for bar in bars if str(bar.symbol).strip().upper() == str(symbol).strip().upper()],
+        key=lambda item: _to_date(item.date),
+    )
+    if not history:
+        raise ValueError(f"No price history found for symbol: {symbol}")
+
+    closes = [float(bar.close) for bar in history]
+    volumes = [float(bar.volume) for bar in history]
+    ma_5 = simple_moving_average(closes, 5)
+    ma_10 = simple_moving_average(closes, 10)
+    ma_20 = simple_moving_average(closes, 20)
+    ma_60 = simple_moving_average(closes, 60)
+    volume_ma_5 = simple_moving_average(volumes, 5)
+    volume_ma_20 = simple_moving_average(volumes, 20)
+    high_20 = rolling_max(closes, 20)
+    low_20 = rolling_min(closes, 20)
+    macd_hist = macd_histogram(closes)
+    rsi_14 = calculate_rsi([{"close": close} for close in closes], period=14)
+    inflows, outflows = inflow_outflow(volumes, closes)
+    flow_ratio_5 = flow_ratio(volumes, 5)
+    flow_momentum_5 = flow_momentum(inflows, 5)
+
+    rows: list[dict[str, Any]] = []
+    for index, bar in enumerate(history):
+        bar_date = _to_date(bar.date)
+        if bar_date < start_date or bar_date > end_date:
+            continue
+
+        previous_close = closes[index - 1] if index > 0 else None
+        holdings_window = volumes[max(0, index - 19): index + 1]
+        prices_window = closes[max(0, index - 19): index + 1]
+        chip_distribution_window = (
+            chip_distribution(holdings_window, window=min(5, len(holdings_window)))
+            if holdings_window else []
+        )
+        cost_ratio_window = (
+            cost_basis_ratio(prices_window, holdings_window)
+            if holdings_window and prices_window else []
+        )
+
+        rows.append({
+            "date": bar_date.isoformat(),
+            "symbol": str(bar.symbol),
+            "open": float(bar.open),
+            "high": float(bar.high),
+            "low": float(bar.low),
+            "close": float(bar.close),
+            "volume": float(bar.volume),
+            "turnover": (float(bar.turnover) if bar.turnover is not None else None),
+            "price_change": (float(bar.close) - previous_close) if previous_close is not None else None,
+            "price_change_pct": (
+                ((float(bar.close) - previous_close) / previous_close)
+                if previous_close not in (None, 0.0) else None
+            ),
+            "volume_ratio_5": _safe_divide(float(bar.volume), volume_ma_5[index]),
+            "volume_ratio_20": _safe_divide(float(bar.volume), volume_ma_20[index]),
+            "ma_5": ma_5[index],
+            "ma_10": ma_10[index],
+            "ma_20": ma_20[index],
+            "ma_60": ma_60[index],
+            "rolling_high_20": high_20[index],
+            "rolling_low_20": low_20[index],
+            "macd_histogram": macd_hist[index],
+            "rsi_14": rsi_14[index],
+            "estimated_inflow": inflows[index],
+            "estimated_outflow": outflows[index],
+            "flow_ratio_5": flow_ratio_5[index],
+            "flow_momentum_5": flow_momentum_5[index],
+            "chip_concentration_proxy": chip_concentration(holdings_window) if holdings_window else None,
+            "chip_distribution_5_proxy": chip_distribution_window[-1] if chip_distribution_window else None,
+            "cost_basis_ratio_proxy": cost_ratio_window[-1] if cost_ratio_window else None,
+        })
+
+    if not rows:
+        raise ValueError(
+            f"No price history found inside requested date range: symbol={symbol} start={start_date.isoformat()} end={end_date.isoformat()}"
+        )
+
+    universe_entry = universe_provider.get_symbol(str(symbol), as_of=end_date) if universe_provider is not None else None
+    return {
+        "mode": "stock_report",
+        "symbol": str(symbol),
+        "stock_name": str(getattr(universe_entry, "name", "") or ""),
+        "exchange": str(getattr(universe_entry, "exchange", "") or ""),
+        "market": str(getattr(universe_entry, "market", "") or ""),
+        "start": start_date.isoformat(),
+        "end": end_date.isoformat(),
+        "row_count": len(rows),
+        "warmup_days": warmup,
+        "chip_metrics_are_proxies": True,
+        "rows": rows,
+    }
 
 
 def persist_backtest_result(
@@ -375,6 +697,224 @@ def _generate_strategy_signals(
         ),
     )
     return strategy.generate_signals(context)
+
+
+def _generate_signals_for_symbol_task(
+    *,
+    symbol: Symbol,
+    history: Sequence[OHLCVBar],
+    strategy_name: str,
+    parameters: dict[str, Any],
+    as_of: date,
+) -> list[SignalRecord]:
+    if not history:
+        return []
+    return _generate_strategy_signals(
+        strategy_name=strategy_name,
+        parameters=parameters,
+        as_of=as_of,
+        by_symbol_history={symbol: list(history)},
+    )
+
+
+def _generate_signals_for_symbol_chunk_task(
+    *,
+    chunk_histories: dict[Symbol, list[OHLCVBar]],
+    strategy_name: str,
+    parameters: dict[str, Any],
+    as_of: date,
+) -> list[SignalRecord]:
+    signals: list[SignalRecord] = []
+    for symbol, history in chunk_histories.items():
+        if not history:
+            continue
+        signals.extend(
+            _generate_strategy_signals(
+                strategy_name=strategy_name,
+                parameters=parameters,
+                as_of=as_of,
+                by_symbol_history={symbol: list(history)},
+            )
+        )
+    return signals
+
+
+def _process_daily_selection_chunk_task(
+    *,
+    app_config: AppConfig,
+    symbols_chunk: Sequence[Symbol],
+    as_of: date,
+    strategy_name: str,
+    parameters: dict[str, Any],
+    lookback_bars: int,
+) -> dict[str, list[Any]]:
+    ctx = build_app_context(app_config)
+    if ctx.market_data_provider is None:
+        return {"signals": [], "symbols_with_history": []}
+    start = as_of - timedelta(days=max(lookback_bars * 3, lookback_bars + 30))
+    fetch_end = as_of + timedelta(days=1)
+    bars = ctx.market_data_provider.fetch_ohlcv(list(symbols_chunk), start, fetch_end)
+    grouped = _group_bars_by_symbol(bars, as_of=as_of)
+    signals: list[SignalRecord] = []
+    symbols_with_history: list[Symbol] = []
+    for symbol in symbols_chunk:
+        history = grouped.get(symbol, [])
+        if not history:
+            continue
+        symbols_with_history.append(symbol)
+        signals.extend(
+            _generate_strategy_signals(
+                strategy_name=strategy_name,
+                parameters=parameters,
+                as_of=as_of,
+                by_symbol_history={symbol: history},
+            )
+        )
+    return {"signals": signals, "symbols_with_history": symbols_with_history}
+
+
+def _process_daily_selection_chunk_with_provider_task(
+    *,
+    market_data_provider: MarketDataProvider,
+    symbols_chunk: Sequence[Symbol],
+    as_of: date,
+    strategy_name: str,
+    parameters: dict[str, Any],
+    start: date,
+    fetch_end: date,
+) -> dict[str, list[Any]]:
+    bars = market_data_provider.fetch_ohlcv(list(symbols_chunk), start, fetch_end)
+    grouped = _group_bars_by_symbol(bars, as_of=as_of)
+    signals: list[SignalRecord] = []
+    symbols_with_history: list[Symbol] = []
+    for symbol in symbols_chunk:
+        history = grouped.get(symbol, [])
+        if not history:
+            continue
+        symbols_with_history.append(symbol)
+        signals.extend(
+            _generate_strategy_signals(
+                strategy_name=strategy_name,
+                parameters=parameters,
+                as_of=as_of,
+                by_symbol_history={symbol: history},
+            )
+        )
+    return {"signals": signals, "symbols_with_history": symbols_with_history}
+
+
+def _recover_missing_daily_selection_symbols(
+    *,
+    market_data_provider: MarketDataProvider,
+    missing_symbols: Sequence[Symbol],
+    as_of: date,
+    strategy_name: str,
+    parameters: dict[str, Any],
+    start: date,
+    fetch_end: date,
+) -> dict[str, list[Any]]:
+    if not missing_symbols:
+        return {"signals": [], "symbols_with_history": []}
+    bars = market_data_provider.fetch_ohlcv(list(missing_symbols), start, fetch_end)
+    grouped = _group_bars_by_symbol(bars, as_of=as_of)
+    signals: list[SignalRecord] = []
+    symbols_with_history: list[Symbol] = []
+    for symbol in missing_symbols:
+        history = grouped.get(symbol, [])
+        if not history:
+            continue
+        symbols_with_history.append(symbol)
+        signals.extend(
+            _generate_strategy_signals(
+                strategy_name=strategy_name,
+                parameters=parameters,
+                as_of=as_of,
+                by_symbol_history={symbol: history},
+            )
+        )
+    return {"signals": signals, "symbols_with_history": symbols_with_history}
+
+
+def _build_daily_selection_rows(
+    *,
+    signals: Sequence[SignalRecord],
+    selections: Sequence[SelectionRecord],
+) -> list[dict[str, Any]]:
+    signal_by_symbol = {
+        str(signal.symbol).strip(): signal
+        for signal in signals
+        if str(signal.symbol).strip()
+    }
+    rows: list[dict[str, Any]] = []
+    for selection in selections:
+        symbol = str(selection.symbol).strip()
+        signal = signal_by_symbol.get(symbol)
+        criteria = dict(signal.metadata) if signal is not None else {}
+        row: dict[str, Any] = {
+            "symbol": selection.symbol,
+            "timestamp": _serialize_date_like(selection.timestamp),
+            "rank": selection.rank,
+            "weight": selection.weight,
+            "reason": selection.reason,
+            "signal": (signal.signal if signal is not None else ""),
+            "score": (signal.score if signal is not None else ""),
+            "criteria": criteria,
+            "criteria_json": json.dumps(criteria, ensure_ascii=False, sort_keys=True),
+        }
+        for key, value in criteria.items():
+            row[f"criteria_{key}"] = value
+        rows.append(row)
+    return rows
+
+
+def _build_daily_signal_rows(
+    *,
+    signals: Sequence[SignalRecord],
+    selections: Sequence[SelectionRecord],
+    stock_name_by_symbol: dict[str, str] | None = None,
+) -> list[dict[str, Any]]:
+    selection_by_symbol = {
+        str(selection.symbol).strip(): selection
+        for selection in selections
+        if str(selection.symbol).strip()
+    }
+    rows: list[dict[str, Any]] = []
+    buy_signals = [
+        signal
+        for signal in signals
+        if str(signal.signal).strip().lower() == "buy" and str(signal.symbol).strip()
+    ]
+    for signal in buy_signals:
+        symbol = str(signal.symbol).strip()
+        selection = selection_by_symbol.get(symbol)
+        criteria = dict(signal.metadata)
+        row: dict[str, Any] = {
+            "symbol": signal.symbol,
+            "stock_name": (stock_name_by_symbol or {}).get(symbol, ""),
+            "timestamp": _serialize_date_like(signal.timestamp),
+            "rank": selection.rank if selection is not None else "",
+            "weight": selection.weight if selection is not None else "",
+            "reason": selection.reason if selection is not None else signal.signal,
+            "signal": signal.signal,
+            "score": signal.score,
+            "selected": selection is not None,
+            "criteria": criteria,
+        }
+        for key, value in criteria.items():
+            row[f"criteria_{key}"] = value
+        rows.append(row)
+    return rows
+
+
+def _resolve_selection_csv_fieldnames(rows: Sequence[dict[str, Any]]) -> list[str]:
+    base_fields = ["symbol", "stock_name", "timestamp", "rank", "weight", "reason", "signal", "score", "selected"]
+    dynamic_fields = sorted({
+        key
+        for row in rows
+        for key in row.keys()
+        if key.startswith("criteria_")
+    })
+    return [*base_fields, *dynamic_fields]
 
 
 def _resolve_reentry_cooldown_days(strategy_name: str, parameters: dict[str, Any]) -> int:
@@ -588,6 +1128,14 @@ def _build_strategy(
             },
         )
 
+    if normalized == "qizhang_selection_strategy":
+        return QizhangSignalStrategy(
+            history_source=lambda: {
+                symbol: list(history)
+                for symbol, history in by_symbol_history.items()
+            }
+        )
+
     if normalized in {"ma_bullish_stack", "bullish_stack", "ma_stack", "bull_stack"}:
         short_window = int(parameters.get("short_window", parameters.get("short", 5)))
         mid_window = int(parameters.get("mid_window", parameters.get("mid", 20)))
@@ -638,6 +1186,12 @@ def _group_bars_by_symbol(bars: Sequence[OHLCVBar], *, as_of: date) -> dict[Symb
     return grouped
 
 
+def _safe_divide(numerator: float, denominator: float | None) -> float | None:
+    if denominator in (None, 0.0):
+        return None
+    return numerator / denominator
+
+
 def _to_date(value: DateLike) -> date:
     if isinstance(value, datetime):
         return value.date()
@@ -654,3 +1208,65 @@ def _serialize_date_like(value: DateLike) -> str:
     if isinstance(value, date):
         return value.isoformat()
     return value
+
+
+def _create_progress_bar(*, total: int, desc: str, unit: str):
+    if tqdm is None:
+        return None
+    return tqdm(
+        total=total,
+        desc=desc,
+        unit=unit,
+        file=sys.stdout,
+        dynamic_ncols=True,
+        mininterval=0.2,
+        leave=True,
+        ascii=True,
+    )
+
+
+def _create_progress_iterable(*, iterable, desc: str, unit: str):
+    if tqdm is None:
+        return iterable
+    return tqdm(
+        iterable,
+        desc=desc,
+        unit=unit,
+        file=sys.stdout,
+        dynamic_ncols=True,
+        mininterval=0.2,
+        leave=True,
+        ascii=True,
+    )
+
+
+def _resolve_parallel_chunk_size(*, symbol_count: int, worker_count: int) -> int:
+    if symbol_count <= 0:
+        return 1
+    if worker_count <= 1:
+        return 1
+    target_chunks = max(worker_count * 4, worker_count)
+    return max(1, min(25, (symbol_count + target_chunks - 1) // target_chunks))
+
+
+def _chunk_symbols(symbols: Sequence[Symbol], *, chunk_size: int) -> list[list[Symbol]]:
+    if chunk_size <= 1:
+        return [[symbol] for symbol in symbols]
+    return [list(symbols[index:index + chunk_size]) for index in range(0, len(symbols), chunk_size)]
+
+
+def _resolve_daily_selection_parallel_mode(
+    *,
+    app_config: AppConfig | None,
+    requested_workers: int,
+    symbol_count: int,
+) -> tuple[str, int]:
+    if requested_workers <= 1 or symbol_count <= 1:
+        return ("single-process", 1)
+    market_provider = ""
+    app_data = getattr(app_config, "data", None) if app_config is not None else None
+    if app_data is not None:
+        market_provider = str(getattr(app_data, "market_provider", "") or "").strip().lower()
+    if market_provider == "yfinance_ohlcv":
+        return ("thread-chunk-yfinance", min(requested_workers, 8))
+    return ("process-chunk", requested_workers)

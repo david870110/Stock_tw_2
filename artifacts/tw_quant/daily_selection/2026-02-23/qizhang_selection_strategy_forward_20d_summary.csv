@@ -1,0 +1,2 @@
+selection_csv,holding_period_label,evaluated_count,missing_count,average_return_pct,win_rate,max_return_pct,min_return_pct
+c:\Users\JIANG\Desktop\Stock_tw_2\artifacts\tw_quant\daily_selection\2026-02-23\qizhang_selection_strategy.csv,20d,106,0,0.055839,0.396226,2.236934,-0.339422

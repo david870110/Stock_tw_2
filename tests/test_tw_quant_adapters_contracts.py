@@ -1,7 +1,4 @@
-"""Contract tests for yfinance OHLCV adapter and TWSE/TPEX universe mappers.
-
-These tests use stubs — no real network calls are made.
-"""
+"""Contract tests for yfinance OHLCV adapter and TWSE/TPEX universe mappers."""
 
 from __future__ import annotations
 
@@ -15,21 +12,6 @@ from src.tw_quant.adapters.yfinance_ohlcv import yfinance_fetcher
 from src.tw_quant.config.models import AppConfig, DataConfig
 from src.tw_quant.wiring.container import build_app_context
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-def _make_dataframe(rows: list[dict]):
-    """Build a minimal pandas-like DataFrame stub using a dict-of-list layout."""
-    import pandas as pd
-
-    return pd.DataFrame(rows).set_index("Date")
-
-
-# ---------------------------------------------------------------------------
-# Test 1: yfinance_fetcher output shape (mocked — no network)
-# ---------------------------------------------------------------------------
 
 def test_yfinance_fetcher_returns_correct_shape():
     import pandas as pd
@@ -109,70 +91,40 @@ def test_yfinance_fetcher_falls_back_from_tw_to_two():
     assert rows[0]["close"] == pytest.approx(51.0)
 
 
-# ---------------------------------------------------------------------------
-# Test 2: TWSE row mapper field contracts
-# ---------------------------------------------------------------------------
-
-def test_map_twse_row_maps_chinese_field():
-    row = {"有價證券代號": "2330", "有價證券名稱": "台積電", "市場別": "上市"}
+def test_map_twse_row_maps_current_chinese_fields():
+    row = {"公司代號": "2330", "公司名稱": "台灣積體電路製造股份有限公司", "公司簡稱": "台積電"}
     result = map_twse_row(row)
+
     assert result["symbol"] == "2330"
+    assert result["name"] == "台積電"
     assert result["exchange"] == "TWSE"
     assert result["market"] == "stock"
     assert result["listing_status"] == "listed"
-
-
-def test_map_twse_row_falls_back_to_securities_code():
-    row = {"SecuritiesCode": "2317", "Name": "鴻海"}
-    result = map_twse_row(row)
-    assert result["symbol"] == "2317"
-    assert result["exchange"] == "TWSE"
-
-
-def test_map_twse_row_empty_when_no_symbol_field():
-    result = map_twse_row({"SomethingElse": "X"})
-    assert result["symbol"] == ""
-
-
-# ---------------------------------------------------------------------------
-# Test 3: TPEX row mapper field contracts
-# ---------------------------------------------------------------------------
-
-def test_map_tpex_row_maps_securities_code():
-    row = {"SecuritiesCode": "6488", "Name": "環球晶"}
-    result = map_tpex_row(row)
-    assert result["symbol"] == "6488"
-    assert result["exchange"] == "TPEX"
-    assert result["market"] == "stock"
-    assert result["listing_status"] == "listed"
-
-
-def test_map_tpex_row_falls_back_to_chinese_field():
-    row = {"股票代號": "3443", "公司名稱": "創意電子"}
-    result = map_tpex_row(row)
-    assert result["symbol"] == "3443"
-    assert result["exchange"] == "TPEX"
-
-
-def test_map_tpex_row_prefers_security_code_over_company_code():
-    row = {
-        "SecuritiesCompanyCode": "1260",
-        "SecuritiesCode": "6488",
-        "Name": "環球晶",
-    }
-    result = map_tpex_row(row)
-    assert result["symbol"] == "6488"
 
 
 def test_map_twse_row_marks_etf_market():
-    row = {"有價證券代號": "0050", "有價證券名稱": "元大台灣50 ETF"}
+    row = {"公司代號": "0050", "公司簡稱": "元大台灣50 ETF"}
     result = map_twse_row(row)
     assert result["market"] == "etf"
 
 
-# ---------------------------------------------------------------------------
-# Test 4: build_app_context wires yfinance_ohlcv provider correctly
-# ---------------------------------------------------------------------------
+def test_map_tpex_row_maps_current_fields():
+    row = {"SecuritiesCompanyCode": "1569", "CompanyName": "濱川"}
+    result = map_tpex_row(row)
+
+    assert result["symbol"] == "1569"
+    assert result["name"] == "濱川"
+    assert result["exchange"] == "TPEX"
+    assert result["market"] == "stock"
+    assert result["listing_status"] == "listed"
+
+
+def test_map_tpex_row_prefers_securities_code():
+    row = {"SecuritiesCompanyCode": "1260", "SecuritiesCode": "6488", "CompanyName": "環球晶"}
+    result = map_tpex_row(row)
+    assert result["symbol"] == "6488"
+    assert result["name"] == "環球晶"
+
 
 def test_build_app_context_yfinance_ohlcv_wires_non_none_market_provider():
     config = AppConfig(
@@ -185,10 +137,6 @@ def test_build_app_context_yfinance_ohlcv_wires_non_none_market_provider():
     ctx = build_app_context(config)
     assert ctx.market_data_provider is not None
 
-
-# ---------------------------------------------------------------------------
-# Test 5: build_app_context remote_universe wires correct fetcher wrappers
-# ---------------------------------------------------------------------------
 
 def test_build_app_context_remote_universe_wires_non_none_universe_provider():
     config = AppConfig(

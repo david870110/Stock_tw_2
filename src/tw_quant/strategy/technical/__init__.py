@@ -15,6 +15,7 @@ from src.tw_quant.strategy.technical.pullback_trend_compression import (
     PullbackTrend120dOptimizedStrategy,
     PullbackTrendCompressionStrategy,
 )
+from src.tw_quant.strategy.technical.qizhang_signal import QizhangSignalStrategy
 
 __all__ = [
     "simple_moving_average",
@@ -28,4 +29,5 @@ __all__ = [
     "MovingAverageCrossoverStrategy",
     "PullbackTrendCompressionStrategy",
     "PullbackTrend120dOptimizedStrategy",
+    "QizhangSignalStrategy",
 ]

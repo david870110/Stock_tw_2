@@ -22,3 +22,4 @@ class UniverseEntry:
     market: str
     listing_status: ListingStatus
     updated_at: datetime
+    name: str = ""
