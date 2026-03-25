@@ -566,6 +566,169 @@ def test_daily_selection_qizhang_csv_includes_detailed_thresholds_and_values(tmp
     assert png_path.stat().st_size > 0
 
 
+def test_daily_selection_qizhang_improve_csv_includes_improved_thresholds_and_values(tmp_path) -> None:
+    universe = InMemoryUniverseProvider(
+        [
+            UniverseEntry(
+                symbol="8299.TW",
+                exchange="TWSE",
+                market="main",
+                listing_status=ListingStatus.LISTED,
+                updated_at=datetime(2024, 1, 1),
+                name="Phison",
+            ),
+        ]
+    )
+    start = datetime(2024, 1, 1)
+    entries: list[OHLCVBar] = []
+    for i in range(80):
+        base_close = (
+            60.0
+            + (0.25 * i)
+            + (0.8 if i % 4 == 0 else -0.6 if i % 4 == 1 else 0.25 if i % 4 == 2 else -0.15)
+        )
+        open_price = base_close - 0.3
+        close_price = base_close
+        high_price = close_price + 0.2
+        low_price = open_price - 0.2
+        volume = 1000.0
+        if i == 79:
+            previous_close = entries[-1].close
+            open_price = previous_close * 1.01
+            close_price = 84.0
+            high_price = close_price * 1.001
+            low_price = previous_close * 1.005
+            volume = 2400.0
+        entries.append(
+            OHLCVBar(
+                symbol="8299.TW",
+                date=(start + timedelta(days=i)).date().isoformat(),
+                open=open_price,
+                high=high_price,
+                low=low_price,
+                close=close_price,
+                volume=volume,
+            )
+        )
+
+    provider = InMemoryMarketDataProvider(entries)
+    runner = DailySelectionRunner(
+        universe_provider=universe,
+        market_data_provider=provider,
+        output_base=str(tmp_path),
+    )
+
+    selections = runner.run(
+        as_of="2024-03-20",
+        strategy_name="qizhang_improve_strategy",
+        lookback_bars=80,
+        show_progress=False,
+    )
+
+    assert len(selections) == 1
+
+    payload_path = tmp_path / "tw_quant" / "daily_selection" / "2024-03-20" / "qizhang_improve_strategy.json"
+    payload = json.loads(payload_path.read_text(encoding="utf-8"))
+    assert payload["selections"][0]["criteria"]["indicator"] == "qizhang_improve_signal"
+    assert payload["selections"][0]["criteria"]["selected_setup"] == "sig_explosive"
+    assert payload["selections"][0]["criteria"]["close_pos"] >= 0.70
+    assert payload["selections"][0]["criteria"]["check_sig_explosive_close_pos"] is True
+    assert payload["selections"][0]["criteria"]["check_sig_explosive_rsi_14"] is True
+
+    csv_path = tmp_path / "tw_quant" / "daily_selection" / "2024-03-20" / "qizhang_improve_strategy.csv"
+    csv_text = csv_path.read_text(encoding="utf-8")
+    png_path = csv_path.with_suffix(".png")
+    assert "criteria_indicator" in csv_text
+    assert "criteria_close_pos" in csv_text
+    assert "criteria_check_sig_explosive_close_pos" in csv_text
+    assert "threshold_sig_explosive_close_pos_min" in csv_text
+    assert "threshold_sig_explosive_rsi_14_min" in csv_text
+    assert png_path.exists()
+    assert png_path.stat().st_size > 0
+
+
+def test_daily_selection_qizhang_improve_v15_csv_includes_v15_thresholds_and_values(tmp_path) -> None:
+    universe = InMemoryUniverseProvider(
+        [
+            UniverseEntry(
+                symbol="8299.TW",
+                exchange="TWSE",
+                market="main",
+                listing_status=ListingStatus.LISTED,
+                updated_at=datetime(2024, 1, 1),
+                name="Phison",
+            ),
+        ]
+    )
+    start = datetime(2024, 1, 1)
+    entries: list[OHLCVBar] = []
+    for i in range(80):
+        base_close = (
+            60.0
+            + (0.25 * i)
+            + (0.8 if i % 4 == 0 else -0.6 if i % 4 == 1 else 0.25 if i % 4 == 2 else -0.15)
+        )
+        open_price = base_close - 0.3
+        close_price = base_close
+        high_price = close_price + 0.2
+        low_price = open_price - 0.2
+        volume = 1000.0
+        if i == 79:
+            previous_close = entries[-1].close
+            open_price = previous_close * 1.01
+            close_price = 84.0
+            high_price = close_price * 1.001
+            low_price = previous_close * 1.005
+            volume = 2400.0
+        entries.append(
+            OHLCVBar(
+                symbol="8299.TW",
+                date=(start + timedelta(days=i)).date().isoformat(),
+                open=open_price,
+                high=high_price,
+                low=low_price,
+                close=close_price,
+                volume=volume,
+            )
+        )
+
+    provider = InMemoryMarketDataProvider(entries)
+    runner = DailySelectionRunner(
+        universe_provider=universe,
+        market_data_provider=provider,
+        output_base=str(tmp_path),
+    )
+
+    selections = runner.run(
+        as_of="2024-03-20",
+        strategy_name="qizhang_improve_strategy_v15",
+        lookback_bars=80,
+        show_progress=False,
+    )
+
+    assert len(selections) == 1
+
+    payload_path = tmp_path / "tw_quant" / "daily_selection" / "2024-03-20" / "qizhang_improve_strategy_v15.json"
+    payload = json.loads(payload_path.read_text(encoding="utf-8"))
+    assert payload["selections"][0]["criteria"]["indicator"] == "qizhang_improve_signal_v15"
+    assert payload["selections"][0]["criteria"]["selected_setup"] == "sig_explosive"
+    assert payload["selections"][0]["criteria"]["check_sig_explosive_close_position_20d"] is True
+    assert payload["selections"][0]["criteria"]["check_sig_explosive_close_vs_ma20_max"] is True
+    assert payload["selections"][0]["criteria"]["check_sig_explosive_close_vs_ma60_max"] is True
+
+    csv_path = tmp_path / "tw_quant" / "daily_selection" / "2024-03-20" / "qizhang_improve_strategy_v15.csv"
+    csv_text = csv_path.read_text(encoding="utf-8")
+    png_path = csv_path.with_suffix(".png")
+    assert "criteria_indicator" in csv_text
+    assert "criteria_close_vs_ma20" in csv_text
+    assert "criteria_check_sig_explosive_close_vs_ma20_max" in csv_text
+    assert "criteria_check_sig_explosive_close_position_20d" in csv_text
+    assert "criteria_threshold_sig_explosive_close_vs_ma20_max" in csv_text
+    assert "criteria_threshold_sig_explosive_rsi_14_max" in csv_text
+    assert png_path.exists()
+    assert png_path.stat().st_size > 0
+
+
 def test_daily_selection_csv_writes_all_buy_signals_not_only_top_n(tmp_path) -> None:
     universe = InMemoryUniverseProvider(
         [

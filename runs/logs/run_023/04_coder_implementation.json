@@ -1,0 +1,9 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "coder",
+  "status": "DONE",
+  "decision": "IMPLEMENTED",
+  "instruction": "Updated strategy-improve to collect all buy-signal CSV rows for forward evaluation, regardless of selected flag, and added regression coverage.",
+  "success": true
+}

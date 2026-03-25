@@ -1,0 +1,15 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "qa",
+  "status": "PASS",
+  "decision": "PASS",
+  "instruction": "Validated refreshed analysis-provider behavior with regression tests and compile verification.",
+  "evidence": {
+    "tests": [
+      "pytest -q tests/test_tw_quant_runner_strategy_improve_report.py tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_selection_forward_report.py",
+      "python -m compileall src\\tw_quant\\runner.py tests\\test_tw_quant_runner_strategy_improve_report.py"
+    ]
+  },
+  "success": true
+}

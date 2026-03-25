@@ -1,0 +1,11 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_QA",
+  "instruction": "## Task: Stock report expanded metrics\n\n**Description:** Validate the expanded stock-report JSON/CSV output against the approved T22 field-level specification.\n\n**Specification:**\n- Add new top-level metadata fields.\n- Add row-level technical, ATR, candle/volume, and Qizhang analysis fields.\n- Extend CSV field ordering for stock-report and grouped strategy-improve stock-report outputs.\n- Preserve existing fields and behavior.\n- Update tests.\n\n**Implementation Log:**\nCoder expanded `src/tw_quant/workflows.py` and `src/tw_quant/runner.py`, and updated stock-report contracts tests.\n\n**Your Task:**\nPlease validate the implementation against the approved specification and return PASS, FAIL, or SPEC_GAP.\n\nReturn valid JSON only.",
+  "summary": "Routing T22 to QA with targeted stock-report and runner regression evidence.",
+  "next_action": "Wait for QA result.",
+  "success": true
+}

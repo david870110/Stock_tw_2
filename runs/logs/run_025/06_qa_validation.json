@@ -1,0 +1,15 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "qa",
+  "status": "PASS",
+  "decision": "PASS",
+  "instruction": "Validated random year sampling from the configured year range with deterministic-plan and validation tests.",
+  "evidence": {
+    "tests": [
+      "pytest -q tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_strategy_improve_report.py",
+      "python -m compileall src\\tw_quant\\runner.py tests\\test_tw_quant_runner_params.py"
+    ]
+  },
+  "success": true
+}

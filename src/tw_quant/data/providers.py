@@ -6,11 +6,14 @@ import time
 from datetime import date, datetime
 from typing import Callable, Iterable, Sequence
 
+from src.tw_quant.adapters.yfinance_ohlcv import YFinanceRateLimitError
 from src.tw_quant.core.types import DateLike, Symbol
 from src.tw_quant.schema.models import OHLCVBar
 
 
 OHLCVFetcher = Callable[[Symbol, DateLike, DateLike, float], Sequence[dict[str, object]]]
+_RATE_LIMIT_RETRY_SLEEP_SECONDS = 300.0
+_RATE_LIMIT_MAX_ATTEMPTS = 20
 
 
 class ResilientMarketDataProvider:
@@ -70,16 +73,25 @@ class ResilientMarketDataProvider:
         start: DateLike,
         end: DateLike,
     ) -> Sequence[dict[str, object]]:
-        attempts = self._max_retries + 1
+        regular_attempts = self._max_retries + 1
+        regular_failures = 0
+        rate_limit_attempts = 0
 
-        for attempt in range(attempts):
+        while True:
             self._enforce_rate_limit()
             try:
                 return self._fetcher(symbol, start, end, self._timeout_seconds)
-            except Exception:  # pragma: no cover - covered by contracts indirectly
-                if attempt + 1 >= attempts:
+            except Exception as exc:  # pragma: no cover - covered by contracts indirectly
+                if _is_rate_limit_error(exc):
+                    rate_limit_attempts += 1
+                    if rate_limit_attempts >= _RATE_LIMIT_MAX_ATTEMPTS:
+                        return []
+                    time.sleep(_RATE_LIMIT_RETRY_SLEEP_SECONDS)
+                    continue
+                regular_failures += 1
+                if regular_failures >= regular_attempts:
                     return []
-                time.sleep(self._retry_backoff_seconds * (attempt + 1))
+                time.sleep(self._retry_backoff_seconds * regular_failures)
 
         return []
 
@@ -134,3 +146,11 @@ def _to_date(value: DateLike) -> date:
 def _chunked(values: list[Symbol], size: int) -> Iterable[list[Symbol]]:
     for index in range(0, len(values), size):
         yield values[index:index + size]
+
+
+def _is_rate_limit_error(exc: Exception) -> bool:
+    if isinstance(exc, YFinanceRateLimitError):
+        return True
+    name = exc.__class__.__name__.lower()
+    message = str(exc).lower()
+    return "ratelimit" in name or "rate limited" in message or "too many requests" in message

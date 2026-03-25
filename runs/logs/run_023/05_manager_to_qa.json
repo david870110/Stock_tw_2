@@ -1,0 +1,9 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "manager",
+  "status": "APPROVED_FOR_QA",
+  "decision": "ROUTE_TO_QA",
+  "instruction": "Validate that strategy-improve now evaluates all buy-signal rows, including selected=False rows, without changing daily-selection behavior.",
+  "success": true
+}

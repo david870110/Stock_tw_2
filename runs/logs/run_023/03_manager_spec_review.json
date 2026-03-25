@@ -1,0 +1,9 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_CODER",
+  "instruction": "Approved. Keep daily-selection behavior intact, implement the strategy-improve all-signal forward change only, and add regression coverage.",
+  "success": true
+}

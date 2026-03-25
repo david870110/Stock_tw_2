@@ -1,0 +1,11 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. T24 is closed with approved spec, implementation, QA PASS, and refreshed artifact evidence in run_024.",
+  "summary": "Strategy-improve now refreshes the market-data provider before forward evaluation, preventing all-missing forward rows after Step0, and the current forward artifacts were rebuilt from selection cache.",
+  "next_action": "Tell the user the fix is in, point to the refreshed forward outputs, and suggest rerunning strategy-improve-report for a fully refreshed stock-report set when convenient.",
+  "success": true
+}

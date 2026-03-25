@@ -1,0 +1,24 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Updated `strategy-improve-report` in `src/tw_quant/runner.py` so missing-history threshold breaches on individual sampled dates are converted into stdout warnings plus skipped-date manifest records, while the workflow continues processing later dates. Kept `daily-selection` behavior unchanged by centralizing threshold message formatting and only altering the strategy-improve path. Added regression coverage for warning/skip/continue behavior in `tests/test_tw_quant_runner_strategy_improve_report.py` and updated stdout JSON parsing in tests to tolerate warning lines before the final JSON payload.",
+  "files_modified": [
+    "src/tw_quant/runner.py",
+    "tests/test_tw_quant_runner_strategy_improve_report.py",
+    "specs/task-007-strategy-improve-bucketed-stock-report.md",
+    "runs/logs/run_021/01_manager_planning.json",
+    "runs/logs/run_021/02_planner_spec.json",
+    "runs/logs/run_021/03_manager_spec_review.json"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_runner_strategy_improve_report.py"
+  ],
+  "test_execution_summary": "Passed: `pytest -q tests/test_tw_quant_runner_selection_forward_report.py tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_strategy_improve_report.py` and `python -m compileall src\\tw_quant\\runner.py tests\\test_tw_quant_runner_strategy_improve_report.py`.",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T21 implementation is complete and ready for QA.",
+  "next_action": "Send the implementation and test evidence to QA.",
+  "success": true
+}

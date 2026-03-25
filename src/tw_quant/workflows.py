@@ -561,6 +561,8 @@ def build_stock_report(
     inflows, outflows = inflow_outflow(volumes, closes)
     flow_ratio_5 = flow_ratio(volumes, 5)
     flow_momentum_5 = flow_momentum(inflows, 5)
+    true_ranges = _compute_true_ranges(history)
+    atr_14 = simple_moving_average(true_ranges, 14)
 
     rows: list[dict[str, Any]] = []
     for index, bar in enumerate(history):
@@ -579,6 +581,13 @@ def build_stock_report(
             cost_basis_ratio(prices_window, holdings_window)
             if holdings_window and prices_window else []
         )
+        intraday_range = float(bar.high) - float(bar.low)
+        close_position_20d = _resolve_close_position(
+            close=float(bar.close),
+            rolling_low=low_20[index],
+            rolling_high=high_20[index],
+        )
+        qizhang_snapshot = _evaluate_qizhang_snapshot(history[: index + 1])
 
         rows.append({
             "date": bar_date.isoformat(),
@@ -604,6 +613,17 @@ def build_stock_report(
             "rolling_low_20": low_20[index],
             "macd_histogram": macd_hist[index],
             "rsi_14": rsi_14[index],
+            "close_vs_ma_5": _safe_pct_from_base(float(bar.close), ma_5[index]),
+            "close_vs_ma_10": _safe_pct_from_base(float(bar.close), ma_10[index]),
+            "close_vs_ma_20": _safe_pct_from_base(float(bar.close), ma_20[index]),
+            "close_vs_ma_60": _safe_pct_from_base(float(bar.close), ma_60[index]),
+            "close_position_20d": close_position_20d,
+            "distance_to_rolling_high_20_pct": _safe_pct_from_base(float(bar.close), high_20[index]),
+            "distance_to_rolling_low_20_pct": _safe_pct_from_base(float(bar.close), low_20[index]),
+            "return_5d": _resolve_period_return(closes, index=index, lookback=5),
+            "return_20d": _resolve_period_return(closes, index=index, lookback=20),
+            "true_range": true_ranges[index],
+            "atr_14": atr_14[index],
             "estimated_inflow": inflows[index],
             "estimated_outflow": outflows[index],
             "flow_ratio_5": flow_ratio_5[index],
@@ -611,6 +631,35 @@ def build_stock_report(
             "chip_concentration_proxy": chip_concentration(holdings_window) if holdings_window else None,
             "chip_distribution_5_proxy": chip_distribution_window[-1] if chip_distribution_window else None,
             "cost_basis_ratio_proxy": cost_ratio_window[-1] if cost_ratio_window else None,
+            "volume_change_pct": _safe_pct_from_base(float(bar.volume), volumes[index - 1] if index > 0 else None),
+            "candle_body": float(bar.close) - float(bar.open),
+            "candle_body_pct": (_safe_divide(float(bar.close) - float(bar.open), intraday_range) if intraday_range != 0 else 0.0),
+            "upper_shadow": float(bar.high) - max(float(bar.open), float(bar.close)),
+            "lower_shadow": min(float(bar.open), float(bar.close)) - float(bar.low),
+            "intraday_range": intraday_range,
+            "intraday_range_pct": _safe_divide(intraday_range, float(bar.open)),
+            "qizhang_signal": qizhang_snapshot["signal"],
+            "qizhang_score": qizhang_snapshot["score"],
+            "qizhang_selected_setup": qizhang_snapshot["selected_setup"],
+            "qizhang_sig_anchor": qizhang_snapshot["sig_anchor"],
+            "qizhang_sig_explosive": qizhang_snapshot["sig_explosive"],
+            "qizhang_close_pos": qizhang_snapshot["close_pos"],
+            "qizhang_close_vs_ma60": qizhang_snapshot["close_vs_ma60"],
+            "qizhang_net_flow": qizhang_snapshot["net_flow"],
+            "qizhang_check_sig_explosive_price_change_pct": qizhang_snapshot["check_sig_explosive_price_change_pct"],
+            "qizhang_check_sig_explosive_volume_ratio_5": qizhang_snapshot["check_sig_explosive_volume_ratio_5"],
+            "qizhang_check_sig_explosive_volume_ratio_20": qizhang_snapshot["check_sig_explosive_volume_ratio_20"],
+            "qizhang_check_sig_explosive_close_pos": qizhang_snapshot["check_sig_explosive_close_pos"],
+            "qizhang_check_sig_explosive_close_gt_ma_20": qizhang_snapshot["check_sig_explosive_close_gt_ma_20"],
+            "qizhang_check_sig_explosive_net_flow": qizhang_snapshot["check_sig_explosive_net_flow"],
+            "qizhang_check_sig_anchor_volume_ratio_5": qizhang_snapshot["check_sig_anchor_volume_ratio_5"],
+            "qizhang_check_sig_anchor_volume_ratio_20": qizhang_snapshot["check_sig_anchor_volume_ratio_20"],
+            "qizhang_check_sig_anchor_close_pos": qizhang_snapshot["check_sig_anchor_close_pos"],
+            "qizhang_check_sig_anchor_close_gt_ma_20": qizhang_snapshot["check_sig_anchor_close_gt_ma_20"],
+            "qizhang_check_sig_anchor_net_flow": qizhang_snapshot["check_sig_anchor_net_flow"],
+            "qizhang_check_sig_anchor_rsi_14": qizhang_snapshot["check_sig_anchor_rsi_14"],
+            "qizhang_check_sig_anchor_macd_histogram": qizhang_snapshot["check_sig_anchor_macd_histogram"],
+            "qizhang_check_sig_anchor_close_vs_ma60": qizhang_snapshot["check_sig_anchor_close_vs_ma60"],
         })
 
     if not rows:
@@ -619,6 +668,9 @@ def build_stock_report(
         )
 
     universe_entry = universe_provider.get_symbol(str(symbol), as_of=end_date) if universe_provider is not None else None
+    latest_row = rows[-1]
+    first_close = float(rows[0]["close"])
+    latest_close = float(latest_row["close"])
     return {
         "mode": "stock_report",
         "symbol": str(symbol),
@@ -628,8 +680,14 @@ def build_stock_report(
         "start": start_date.isoformat(),
         "end": end_date.isoformat(),
         "row_count": len(rows),
+        "requested_window_days": (end_date - start_date).days + 1,
         "warmup_days": warmup,
         "chip_metrics_are_proxies": True,
+        "latest_close": latest_close,
+        "latest_volume": float(latest_row["volume"]),
+        "period_return_pct": ((latest_close / first_close) - 1.0) if first_close != 0.0 else None,
+        "latest_qizhang_signal": latest_row["qizhang_signal"],
+        "latest_qizhang_selected_setup": latest_row["qizhang_selected_setup"],
         "rows": rows,
     }
 
@@ -1136,6 +1194,24 @@ def _build_strategy(
             }
         )
 
+    if normalized == "qizhang_improve_strategy":
+        return QizhangSignalStrategy(
+            history_source=lambda: {
+                symbol: list(history)
+                for symbol, history in by_symbol_history.items()
+            },
+            profile="improve",
+        )
+
+    if normalized == "qizhang_improve_strategy_v15":
+        return QizhangSignalStrategy(
+            history_source=lambda: {
+                symbol: list(history)
+                for symbol, history in by_symbol_history.items()
+            },
+            profile="improve_v15",
+        )
+
     if normalized in {"ma_bullish_stack", "bullish_stack", "ma_stack", "bull_stack"}:
         short_window = int(parameters.get("short_window", parameters.get("short", 5)))
         mid_window = int(parameters.get("mid_window", parameters.get("mid", 20)))
@@ -1190,6 +1266,75 @@ def _safe_divide(numerator: float, denominator: float | None) -> float | None:
     if denominator in (None, 0.0):
         return None
     return numerator / denominator
+
+
+def _safe_pct_from_base(current: float, base: float | None) -> float | None:
+    if base in (None, 0.0):
+        return None
+    return (current / base) - 1.0
+
+
+def _resolve_period_return(values: list[float], *, index: int, lookback: int) -> float | None:
+    if lookback <= 0 or index < lookback:
+        return None
+    base = values[index - lookback]
+    if base == 0.0:
+        return None
+    return (values[index] / base) - 1.0
+
+
+def _resolve_close_position(*, close: float, rolling_low: float | None, rolling_high: float | None) -> float | None:
+    if rolling_low is None or rolling_high is None:
+        return None
+    price_range = rolling_high - rolling_low
+    if price_range == 0.0:
+        return 0.5
+    return (close - rolling_low) / price_range
+
+
+def _compute_true_ranges(history: Sequence[OHLCVBar]) -> list[float]:
+    true_ranges: list[float] = []
+    for index, bar in enumerate(history):
+        previous_close = float(history[index - 1].close) if index > 0 else None
+        if previous_close is None:
+            tr = float(bar.high) - float(bar.low)
+        else:
+            tr = max(
+                float(bar.high) - float(bar.low),
+                abs(float(bar.high) - previous_close),
+                abs(float(bar.low) - previous_close),
+            )
+        true_ranges.append(float(tr))
+    return true_ranges
+
+
+def _evaluate_qizhang_snapshot(history: Sequence[OHLCVBar]) -> dict[str, Any]:
+    strategy = QizhangSignalStrategy(history_source=lambda: {})
+    _, metadata, signal, score = strategy._evaluate_symbol(list(history), "qizhang_selection_strategy")
+    return {
+        "signal": signal,
+        "score": score,
+        "selected_setup": metadata.get("selected_setup", ""),
+        "sig_anchor": metadata.get("sig_anchor", False),
+        "sig_explosive": metadata.get("sig_explosive", False),
+        "close_pos": metadata.get("close_pos"),
+        "close_vs_ma60": metadata.get("close_vs_ma60"),
+        "net_flow": metadata.get("net_flow"),
+        "check_sig_explosive_price_change_pct": metadata.get("check_sig_explosive_price_change_pct", False),
+        "check_sig_explosive_volume_ratio_5": metadata.get("check_sig_explosive_volume_ratio_5", False),
+        "check_sig_explosive_volume_ratio_20": metadata.get("check_sig_explosive_volume_ratio_20", False),
+        "check_sig_explosive_close_pos": metadata.get("check_sig_explosive_close_pos", False),
+        "check_sig_explosive_close_gt_ma_20": metadata.get("check_sig_explosive_close_gt_ma_20", False),
+        "check_sig_explosive_net_flow": metadata.get("check_sig_explosive_net_flow", False),
+        "check_sig_anchor_volume_ratio_5": metadata.get("check_sig_anchor_volume_ratio_5", False),
+        "check_sig_anchor_volume_ratio_20": metadata.get("check_sig_anchor_volume_ratio_20", False),
+        "check_sig_anchor_close_pos": metadata.get("check_sig_anchor_close_pos", False),
+        "check_sig_anchor_close_gt_ma_20": metadata.get("check_sig_anchor_close_gt_ma_20", False),
+        "check_sig_anchor_net_flow": metadata.get("check_sig_anchor_net_flow", False),
+        "check_sig_anchor_rsi_14": metadata.get("check_sig_anchor_rsi_14", False),
+        "check_sig_anchor_macd_histogram": metadata.get("check_sig_anchor_macd_histogram", False),
+        "check_sig_anchor_close_vs_ma60": metadata.get("check_sig_anchor_close_vs_ma60", False),
+    }
 
 
 def _to_date(value: DateLike) -> date:

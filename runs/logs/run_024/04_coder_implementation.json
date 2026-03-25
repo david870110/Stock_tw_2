@@ -1,0 +1,9 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "coder",
+  "status": "DONE",
+  "decision": "IMPLEMENTED",
+  "instruction": "Refreshed the strategy-improve analysis-stage market-data provider before Step1-Step4, added regression coverage, and rebuilt the affected forward artifacts from selection cache.",
+  "success": true
+}

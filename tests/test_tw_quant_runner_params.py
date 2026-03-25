@@ -8,8 +8,11 @@ from datetime import date
 import pytest
 
 from src.tw_quant.runner import (
+    _build_argument_parser,
+    _build_strategy_improve_sample_plan,
     _ExcludedUniverseProvider,
     _add_calendar_months,
+    _classify_strategy_improve_bucket,
     _filter_selection_forward_candidates,
     _load_excluded_symbols,
     _parse_backtest_params,
@@ -17,6 +20,10 @@ from src.tw_quant.runner import (
     _resolve_daily_selection_dates,
     _resolve_selection_forward_output_path,
     _resolve_selection_forward_window,
+    _resolve_strategy_improve_months_per_year,
+    _resolve_strategy_improve_sample_start_year,
+    _resolve_strategy_improve_sample_end_year,
+    _resolve_strategy_improve_years,
     _resolve_stock_report_dates,
     _resolve_stock_report_symbol,
 )
@@ -175,3 +182,91 @@ def test_raise_if_missing_history_ratio_exceeded_allows_when_under_threshold() -
         run_summary={"as_of": "2025-09-04", "universe_size": 100, "missing_history_count": 5},
         threshold=0.2,
     )
+
+
+def test_strategy_improve_parser_defaults_workers_and_missing_history_threshold() -> None:
+    parser = _build_argument_parser()
+
+    args = parser.parse_args(["strategy-improve-report"])
+
+    assert args.workers == 20
+    assert args.missing_history_threshold == 0.2
+    assert args.years == 5
+    assert args.sample_start_year == 2014
+    assert args.months_per_year == 5
+    assert args.sample_seed == 42
+
+
+def test_resolve_strategy_improve_years_rejects_nonpositive_value() -> None:
+    with pytest.raises(SystemExit, match="--years must be greater than 0"):
+        _resolve_strategy_improve_years(Namespace(years=0))
+
+
+def test_resolve_strategy_improve_months_per_year_rejects_over_twelve() -> None:
+    with pytest.raises(SystemExit, match="less than or equal to 12"):
+        _resolve_strategy_improve_months_per_year(Namespace(months_per_year=13))
+
+
+def test_resolve_strategy_improve_sample_start_year_uses_default_2014() -> None:
+    args = Namespace(sample_start_year=2014)
+
+    assert _resolve_strategy_improve_sample_start_year(args) == 2014
+
+
+def test_resolve_strategy_improve_sample_end_year_defaults_to_previous_calendar_year() -> None:
+    args = Namespace(sample_end_year=None)
+
+    assert _resolve_strategy_improve_sample_end_year(args) == date.today().year - 1
+
+
+def test_build_strategy_improve_sample_plan_is_deterministic_and_sorted() -> None:
+    sample_plan = _build_strategy_improve_sample_plan(
+        years=2,
+        sample_start_year=2014,
+        months_per_year=2,
+        sample_end_year=2025,
+        sample_seed=7,
+    )
+
+    assert sample_plan == _build_strategy_improve_sample_plan(
+        years=2,
+        sample_start_year=2014,
+        months_per_year=2,
+        sample_end_year=2025,
+        sample_seed=7,
+    )
+    assert [row["selection_date"] for row in sample_plan] == sorted(row["selection_date"] for row in sample_plan)
+    assert len(sample_plan) == 4
+    sample_years = {row["sample_year"] for row in sample_plan}
+    assert len(sample_years) == 2
+    assert sample_years.issubset(set(range(2014, 2026)))
+
+
+def test_build_strategy_improve_sample_plan_rejects_invalid_year_range() -> None:
+    with pytest.raises(SystemExit, match="sample-start-year"):
+        _build_strategy_improve_sample_plan(
+            years=2,
+            sample_start_year=2026,
+            months_per_year=2,
+            sample_end_year=2025,
+            sample_seed=7,
+        )
+
+
+def test_build_strategy_improve_sample_plan_rejects_year_count_larger_than_pool() -> None:
+    with pytest.raises(SystemExit, match="number of years in the sampling range"):
+        _build_strategy_improve_sample_plan(
+            years=3,
+            sample_start_year=2024,
+            months_per_year=2,
+            sample_end_year=2025,
+            sample_seed=7,
+        )
+
+
+def test_classify_strategy_improve_bucket_uses_non_overlapping_boundaries() -> None:
+    assert _classify_strategy_improve_bucket(0.2) == "gte_0_2"
+    assert _classify_strategy_improve_bucket(0.05) == "between_0_2_and_0"
+    assert _classify_strategy_improve_bucket(0.0) == "between_0_and_neg_0_2"
+    assert _classify_strategy_improve_bucket(-0.2) == "between_0_and_neg_0_2"
+    assert _classify_strategy_improve_bucket(-0.21) == "lt_neg_0_2"

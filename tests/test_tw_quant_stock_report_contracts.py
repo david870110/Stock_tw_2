@@ -59,6 +59,10 @@ def test_build_stock_report_returns_requested_window_and_metadata() -> None:
     assert report["symbol"] == "2330.TW"
     assert report["stock_name"] == "TSMC"
     assert report["row_count"] == 5
+    assert report["requested_window_days"] == 5
+    assert "latest_close" in report
+    assert "period_return_pct" in report
+    assert "latest_qizhang_signal" in report
     assert [row["date"] for row in report["rows"]] == [
         "2025-09-01",
         "2025-09-02",
@@ -72,6 +76,14 @@ def test_build_stock_report_returns_requested_window_and_metadata() -> None:
     assert "rsi_14" in last_row
     assert "flow_ratio_5" in last_row
     assert "chip_concentration_proxy" in last_row
+    assert "close_vs_ma_20" in last_row
+    assert "return_20d" in last_row
+    assert "atr_14" in last_row
+    assert "candle_body" in last_row
+    assert "volume_change_pct" in last_row
+    assert "qizhang_signal" in last_row
+    assert "qizhang_selected_setup" in last_row
+    assert "qizhang_check_sig_anchor_close_vs_ma60" in last_row
 
 
 def test_build_stock_report_rejects_empty_history_in_requested_range() -> None:
@@ -116,6 +128,46 @@ def test_write_stock_report_csv_writes_expected_headers_and_rows(tmp_path: Path)
             "chip_concentration_proxy": 0.2,
             "chip_distribution_5_proxy": 0.1,
             "cost_basis_ratio_proxy": 0.98,
+            "close_vs_ma_5": 0.015,
+            "close_vs_ma_10": 0.025,
+            "close_vs_ma_20": 0.035,
+            "close_vs_ma_60": 0.055,
+            "close_position_20d": 0.8,
+            "distance_to_rolling_high_20_pct": -0.01,
+            "distance_to_rolling_low_20_pct": 0.12,
+            "return_5d": 0.08,
+            "return_20d": 0.15,
+            "true_range": 2.0,
+            "atr_14": 1.7,
+            "volume_change_pct": 0.1,
+            "candle_body": 0.5,
+            "candle_body_pct": 0.25,
+            "upper_shadow": 0.5,
+            "lower_shadow": 1.0,
+            "intraday_range": 2.0,
+            "intraday_range_pct": 0.02,
+            "qizhang_signal": "buy",
+            "qizhang_score": 1.0,
+            "qizhang_selected_setup": "sig_explosive",
+            "qizhang_sig_anchor": False,
+            "qizhang_sig_explosive": True,
+            "qizhang_close_pos": 0.8,
+            "qizhang_close_vs_ma60": 0.055,
+            "qizhang_net_flow": 1,
+            "qizhang_check_sig_explosive_price_change_pct": True,
+            "qizhang_check_sig_explosive_volume_ratio_5": True,
+            "qizhang_check_sig_explosive_volume_ratio_20": True,
+            "qizhang_check_sig_explosive_close_pos": True,
+            "qizhang_check_sig_explosive_close_gt_ma_20": True,
+            "qizhang_check_sig_explosive_net_flow": True,
+            "qizhang_check_sig_anchor_volume_ratio_5": False,
+            "qizhang_check_sig_anchor_volume_ratio_20": False,
+            "qizhang_check_sig_anchor_close_pos": True,
+            "qizhang_check_sig_anchor_close_gt_ma_20": True,
+            "qizhang_check_sig_anchor_net_flow": True,
+            "qizhang_check_sig_anchor_rsi_14": True,
+            "qizhang_check_sig_anchor_macd_histogram": True,
+            "qizhang_check_sig_anchor_close_vs_ma60": True,
         }
     ]
 
@@ -131,5 +183,7 @@ def test_write_stock_report_csv_writes_expected_headers_and_rows(tmp_path: Path)
     assert len(parsed) == 1
     assert parsed[0]["symbol"] == "2330.TW"
     assert parsed[0]["macd_histogram"] == "0.3"
+    assert parsed[0]["atr_14"] == "1.7"
+    assert parsed[0]["qizhang_signal"] == "buy"
     assert png_path.exists()
     assert png_path.stat().st_size > 0

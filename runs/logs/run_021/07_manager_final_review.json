@@ -1,0 +1,11 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. T21 is closed with approved spec update, coder implementation, QA PASS, and final workflow evidence in run_021.",
+  "summary": "Strategy-improve threshold handling now skips offending dates with warnings instead of aborting the whole run.",
+  "next_action": "Provide the user with the updated runtime expectation and rerun guidance.",
+  "success": true
+}

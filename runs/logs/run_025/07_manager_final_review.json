@@ -1,0 +1,11 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. T25 is closed with approved spec, implementation, QA PASS, and final workflow evidence in run_025.",
+  "summary": "Strategy-improve now samples distinct years randomly from a configurable year range instead of using a contiguous year block.",
+  "next_action": "Tell the user the new defaults and example command for sampling from 2014 through 2025.",
+  "success": true
+}

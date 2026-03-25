@@ -1,0 +1,9 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_CODER",
+  "instruction": "Approved. Implement random year sampling from the configured year range, add validation, and update tests.",
+  "success": true
+}

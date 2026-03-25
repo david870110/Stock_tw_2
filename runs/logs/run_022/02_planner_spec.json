@@ -1,0 +1,20 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "planner",
+  "status": "READY",
+  "spec": "## Overview\nExpand stock-report so it outputs substantially more analysis context across technical state, strategy state, volume/price action, chip/flow proxies, and report-level metadata.\n\n## Scope\n- Extend build_stock_report() row payload.\n- Extend stock-report CSV export columns.\n- Keep CLI shape unchanged.\n- Reuse existing repo utilities and Qizhang strategy logic where practical.\n\n## Added Report-Level Metadata\n- requested_window_days\n- latest_close\n- latest_volume\n- period_return_pct\n- latest_qizhang_signal\n- latest_qizhang_selected_setup\n\n## Added Row-Level Fields\n### Technical\n- close_vs_ma_5\n- close_vs_ma_10\n- close_vs_ma_20\n- close_vs_ma_60\n- close_position_20d\n- distance_to_rolling_high_20_pct\n- distance_to_rolling_low_20_pct\n- return_5d\n- return_20d\n- true_range\n- atr_14\n\n### Price / candle / volume\n- volume_change_pct\n- candle_body\n- candle_body_pct\n- upper_shadow\n- lower_shadow\n- intraday_range\n- intraday_range_pct\n\n### Strategy analysis snapshot (Qizhang)\n- qizhang_signal\n- qizhang_score\n- qizhang_selected_setup\n- qizhang_sig_anchor\n- qizhang_sig_explosive\n- qizhang_close_pos\n- qizhang_close_vs_ma60\n- qizhang_net_flow\n- qizhang_check_sig_explosive_price_change_pct\n- qizhang_check_sig_explosive_volume_ratio_5\n- qizhang_check_sig_explosive_volume_ratio_20\n- qizhang_check_sig_explosive_close_pos\n- qizhang_check_sig_explosive_close_gt_ma_20\n- qizhang_check_sig_explosive_net_flow\n- qizhang_check_sig_anchor_volume_ratio_5\n- qizhang_check_sig_anchor_volume_ratio_20\n- qizhang_check_sig_anchor_close_pos\n- qizhang_check_sig_anchor_close_gt_ma_20\n- qizhang_check_sig_anchor_net_flow\n- qizhang_check_sig_anchor_rsi_14\n- qizhang_check_sig_anchor_macd_histogram\n- qizhang_check_sig_anchor_close_vs_ma60\n\n## Notes\n- Preserve existing fields.\n- Use null/empty values when unavailable.\n- Update grouped strategy-improve stock-report CSV fieldnames to include expanded stock-report fields.\n\n## Acceptance Criteria\n- New top-level metadata exists.\n- New row fields exist.\n- CSV export includes the new columns.\n- Tests pass.\n",
+  "sections": [
+    "Overview",
+    "Scope",
+    "Added Report-Level Metadata",
+    "Added Row-Level Fields",
+    "Notes",
+    "Acceptance Criteria"
+  ],
+  "open_questions": [],
+  "ready_for_coder": true,
+  "summary": "Implementation-ready T22 spec defines the expanded stock-report field set and preserves scope boundaries.",
+  "next_action": "Send to Manager for approval.",
+  "success": true
+}

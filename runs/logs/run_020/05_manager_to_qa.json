@@ -1,0 +1,11 @@
+{
+  "task_id": "T20",
+  "task_title": "Strategy improve bucketed stock report",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_QA",
+  "instruction": "## Task: Strategy improve bucketed stock report\n\n**Description:** Validate the newly added `strategy-improve-report` workflow against the approved Task-007 specification.\n\n**Specification:**\n- The workflow must sample five years x five months by default using deterministic month-end sampling.\n- Step0 must expose `--workers` default `20` and `--missing-history-threshold` default `0.2`.\n- The workflow must evaluate one-month-forward returns, classify rows into four non-overlapping return buckets, and write grouped stock-report artifacts by selection date and bucket under `artifacts/Stratage_improve/<strategy>/`.\n- Tests must cover parser defaults, helper behavior, and grouped stock-report artifact generation.\n\n**Implementation Log:**\nAdded parser support for `strategy-improve-report`, deterministic sampling helpers, bucket classification helpers, manifest/forward/bucket CSV artifact writers, grouped stock-report generation, and new/updated tests. Evidence includes passing targeted runner pytest commands.\n\n**Your Task:**\nPlease validate the implementation against the specification.\n\nRequirements:\n1. Check spec coverage in `src/tw_quant/runner.py` and the updated tests.\n2. Confirm the default CLI knobs and artifact layout behavior are enforced.\n3. Use the provided pytest evidence and direct file inspection for judgment.\n4. Return `PASS`, `FAIL`, or `SPEC_GAP` only.\n\nReturn valid JSON only.",
+  "summary": "Implementation review is complete; routing T20 to QA with targeted pytest evidence and approved spec boundaries.",
+  "next_action": "Wait for QA verdict.",
+  "success": true
+}

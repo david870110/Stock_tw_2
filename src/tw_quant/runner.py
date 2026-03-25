@@ -7,6 +7,8 @@ import calendar
 import csv
 import json
 import pathlib
+import random
+import sys
 from datetime import date, datetime, timedelta
 from typing import Any
 
@@ -32,8 +34,26 @@ from src.tw_quant.universe.providers import normalize_tw_symbol
 from src.tw_quant.wiring.container import build_app_context
 from src.tw_quant.workflows import AtomicBacktestExecutor, DailySelectionRunner, build_stock_report
 
+try:
+    from tqdm import tqdm
+except Exception:  # pragma: no cover - environment-dependent
+    tqdm = None
+
 _CONFIG_PATH = pathlib.Path(__file__).parent.parent.parent / "configs" / "quant" / "default.yaml"
 _YFINANCE_UNSUPPORTED_SYMBOLS_PATH = _CONFIG_PATH.parent / "yfinance_unsupported_symbols.txt"
+_DEFAULT_STRATEGY_IMPROVE_OUTPUT_ROOT = pathlib.Path("artifacts") / "Stratage_improve"
+_STRATEGY_IMPROVE_BUCKET_ORDER = [
+    "gte_0_2",
+    "between_0_2_and_0",
+    "between_0_and_neg_0_2",
+    "lt_neg_0_2",
+]
+_STRATEGY_IMPROVE_BUCKET_LABELS = {
+    "gte_0_2": ">=+0.2",
+    "between_0_2_and_0": "+0.2~0",
+    "between_0_and_neg_0_2": "0~-0.2",
+    "lt_neg_0_2": "<-0.2",
+}
 
 
 def _load_config(path: pathlib.Path = _CONFIG_PATH) -> AppConfig:
@@ -117,7 +137,7 @@ def _optional_int(value: object) -> int | None:
     return int(value)
 
 
-def main() -> None:
+def _build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="tw_quant workflow runner")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -181,6 +201,59 @@ def main() -> None:
     forward_window.add_argument("--forward-days", type=int, default=None, help="Calendar days to project forward")
     forward_report.add_argument("--output-csv", default=None, help="Optional output path for row-level CSV export")
 
+    strategy_improve = subparsers.add_parser(
+        "strategy-improve-report",
+        help="Run sampled strategy improvement analysis with bucketed stock reports",
+    )
+    strategy_improve.add_argument("--strategy", default="qizhang_selection_strategy")
+    strategy_improve.add_argument("--years", type=int, default=5, help="Number of sampled calendar years")
+    strategy_improve.add_argument("--sample-start-year", type=int, default=2014, help="Earliest calendar year in the sampling pool")
+    strategy_improve.add_argument("--months-per-year", type=int, default=5, help="Unique sampled months per year")
+    strategy_improve.add_argument(
+        "--sample-end-year",
+        type=int,
+        default=None,
+        help="Latest sampled calendar year; defaults to previous calendar year",
+    )
+    strategy_improve.add_argument("--sample-seed", type=int, default=42, help="Deterministic sampling seed")
+    strategy_improve.add_argument("--workers", type=int, default=20, help="Parallel worker count for Step0 selection")
+    strategy_improve.add_argument("--show-progress", action="store_true", help="Show tqdm progress bars")
+    strategy_improve.add_argument(
+        "--missing-history-threshold",
+        type=float,
+        default=0.2,
+        help="Fail when missing_history_count / universe_size exceeds this ratio; use a negative value to disable",
+    )
+    strategy_improve.add_argument(
+        "--top-n",
+        type=int,
+        default=30,
+        help="Deprecated compatibility flag for Step0; strategy-improve forward evaluation uses all buy signals",
+    )
+    strategy_improve.add_argument(
+        "--max-symbols",
+        type=int,
+        default=None,
+        help="Optional max symbols to evaluate (e.g. 100) when universe is large",
+    )
+    strategy_improve.add_argument(
+        "--symbols",
+        nargs="+",
+        default=None,
+        help="Optional symbol subset (e.g. 2330.TW 2317.TW) to avoid full-market fetch",
+    )
+    strategy_improve.add_argument(
+        "--output-root",
+        default=str(_DEFAULT_STRATEGY_IMPROVE_OUTPUT_ROOT),
+        help="Base folder for strategy-improve artifacts",
+    )
+
+    return parser
+
+
+def main() -> None:
+    parser = _build_argument_parser()
+
     args = parser.parse_args()
 
     if args.command == "backtest-batch":
@@ -191,6 +264,9 @@ def main() -> None:
         return
     if args.command == "selection-forward-report":
         _run_selection_forward_report(args)
+        return
+    if args.command == "strategy-improve-report":
+        _run_strategy_improve_report(args)
         return
     _run_daily_selection(args)
 
@@ -413,27 +489,7 @@ def _parse_scalar_text(raw: str) -> object:
 
 def _run_daily_selection(args: argparse.Namespace) -> None:
     execution_dates = _resolve_daily_selection_dates(args)
-    config = _load_config()
-    ctx = build_app_context(config)
-    universe_provider = ctx.universe_provider
-    yfinance_unsupported_symbols = _load_excluded_symbols(
-        _YFINANCE_UNSUPPORTED_SYMBOLS_PATH if _uses_yfinance_provider(config) else None
-    )
-    if yfinance_unsupported_symbols:
-        universe_provider = _ExcludedUniverseProvider(
-            base_provider=universe_provider,
-            excluded_symbols=yfinance_unsupported_symbols,
-        )
-    if args.symbols:
-        selected = list(args.symbols)
-        if args.max_symbols is not None:
-            selected = selected[: max(args.max_symbols, 1)]
-        universe_provider = _StaticUniverseProvider(symbols=selected)
-    elif args.max_symbols is not None:
-        universe_provider = _LimitedUniverseProvider(
-            base_provider=universe_provider,
-            max_symbols=max(args.max_symbols, 1),
-        )
+    config, ctx, universe_provider = _prepare_daily_selection_environment(args)
     runner = DailySelectionRunner(
         universe_provider=universe_provider,
         market_data_provider=ctx.market_data_provider,
@@ -538,6 +594,31 @@ def _run_daily_selection(args: argparse.Namespace) -> None:
     }, indent=2, ensure_ascii=False))
 
 
+def _prepare_daily_selection_environment(args: argparse.Namespace) -> tuple[AppConfig, Any, UniverseProvider]:
+    config = _load_config()
+    ctx = build_app_context(config)
+    universe_provider = ctx.universe_provider
+    yfinance_unsupported_symbols = _load_excluded_symbols(
+        _YFINANCE_UNSUPPORTED_SYMBOLS_PATH if _uses_yfinance_provider(config) else None
+    )
+    if yfinance_unsupported_symbols:
+        universe_provider = _ExcludedUniverseProvider(
+            base_provider=universe_provider,
+            excluded_symbols=yfinance_unsupported_symbols,
+        )
+    if getattr(args, "symbols", None):
+        selected = list(args.symbols)
+        if getattr(args, "max_symbols", None) is not None:
+            selected = selected[: max(args.max_symbols, 1)]
+        universe_provider = _StaticUniverseProvider(symbols=selected)
+    elif getattr(args, "max_symbols", None) is not None:
+        universe_provider = _LimitedUniverseProvider(
+            base_provider=universe_provider,
+            max_symbols=max(args.max_symbols, 1),
+        )
+    return config, ctx, universe_provider
+
+
 def _run_stock_report(args: argparse.Namespace) -> None:
     start_date, end_date = _resolve_stock_report_dates(args)
     resolved_symbol = _resolve_stock_report_symbol(str(getattr(args, "symbol", "")))
@@ -624,6 +705,503 @@ def _run_selection_forward_report(args: argparse.Namespace) -> None:
         "output_summary_png": str(pathlib.Path(written_summary_csv_path).with_suffix(".png")),
         "rows": report_rows,
     }, indent=2, ensure_ascii=False))
+
+
+def _run_strategy_improve_report(args: argparse.Namespace) -> None:
+    years = _resolve_strategy_improve_years(args)
+    sample_start_year = _resolve_strategy_improve_sample_start_year(args)
+    months_per_year = _resolve_strategy_improve_months_per_year(args)
+    sample_end_year = _resolve_strategy_improve_sample_end_year(args)
+    sample_plan = _build_strategy_improve_sample_plan(
+        years=years,
+        sample_start_year=sample_start_year,
+        months_per_year=months_per_year,
+        sample_end_year=sample_end_year,
+        sample_seed=int(getattr(args, "sample_seed", 42)),
+    )
+    artifact_root = _resolve_strategy_improve_artifact_root(
+        output_root=str(getattr(args, "output_root", _DEFAULT_STRATEGY_IMPROVE_OUTPUT_ROOT)),
+        strategy_name=str(getattr(args, "strategy", "")).strip(),
+    )
+    config, ctx, universe_provider = _prepare_daily_selection_environment(args)
+    if ctx.market_data_provider is None:
+        raise SystemExit("Market data provider is not configured for strategy-improve-report.")
+
+    selection_runner = DailySelectionRunner(
+        universe_provider=universe_provider,
+        market_data_provider=ctx.market_data_provider,
+        output_base=str(artifact_root / "selection_cache"),
+        app_config=config,
+    )
+    selection_config = SelectionConfig(
+        top_n=max(int(getattr(args, "top_n", 30)), 1),
+        signal_type_whitelist=["buy"],
+        min_score=0.0,
+    )
+    selected_result = _run_strategy_improve_selections(
+        runner=selection_runner,
+        sample_plan=sample_plan,
+        strategy_name=str(getattr(args, "strategy", "")).strip(),
+        selection_config=selection_config,
+        workers=max(1, int(getattr(args, "workers", 20))),
+        missing_history_threshold=_resolve_missing_history_threshold(args),
+        show_progress=bool(getattr(args, "show_progress", False)),
+    )
+    selected_rows = list(selected_result["selected_rows"])
+    skipped_dates = list(selected_result["skipped_dates"])
+    analysis_market_data_provider = ctx.market_data_provider
+    if hasattr(config, "data"):
+        analysis_ctx = build_app_context(config)
+        if analysis_ctx.market_data_provider is None:
+            raise SystemExit("Market data provider is not configured for strategy-improve-report.")
+        analysis_market_data_provider = analysis_ctx.market_data_provider
+    forward_window = {"kind": "months", "value": 1, "label": "1m"}
+    forward_rows = _build_selection_forward_report_rows(
+        selection_rows=selected_rows,
+        market_data_provider=analysis_market_data_provider,
+        forward_window=forward_window,
+    ) if selected_rows else []
+    enriched_forward_rows = _decorate_strategy_improve_forward_rows(
+        rows=forward_rows,
+        sample_plan=sample_plan,
+    )
+
+    forward_summary = _build_selection_forward_summary(enriched_forward_rows)
+    forward_diagnostics = _build_selection_forward_diagnostics(enriched_forward_rows)
+    bucket_counts = _build_strategy_improve_bucket_counts(enriched_forward_rows)
+    bucket_summary_rows = _build_strategy_improve_bucket_summary_rows(
+        rows=enriched_forward_rows,
+        sample_plan=sample_plan,
+    )
+
+    manifest_dir = artifact_root / "manifest"
+    forward_dir = artifact_root / "forward_returns"
+    bucket_dir = artifact_root / "buckets"
+    manifest_dir.mkdir(parents=True, exist_ok=True)
+    forward_dir.mkdir(parents=True, exist_ok=True)
+    bucket_dir.mkdir(parents=True, exist_ok=True)
+
+    sample_plan_rows = [
+        {
+            "sample_year": row["sample_year"],
+            "sample_month": row["sample_month"],
+            "selection_date": row["selection_date"],
+        }
+        for row in sample_plan
+    ]
+    sample_plan_csv = _write_generic_csv_with_preview(
+        output_path=str(manifest_dir / "sample_plan.csv"),
+        fieldnames=["sample_year", "sample_month", "selection_date"],
+        rows=sample_plan_rows,
+    )
+    forward_csv = _write_generic_csv_with_preview(
+        output_path=str(forward_dir / "forward_returns.csv"),
+        fieldnames=[
+            "selection_date",
+            "sample_year",
+            "sample_month",
+            "symbol",
+            "stock_name",
+            "entry_date",
+            "entry_close",
+            "target_date",
+            "evaluation_date",
+            "evaluation_close",
+            "return_pct",
+            "bucket",
+            "bucket_label",
+            "holding_period_label",
+            "selected",
+            "rank",
+            "weight",
+            "status",
+        ],
+        rows=enriched_forward_rows,
+    )
+    forward_summary_csv = _write_generic_csv_with_preview(
+        output_path=str(forward_dir / "forward_returns_summary.csv"),
+        fieldnames=[
+            "evaluated_count",
+            "missing_count",
+            "average_return_pct",
+            "win_rate",
+            "max_return_pct",
+            "min_return_pct",
+            *_STRATEGY_IMPROVE_BUCKET_ORDER,
+        ],
+        rows=[{
+            "evaluated_count": forward_summary.get("evaluated_count", 0),
+            "missing_count": forward_summary.get("missing_count", 0),
+            "average_return_pct": forward_summary.get("average_return_pct"),
+            "win_rate": forward_summary.get("win_rate"),
+            "max_return_pct": forward_summary.get("max_return_pct"),
+            "min_return_pct": forward_summary.get("min_return_pct"),
+            **bucket_counts,
+        }],
+    )
+    bucket_membership_csv = _write_generic_csv_with_preview(
+        output_path=str(bucket_dir / "bucket_membership.csv"),
+        fieldnames=[
+            "selection_date",
+            "sample_year",
+            "sample_month",
+            "symbol",
+            "stock_name",
+            "bucket",
+            "bucket_label",
+            "return_pct",
+            "entry_date",
+            "entry_close",
+            "target_date",
+            "evaluation_date",
+            "evaluation_close",
+            "status",
+        ],
+        rows=enriched_forward_rows,
+    )
+    bucket_summary_csv = _write_generic_csv_with_preview(
+        output_path=str(bucket_dir / "bucket_summary.csv"),
+        fieldnames=["selection_date", "sample_year", "sample_month", "bucket", "bucket_label", "symbol_count"],
+        rows=bucket_summary_rows,
+    )
+    stock_report_paths = _write_strategy_improve_grouped_stock_reports(
+        artifact_root=artifact_root,
+        rows=enriched_forward_rows,
+        sample_plan=sample_plan,
+        market_data_provider=analysis_market_data_provider,
+        universe_provider=universe_provider,
+        show_progress=bool(getattr(args, "show_progress", False)),
+    )
+
+    run_manifest = {
+        "mode": "strategy_improve_report",
+        "strategy": str(getattr(args, "strategy", "")).strip(),
+        "artifact_root": str(artifact_root),
+        "sample_seed": int(getattr(args, "sample_seed", 42)),
+        "sample_start_year": sample_start_year,
+        "sample_end_year": sample_end_year,
+        "sample_years": sorted({int(row["sample_year"]) for row in sample_plan_rows}),
+        "sampled_dates": [row["selection_date"] for row in sample_plan_rows],
+        "selection_run_count": len(sample_plan_rows),
+        "selected_symbol_count": len(selected_rows),
+        "evaluated_row_count": int(forward_summary.get("evaluated_count", 0) or 0),
+        "missing_row_count": int(forward_summary.get("missing_count", 0) or 0),
+        "forward_fetch_diagnostics": dict(forward_diagnostics),
+        "skipped_date_count": len(skipped_dates),
+        "skipped_dates": skipped_dates,
+        "bucket_counts": dict(bucket_counts),
+        "output_paths": {
+            "sample_plan_csv": sample_plan_csv,
+            "forward_returns_csv": forward_csv,
+            "forward_returns_summary_csv": forward_summary_csv,
+            "bucket_membership_csv": bucket_membership_csv,
+            "bucket_summary_csv": bucket_summary_csv,
+            "stock_reports": stock_report_paths,
+        },
+    }
+    manifest_path = manifest_dir / "run_manifest.json"
+    manifest_path.write_text(json.dumps(run_manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    print(json.dumps(run_manifest, indent=2, ensure_ascii=False))
+
+
+def _resolve_strategy_improve_years(args: argparse.Namespace) -> int:
+    years = int(getattr(args, "years", 5))
+    if years <= 0:
+        raise SystemExit("--years must be greater than 0.")
+    return years
+
+
+def _resolve_strategy_improve_months_per_year(args: argparse.Namespace) -> int:
+    months_per_year = int(getattr(args, "months_per_year", 5))
+    if months_per_year <= 0:
+        raise SystemExit("--months-per-year must be greater than 0.")
+    if months_per_year > 12:
+        raise SystemExit("--months-per-year must be less than or equal to 12.")
+    return months_per_year
+
+
+def _resolve_strategy_improve_sample_start_year(args: argparse.Namespace) -> int:
+    return int(getattr(args, "sample_start_year", 2014))
+
+
+def _resolve_strategy_improve_sample_end_year(args: argparse.Namespace) -> int:
+    raw = getattr(args, "sample_end_year", None)
+    if raw is None:
+        return date.today().year - 1
+    return int(raw)
+
+
+def _resolve_strategy_improve_artifact_root(*, output_root: str, strategy_name: str) -> pathlib.Path:
+    normalized_strategy = strategy_name.strip() or "strategy_improve"
+    return pathlib.Path(output_root).expanduser() / normalized_strategy
+
+
+def _build_strategy_improve_sample_plan(
+    *,
+    years: int,
+    sample_start_year: int,
+    months_per_year: int,
+    sample_end_year: int,
+    sample_seed: int,
+) -> list[dict[str, Any]]:
+    if sample_start_year > sample_end_year:
+        raise SystemExit("--sample-start-year must be less than or equal to --sample-end-year.")
+    available_years = list(range(sample_start_year, sample_end_year + 1))
+    if years > len(available_years):
+        raise SystemExit("--years must be less than or equal to the number of years in the sampling range.")
+    rng = random.Random(sample_seed)
+    sample_rows: list[dict[str, Any]] = []
+    sampled_years = sorted(rng.sample(available_years, years))
+    for sample_year in sampled_years:
+        sampled_months = sorted(rng.sample(list(range(1, 13)), months_per_year))
+        for sample_month in sampled_months:
+            selection_date = date(
+                sample_year,
+                sample_month,
+                calendar.monthrange(sample_year, sample_month)[1],
+            )
+            sample_rows.append({
+                "sample_year": sample_year,
+                "sample_month": sample_month,
+                "selection_date": selection_date.isoformat(),
+            })
+    sample_rows.sort(key=lambda item: str(item["selection_date"]))
+    return sample_rows
+
+
+def _run_strategy_improve_selections(
+    *,
+    runner: DailySelectionRunner,
+    sample_plan: list[dict[str, Any]],
+    strategy_name: str,
+    selection_config: SelectionConfig,
+    workers: int,
+    missing_history_threshold: float | None,
+    show_progress: bool,
+) -> dict[str, list[dict[str, Any]]]:
+    selected_rows: list[dict[str, Any]] = []
+    skipped_dates: list[dict[str, Any]] = []
+    iterator = _create_progress_iterable(
+        iterable=sample_plan,
+        desc="Strategy Improve",
+        unit="date",
+    ) if show_progress else sample_plan
+    try:
+        for sample_row in iterator:
+            selection_date = date.fromisoformat(str(sample_row["selection_date"]))
+            selections = runner.run(
+                as_of=selection_date,
+                strategy_name=strategy_name,
+                selection_config=selection_config,
+                max_workers=max(1, workers),
+                show_progress=show_progress,
+                progress_label=f"Step0 {selection_date.isoformat()}",
+            )
+            run_summary = dict(getattr(runner, "last_run_summary", {}) or {})
+            warning_message = _build_missing_history_threshold_warning(
+                run_summary=run_summary,
+                threshold=missing_history_threshold,
+            )
+            if warning_message is not None:
+                print(f"Warning: {warning_message}")
+                skipped_dates.append({
+                    "selection_date": selection_date.isoformat(),
+                    "sample_year": sample_row["sample_year"],
+                    "sample_month": sample_row["sample_month"],
+                    "warning": warning_message,
+                    "missing_history_count": int(run_summary.get("missing_history_count", 0) or 0),
+                    "universe_size": int(run_summary.get("universe_size", 0) or 0),
+                    "threshold": missing_history_threshold,
+                })
+                continue
+            selection_rows = _resolve_strategy_improve_signal_rows(
+                run_summary=run_summary,
+                runner=runner,
+                selections=selections,
+            )
+            for row in selection_rows:
+                copied = dict(row)
+                copied["sample_year"] = sample_row["sample_year"]
+                copied["sample_month"] = sample_row["sample_month"]
+                selected_rows.append(copied)
+    finally:
+        if show_progress and hasattr(iterator, "close"):
+            iterator.close()
+    return {
+        "selected_rows": selected_rows,
+        "skipped_dates": skipped_dates,
+    }
+
+
+def _resolve_strategy_improve_signal_rows(
+    *,
+    run_summary: dict[str, Any],
+    runner: DailySelectionRunner,
+    selections: list[Any],
+) -> list[dict[str, Any]]:
+    csv_rows = [dict(row) for row in list(run_summary.get("csv_rows", []) or [])]
+    if csv_rows:
+        return [
+            row for row in csv_rows
+            if str(row.get("signal", row.get("reason", ""))).strip().lower() == "buy"
+        ]
+    return [
+        dict(row)
+        for row in _resolve_runner_selection_rows(runner=runner, selections=selections)
+    ]
+
+
+def _classify_strategy_improve_bucket(return_pct: object) -> str:
+    if return_pct is None or str(return_pct).strip() == "":
+        return ""
+    value = float(return_pct)
+    if value >= 0.2:
+        return "gte_0_2"
+    if value > 0.0:
+        return "between_0_2_and_0"
+    if value >= -0.2:
+        return "between_0_and_neg_0_2"
+    return "lt_neg_0_2"
+
+
+def _decorate_strategy_improve_forward_rows(
+    *,
+    rows: list[dict[str, Any]],
+    sample_plan: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    sample_by_date = {
+        str(item["selection_date"]): {
+            "sample_year": item["sample_year"],
+            "sample_month": item["sample_month"],
+        }
+        for item in sample_plan
+    }
+    enriched: list[dict[str, Any]] = []
+    for row in rows:
+        copied = dict(row)
+        sample = sample_by_date.get(str(copied.get("selection_date", "")), {})
+        copied["sample_year"] = sample.get("sample_year", "")
+        copied["sample_month"] = sample.get("sample_month", "")
+        bucket = _classify_strategy_improve_bucket(copied.get("return_pct"))
+        copied["bucket"] = bucket
+        copied["bucket_label"] = _STRATEGY_IMPROVE_BUCKET_LABELS.get(bucket, "")
+        enriched.append(copied)
+    return enriched
+
+
+def _build_strategy_improve_bucket_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
+    counts = {bucket: 0 for bucket in _STRATEGY_IMPROVE_BUCKET_ORDER}
+    for row in rows:
+        bucket = str(row.get("bucket", "")).strip()
+        if bucket in counts:
+            counts[bucket] += 1
+    return counts
+
+
+def _build_strategy_improve_bucket_summary_rows(
+    *,
+    rows: list[dict[str, Any]],
+    sample_plan: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    counts_by_key: dict[tuple[str, str], int] = {}
+    sample_by_date = {
+        str(item["selection_date"]): {
+            "sample_year": item["sample_year"],
+            "sample_month": item["sample_month"],
+        }
+        for item in sample_plan
+    }
+    for row in rows:
+        selection_date = str(row.get("selection_date", "")).strip()
+        bucket = str(row.get("bucket", "")).strip()
+        if not selection_date or bucket not in _STRATEGY_IMPROVE_BUCKET_ORDER:
+            continue
+        counts_by_key[(selection_date, bucket)] = counts_by_key.get((selection_date, bucket), 0) + 1
+
+    summary_rows: list[dict[str, Any]] = []
+    for sample_row in sample_plan:
+        selection_date = str(sample_row["selection_date"])
+        sample = sample_by_date.get(selection_date, {})
+        for bucket in _STRATEGY_IMPROVE_BUCKET_ORDER:
+            summary_rows.append({
+                "selection_date": selection_date,
+                "sample_year": sample.get("sample_year", ""),
+                "sample_month": sample.get("sample_month", ""),
+                "bucket": bucket,
+                "bucket_label": _STRATEGY_IMPROVE_BUCKET_LABELS.get(bucket, ""),
+                "symbol_count": counts_by_key.get((selection_date, bucket), 0),
+            })
+    return summary_rows
+
+
+def _write_strategy_improve_grouped_stock_reports(
+    *,
+    artifact_root: pathlib.Path,
+    rows: list[dict[str, Any]],
+    sample_plan: list[dict[str, Any]],
+    market_data_provider,
+    universe_provider: UniverseProvider,
+    show_progress: bool,
+) -> dict[str, dict[str, str]]:
+    rows_by_date_bucket: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for row in rows:
+        selection_date = str(row.get("selection_date", "")).strip()
+        bucket = str(row.get("bucket", "")).strip()
+        if not selection_date or bucket not in _STRATEGY_IMPROVE_BUCKET_ORDER:
+            continue
+        rows_by_date_bucket.setdefault((selection_date, bucket), []).append(dict(row))
+
+    tasks = [
+        (selection_date, bucket)
+        for selection_date in [str(item["selection_date"]) for item in sample_plan]
+        for bucket in _STRATEGY_IMPROVE_BUCKET_ORDER
+    ]
+    written_paths: dict[str, dict[str, str]] = {}
+    iterator = _create_progress_iterable(
+        iterable=tasks,
+        desc="Stock Reports",
+        unit="bucket",
+    ) if show_progress else tasks
+    try:
+        for selection_date, bucket in iterator:
+            bucket_rows = rows_by_date_bucket.get((selection_date, bucket), [])
+            report_rows: list[dict[str, Any]] = []
+            for bucket_row in bucket_rows:
+                if str(bucket_row.get("status", "")).strip().lower() != "ok":
+                    continue
+                evaluation_date = str(bucket_row.get("evaluation_date", "")).strip()
+                if not evaluation_date:
+                    continue
+                report = build_stock_report(
+                    symbol=str(bucket_row.get("symbol", "")).strip(),
+                    start=selection_date,
+                    end=evaluation_date,
+                    market_data_provider=market_data_provider,
+                    universe_provider=universe_provider,
+                )
+                for report_row in list(report.get("rows", []) or []):
+                    report_rows.append({
+                        **dict(report_row),
+                        "selection_date": selection_date,
+                        "target_date": bucket_row.get("target_date", ""),
+                        "evaluation_date": evaluation_date,
+                        "bucket": bucket,
+                        "bucket_label": _STRATEGY_IMPROVE_BUCKET_LABELS.get(bucket, ""),
+                        "return_pct": bucket_row.get("return_pct"),
+                        "entry_close": bucket_row.get("entry_close"),
+                        "evaluation_close": bucket_row.get("evaluation_close"),
+                    })
+            output_path = artifact_root / "stock_reports" / selection_date / f"{bucket}.csv"
+            written_path = _write_strategy_improve_stock_report_csv(
+                output_path=str(output_path),
+                rows=report_rows,
+            )
+            written_paths.setdefault(selection_date, {})[bucket] = written_path
+    finally:
+        if show_progress and hasattr(iterator, "close"):
+            iterator.close()
+    return written_paths
 
 
 def _resolve_daily_selection_dates(args: argparse.Namespace) -> list[date]:
@@ -805,6 +1383,43 @@ def _build_selection_forward_summary(rows: list[dict[str, Any]]) -> dict[str, An
     }
 
 
+def _build_selection_forward_diagnostics(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    status_counts: dict[str, int] = {}
+    failed_rows: list[dict[str, str]] = []
+
+    for row in rows:
+        status = str(row.get("status", "") or "").strip()
+        if not status or status.lower() == "ok":
+            continue
+        status_counts[status] = status_counts.get(status, 0) + 1
+        failed_rows.append({
+            "selection_date": str(row.get("selection_date", "") or "").strip(),
+            "target_date": str(row.get("target_date", "") or "").strip(),
+            "symbol": str(row.get("symbol", "") or "").strip(),
+            "stock_name": str(row.get("stock_name", "") or "").strip(),
+            "status": status,
+        })
+
+    failed_rows.sort(
+        key=lambda item: (
+            item["selection_date"],
+            item["symbol"],
+            item["target_date"],
+            item["status"],
+        )
+    )
+    missing_symbols = sorted({item["symbol"] for item in failed_rows if item["symbol"]})
+
+    return {
+        "ok_row_count": len(rows) - len(failed_rows),
+        "failed_row_count": len(failed_rows),
+        "failed_symbol_count": len(missing_symbols),
+        "status_counts": {key: status_counts[key] for key in sorted(status_counts)},
+        "missing_symbols": missing_symbols,
+        "failed_rows": failed_rows,
+    }
+
+
 def _find_first_bar_on_or_after(history: list[Any], target_date: date):
     for bar in history:
         bar_date = date.fromisoformat(str(bar.date))
@@ -845,17 +1460,17 @@ def _resolve_missing_history_threshold(args: argparse.Namespace) -> float | None
     return raw_threshold
 
 
-def _raise_if_missing_history_ratio_exceeded(*, run_summary: dict[str, Any], threshold: float | None) -> None:
+def _build_missing_history_threshold_warning(*, run_summary: dict[str, Any], threshold: float | None) -> str | None:
     if threshold is None:
-        return
+        return None
     universe_size = int(run_summary.get("universe_size", 0) or 0)
     if universe_size <= 0:
-        return
+        return None
     missing_history_count = int(run_summary.get("missing_history_count", 0) or 0)
     missing_ratio = missing_history_count / universe_size
     if missing_ratio <= threshold:
-        return
-    raise SystemExit(
+        return None
+    return (
         "Daily selection aborted because missing-history ratio exceeded threshold: "
         f"as_of={run_summary.get('as_of', '')} "
         f"missing_history_count={missing_history_count} "
@@ -863,6 +1478,31 @@ def _raise_if_missing_history_ratio_exceeded(*, run_summary: dict[str, Any], thr
         f"missing_ratio={missing_ratio:.4f} "
         f"threshold={threshold:.4f}"
     )
+
+
+def _create_progress_iterable(*, iterable, desc: str, unit: str):
+    if tqdm is None:
+        return iterable
+    return tqdm(
+        iterable,
+        desc=desc,
+        unit=unit,
+        file=sys.stdout,
+        dynamic_ncols=True,
+        mininterval=0.2,
+        leave=True,
+        ascii=True,
+    )
+
+
+def _raise_if_missing_history_ratio_exceeded(*, run_summary: dict[str, Any], threshold: float | None) -> None:
+    warning_message = _build_missing_history_threshold_warning(
+        run_summary=run_summary,
+        threshold=threshold,
+    )
+    if warning_message is None:
+        return
+    raise SystemExit(warning_message)
 
 
 def _uses_yfinance_provider(config: AppConfig) -> bool:
@@ -1000,10 +1640,26 @@ def _write_selection_forward_summary_csv(
     return str(path)
 
 
-def _write_stock_report_csv(*, output_path: str, rows: list[dict[str, Any]]) -> str:
+def _write_generic_csv_with_preview(
+    *,
+    output_path: str,
+    fieldnames: list[str],
+    rows: list[dict[str, Any]],
+) -> str:
     path = pathlib.Path(output_path).expanduser()
     path.parent.mkdir(parents=True, exist_ok=True)
-    fieldnames = [
+    normalized_rows = [{field: row.get(field, "") for field in fieldnames} for row in rows]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in normalized_rows:
+            writer.writerow(row)
+    write_csv_preview_image(csv_path=path, fieldnames=fieldnames, rows=normalized_rows)
+    return str(path)
+
+
+def _stock_report_fieldnames() -> list[str]:
+    return [
         "date",
         "symbol",
         "open",
@@ -1024,6 +1680,17 @@ def _write_stock_report_csv(*, output_path: str, rows: list[dict[str, Any]]) -> 
         "rolling_low_20",
         "macd_histogram",
         "rsi_14",
+        "close_vs_ma_5",
+        "close_vs_ma_10",
+        "close_vs_ma_20",
+        "close_vs_ma_60",
+        "close_position_20d",
+        "distance_to_rolling_high_20_pct",
+        "distance_to_rolling_low_20_pct",
+        "return_5d",
+        "return_20d",
+        "true_range",
+        "atr_14",
         "estimated_inflow",
         "estimated_outflow",
         "flow_ratio_5",
@@ -1031,7 +1698,57 @@ def _write_stock_report_csv(*, output_path: str, rows: list[dict[str, Any]]) -> 
         "chip_concentration_proxy",
         "chip_distribution_5_proxy",
         "cost_basis_ratio_proxy",
+        "volume_change_pct",
+        "candle_body",
+        "candle_body_pct",
+        "upper_shadow",
+        "lower_shadow",
+        "intraday_range",
+        "intraday_range_pct",
+        "qizhang_signal",
+        "qizhang_score",
+        "qizhang_selected_setup",
+        "qizhang_sig_anchor",
+        "qizhang_sig_explosive",
+        "qizhang_close_pos",
+        "qizhang_close_vs_ma60",
+        "qizhang_net_flow",
+        "qizhang_check_sig_explosive_price_change_pct",
+        "qizhang_check_sig_explosive_volume_ratio_5",
+        "qizhang_check_sig_explosive_volume_ratio_20",
+        "qizhang_check_sig_explosive_close_pos",
+        "qizhang_check_sig_explosive_close_gt_ma_20",
+        "qizhang_check_sig_explosive_net_flow",
+        "qizhang_check_sig_anchor_volume_ratio_5",
+        "qizhang_check_sig_anchor_volume_ratio_20",
+        "qizhang_check_sig_anchor_close_pos",
+        "qizhang_check_sig_anchor_close_gt_ma_20",
+        "qizhang_check_sig_anchor_net_flow",
+        "qizhang_check_sig_anchor_rsi_14",
+        "qizhang_check_sig_anchor_macd_histogram",
+        "qizhang_check_sig_anchor_close_vs_ma60",
     ]
+
+
+def _write_strategy_improve_stock_report_csv(*, output_path: str, rows: list[dict[str, Any]]) -> str:
+    fieldnames = [
+        "selection_date",
+        "target_date",
+        "evaluation_date",
+        "bucket",
+        "bucket_label",
+        "return_pct",
+        "entry_close",
+        "evaluation_close",
+        *_stock_report_fieldnames(),
+    ]
+    return _write_generic_csv_with_preview(output_path=output_path, fieldnames=fieldnames, rows=rows)
+
+
+def _write_stock_report_csv(*, output_path: str, rows: list[dict[str, Any]]) -> str:
+    path = pathlib.Path(output_path).expanduser()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = _stock_report_fieldnames()
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()

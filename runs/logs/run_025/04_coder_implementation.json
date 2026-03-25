@@ -1,0 +1,9 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "coder",
+  "status": "DONE",
+  "decision": "IMPLEMENTED",
+  "instruction": "Implemented sample-start-year, random year sampling without replacement from the configured range, and regression tests for determinism and range validation.",
+  "success": true
+}

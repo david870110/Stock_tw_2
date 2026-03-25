@@ -6,8 +6,9 @@ from datetime import date, datetime
 from pathlib import Path
 
 import yaml
-
 from src.tw_quant.batch import DeterministicBatchRunner, build_run_id
+import src.tw_quant.data.providers as provider_module
+from src.tw_quant.adapters.yfinance_ohlcv import YFinanceRateLimitError
 from src.tw_quant.config.models import AppConfig, BacktestConfig, BacktestExitConfig, BacktestStrategyDefaults, DataConfig
 from src.tw_quant.data import InMemoryMarketDataProvider, ResilientMarketDataProvider
 from src.tw_quant.runner import _load_config
@@ -117,6 +118,61 @@ def test_market_provider_batch_retry_and_date_alignment() -> None:
     assert all(bar.date == "2024-01-01" for bar in bars)
     assert attempts["2317.TW"] == 2
     assert len(calls) == 3
+
+
+def test_market_provider_retries_rate_limits_up_to_twenty_attempts(monkeypatch) -> None:
+    attempts = {"2330.TW": 0}
+    sleeps: list[float] = []
+
+    def fetcher(symbol, start, end, timeout):
+        attempts[symbol] += 1
+        if attempts[symbol] < 20:
+            raise YFinanceRateLimitError("Too Many Requests")
+        return [
+            {"date": "2024-01-02", "open": 100, "high": 101, "low": 99, "close": 100, "volume": 1000},
+        ]
+
+    monkeypatch.setattr(provider_module.time, "sleep", lambda seconds: sleeps.append(seconds))
+
+    provider = ResilientMarketDataProvider(
+        fetcher=fetcher,
+        timeout_seconds=3.0,
+        max_retries=2,
+        retry_backoff_seconds=0.25,
+        batch_size=1,
+    )
+
+    bars = provider.fetch_ohlcv(["2330.TW"], "2024-01-01", "2024-01-31")
+
+    assert len(bars) == 1
+    assert bars[0].date == "2024-01-02"
+    assert attempts["2330.TW"] == 20
+    assert sleeps == [300.0] * 19
+
+
+def test_market_provider_returns_empty_after_twentieth_rate_limit(monkeypatch) -> None:
+    attempts = {"2330.TW": 0}
+    sleeps: list[float] = []
+
+    def fetcher(symbol, start, end, timeout):
+        attempts[symbol] += 1
+        raise YFinanceRateLimitError("Too Many Requests")
+
+    monkeypatch.setattr(provider_module.time, "sleep", lambda seconds: sleeps.append(seconds))
+
+    provider = ResilientMarketDataProvider(
+        fetcher=fetcher,
+        timeout_seconds=3.0,
+        max_retries=2,
+        retry_backoff_seconds=0.25,
+        batch_size=1,
+    )
+
+    bars = provider.fetch_ohlcv(["2330.TW"], "2024-01-01", "2024-01-31")
+
+    assert bars == []
+    assert attempts["2330.TW"] == 20
+    assert sleeps == [300.0] * 19
 
 
 def test_execute_run_single_and_batch_deterministic_ids(tmp_path: Path) -> None:

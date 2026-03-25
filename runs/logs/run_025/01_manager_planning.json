@@ -1,0 +1,9 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_PLANNER",
+  "instruction": "User wants strategy-improve year sampling changed from contiguous years to random years drawn from 2014 through 2025. Planner should define the updated sampling contract and validation rules.",
+  "success": true
+}

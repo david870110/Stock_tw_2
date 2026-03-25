@@ -1,0 +1,11 @@
+{
+  "task_id": "T20",
+  "task_title": "Strategy improve bucketed stock report",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. The approved Task-007 spec exists, implementation matches the approved scope, relevant tests were added/updated, QA returned PASS, and the task is now closed.",
+  "summary": "T20 is complete with planner spec, coder implementation, QA PASS, and final manager closure recorded in run_020.",
+  "next_action": "Provide the user with the implementation summary and command examples.",
+  "success": true
+}

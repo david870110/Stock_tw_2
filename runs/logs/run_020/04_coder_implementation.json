@@ -1,0 +1,26 @@
+{
+  "task_id": "T20",
+  "task_title": "Strategy improve bucketed stock report",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Added a new `strategy-improve-report` CLI workflow in `src/tw_quant/runner.py` with deterministic sample-plan generation, Step0 selection defaults (`--workers 20`, `--missing-history-threshold 0.2`), one-month-forward return evaluation, four-bucket classification, grouped stock-report artifact generation under `artifacts/Stratage_improve/<strategy>/`, and manifest/summary CSV outputs. Refactored parser creation into `_build_argument_parser()` so CLI defaults can be tested directly, added helper coverage in `tests/test_tw_quant_runner_params.py`, and added a new end-to-end artifact test in `tests/test_tw_quant_runner_strategy_improve_report.py`.",
+  "files_modified": [
+    "src/tw_quant/runner.py",
+    "tests/test_tw_quant_runner_params.py",
+    "tests/test_tw_quant_runner_strategy_improve_report.py",
+    "specs/task-007-strategy-improve-bucketed-stock-report.md",
+    "runs/logs/run_020/01_manager_planning.json",
+    "runs/logs/run_020/02_planner_spec.json",
+    "runs/logs/run_020/03_manager_spec_review.json"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_runner_params.py",
+    "tests/test_tw_quant_runner_strategy_improve_report.py"
+  ],
+  "test_execution_summary": "Passed: `pytest -q tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_strategy_improve_report.py` and `pytest -q tests/test_tw_quant_runner_selection_forward_report.py tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_strategy_improve_report.py`.",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "Implementation is complete and ready for QA validation.",
+  "next_action": "Send the approved spec and implementation evidence to QA.",
+  "success": true
+}

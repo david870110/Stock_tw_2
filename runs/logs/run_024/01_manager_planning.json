@@ -1,0 +1,9 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_PLANNER",
+  "instruction": "User reported that forward returns became all-missing again. Planner should scope a fix for strategy-improve so Step1-Step4 use a fresh market-data provider after Step0 completes.",
+  "success": true
+}

@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from src.tw_quant.adapters.twse_universe import map_tpex_row, map_twse_row
-from src.tw_quant.adapters.yfinance_ohlcv import yfinance_fetcher
+from src.tw_quant.adapters.yfinance_ohlcv import YFinanceRateLimitError, yfinance_fetcher
 from src.tw_quant.config.models import AppConfig, DataConfig
 from src.tw_quant.wiring.container import build_app_context
 
@@ -89,6 +89,18 @@ def test_yfinance_fetcher_falls_back_from_tw_to_two():
     assert len(rows) == 1
     assert rows[0]["date"] == date(2024, 1, 5)
     assert rows[0]["close"] == pytest.approx(51.0)
+
+
+def test_yfinance_fetcher_raises_rate_limit_error_instead_of_swallowing_it():
+    class FakeYFRateLimitError(Exception):
+        pass
+
+    mock_ticker = MagicMock()
+    mock_ticker.history.side_effect = FakeYFRateLimitError("Too Many Requests. Rate limited.")
+
+    with patch("yfinance.Ticker", return_value=mock_ticker):
+        with pytest.raises(YFinanceRateLimitError):
+            yfinance_fetcher("2330.TW", "2024-01-01", "2024-01-31", timeout=10.0)
 
 
 def test_map_twse_row_maps_current_chinese_fields():

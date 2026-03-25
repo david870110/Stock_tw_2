@@ -1,0 +1,25 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T21",
+      "title": "Update strategy-improve threshold handling to skip offending dates",
+      "description": "Change strategy-improve-report so a sampled date that exceeds missing-history-threshold logs a warning and is skipped, instead of aborting the entire workflow.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "strategy-improve-report no longer exits the whole run when one sampled date exceeds missing-history-threshold.",
+        "The command emits a warning, records skipped-date metadata, and continues processing remaining sampled dates.",
+        "daily-selection command behavior remains unchanged.",
+        "Automated tests cover the new skip-with-warning path."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: Strategy improve threshold skip behavior (T21)\n\n**Description:** Update the strategy-improve-report workflow so dates exceeding `--missing-history-threshold` are warned and skipped rather than aborting the full run.\n\n**Priority:** HIGH\n\n**Acceptance Criteria:**\n1. strategy-improve-report logs a warning and skips the sampled date when missing-history ratio exceeds threshold.\n2. The workflow continues with later sampled dates and records skipped-date details in output metadata.\n3. Existing daily-selection behavior remains unchanged.\n4. Tests cover the new skip path.\n\n**Your Task:**\nPlease update the specification so the Coder can implement this behavior safely without broadening scope.\n\nReturn valid JSON only.",
+  "summary": "T21 is a scoped behavior change limited to strategy-improve-report threshold handling.",
+  "next_action": "Wait for Planner spec update.",
+  "success": true
+}

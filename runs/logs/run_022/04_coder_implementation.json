@@ -1,0 +1,25 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "coder",
+  "status": "DONE",
+  "implementation_log": "Expanded `build_stock_report()` in `src/tw_quant/workflows.py` with additional top-level metadata plus richer row-level technical, ATR/true-range, candle/volume-action, and Qizhang strategy-analysis fields. Updated `src/tw_quant/runner.py` CSV field ordering so both direct stock-report exports and grouped strategy-improve stock-report CSVs preserve the expanded field set. Updated `tests/test_tw_quant_stock_report_contracts.py` to verify the new JSON and CSV fields while keeping existing runner-related tests green.",
+  "files_modified": [
+    "src/tw_quant/workflows.py",
+    "src/tw_quant/runner.py",
+    "tests/test_tw_quant_stock_report_contracts.py",
+    "specs/task-008-stock-report-expanded-metrics.md",
+    "runs/logs/run_022/01_manager_planning.json",
+    "runs/logs/run_022/02_planner_spec.json",
+    "runs/logs/run_022/03_manager_spec_review.json"
+  ],
+  "tests_added_or_updated": [
+    "tests/test_tw_quant_stock_report_contracts.py"
+  ],
+  "test_execution_summary": "Passed: `pytest -q tests/test_tw_quant_stock_report_contracts.py tests/test_tw_quant_runner_strategy_improve_report.py tests/test_tw_quant_runner_selection_forward_report.py tests/test_tw_quant_runner_params.py` and `python -m compileall src\\tw_quant\\workflows.py src\\tw_quant\\runner.py tests\\test_tw_quant_stock_report_contracts.py`.",
+  "blockers": [],
+  "known_issues": [],
+  "summary": "T22 implementation is complete and ready for QA validation.",
+  "next_action": "Send implementation and test evidence to QA.",
+  "success": true
+}

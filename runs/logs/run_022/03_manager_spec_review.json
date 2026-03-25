@@ -1,0 +1,11 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_CODER",
+  "instruction": "## Task: Stock report expanded metrics\n\n**Description:** Implement the approved expansion of stock-report JSON/CSV output with more technical, strategy-analysis, candle/volume, and metadata fields.\n\n**Specification:**\n- Extend build_stock_report() rows and top-level metadata.\n- Preserve existing fields.\n- Reuse repo utilities and Qizhang logic where practical.\n- Extend stock-report CSV and grouped strategy-improve stock-report CSV field lists.\n- Update tests.\n\n**Your Task:**\nPlease implement the solution according to the specification above.\n\nReturn valid JSON only.",
+  "summary": "Planner spec approved; routing T22 to Coder.",
+  "next_action": "Wait for implementation and test evidence.",
+  "success": true
+}

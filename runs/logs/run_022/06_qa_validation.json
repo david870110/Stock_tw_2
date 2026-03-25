@@ -1,0 +1,18 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "qa",
+  "status": "PASS",
+  "findings": [
+    "The approved Task-008 spec exists and explicitly defines the added top-level metadata and row-level stock-report fields.",
+    "Implementation in `src/tw_quant/workflows.py` adds the expanded technical, ATR/true-range, candle/volume, and Qizhang analysis fields while preserving prior report fields.",
+    "Implementation in `src/tw_quant/runner.py` updates CSV field lists so expanded stock-report rows are preserved in direct exports and grouped strategy-improve stock-report CSVs.",
+    "Regression coverage in `tests/test_tw_quant_stock_report_contracts.py` validates new JSON/CSV fields, and related runner tests remain green.",
+    "Validation evidence passed: `pytest -q tests/test_tw_quant_stock_report_contracts.py tests/test_tw_quant_runner_strategy_improve_report.py tests/test_tw_quant_runner_selection_forward_report.py tests/test_tw_quant_runner_params.py`."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "T22 satisfies the approved stock-report expansion scope and preserves existing behavior.",
+  "next_action": "Return QA PASS to Manager.",
+  "success": true
+}

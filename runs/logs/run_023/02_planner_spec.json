@@ -1,0 +1,10 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "planner",
+  "status": "DONE",
+  "decision": "SPEC_READY",
+  "spec_path": "specs/task-009-strategy-improve-all-signal-forward.md",
+  "summary": "Specified that strategy-improve forward evaluation must include all buy-signal rows from sampled-date CSV output, even when selected=False.",
+  "success": true
+}

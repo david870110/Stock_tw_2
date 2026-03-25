@@ -1,0 +1,9 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "manager",
+  "status": "APPROVED_FOR_QA",
+  "decision": "ROUTE_TO_QA",
+  "instruction": "Validate that strategy-improve refreshes the market-data provider before forward evaluation and no longer produces all-missing rows in the stale-provider scenario.",
+  "success": true
+}

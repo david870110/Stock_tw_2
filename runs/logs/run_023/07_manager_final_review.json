@@ -1,0 +1,11 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. T23 is closed with approved spec, implementation, QA PASS, and final workflow evidence in run_023.",
+  "summary": "Strategy-improve forward evaluation now uses all buy-signal rows from sampled-date daily-selection output instead of only top-N selected rows.",
+  "next_action": "Tell the user the behavior changed, tests passed, and they should rerun strategy-improve-report to refresh artifacts.",
+  "success": true
+}

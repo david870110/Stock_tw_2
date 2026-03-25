@@ -1,0 +1,9 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "manager",
+  "status": "APPROVED",
+  "decision": "ROUTE_TO_PLANNER",
+  "instruction": "User reported that strategy-improve forward rows appear limited by top-N selection. Planner should define a scoped behavior change so forward evaluation uses all buy-signal rows from sampled-date daily-selection outputs.",
+  "success": true
+}

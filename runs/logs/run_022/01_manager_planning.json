@@ -1,0 +1,25 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "manager",
+  "status": "READY",
+  "tasks": [
+    {
+      "task_id": "T22",
+      "title": "Expand stock-report output fields",
+      "description": "Add richer technical, strategy-analysis, volume/price-action, chip/flow, and metadata fields to stock-report JSON/CSV output.",
+      "priority": "HIGH",
+      "acceptance_criteria": [
+        "stock-report JSON gains additional top-level metadata fields.",
+        "stock-report rows gain technical, candle/volume, and Qizhang analysis fields.",
+        "CSV export includes the expanded field set in stable order.",
+        "Tests are updated to validate the expanded report shape."
+      ]
+    }
+  ],
+  "decision": "SEND_TO_PLANNER",
+  "instruction": "## Task: Stock report expanded metrics (T22)\n\n**Description:** Expand stock-report so it outputs substantially more information across technical, strategy-analysis, and volume/price-action dimensions.\n\n**Priority:** HIGH\n\n**Acceptance Criteria:**\n1. Add new top-level metadata fields to stock-report JSON.\n2. Add more row-level technical, candle/volume, and Qizhang strategy-analysis fields.\n3. Extend CSV export with the new columns.\n4. Update tests.\n\n**Your Task:**\nPlease create an implementation-ready spec with explicit field lists and scope limits.\n\nReturn valid JSON only.",
+  "summary": "T22 is a behavior-changing report expansion and needs a concrete field-level spec before coding.",
+  "next_action": "Wait for Planner spec.",
+  "success": true
+}

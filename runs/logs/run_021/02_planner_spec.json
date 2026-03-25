@@ -1,0 +1,19 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "planner",
+  "status": "READY",
+  "spec": "## Overview\nUpdate `strategy-improve-report` so missing-history-threshold breaches on individual sampled dates no longer abort the entire workflow.\n\n## Scope\n- In scope: strategy-improve-report only.\n- In scope: warning output, skipped-date bookkeeping, manifest fields, and tests.\n- Out of scope: changing `daily-selection` command behavior.\n\n## Required Behavior\n1. During Step0 selection inside strategy-improve-report, evaluate missing-history threshold exactly as before.\n2. If a sampled date exceeds the threshold:\n- do not raise SystemExit out of the overall strategy-improve command,\n- emit a readable warning to stdout including the sampled date, missing counts, ratio, and threshold,\n- mark that sampled date as skipped,\n- continue processing remaining sampled dates.\n3. Skipped dates must not contribute selected rows, forward rows, or stock-report artifacts beyond the predictable empty bucket files already produced from the sample plan.\n4. Final manifest JSON must include skipped-date details and count.\n5. `daily-selection` command behavior remains unchanged.\n\n## Tests\n- Add a regression test proving strategy-improve-report continues after a threshold breach and records the skipped date.\n- Keep existing tests for normal artifact generation passing.\n\n## Acceptance Criteria\n- strategy-improve-report continues after threshold breaches on individual dates.\n- Warning text is emitted.\n- skipped-date metadata is present in output/manifest.\n- daily-selection behavior is unchanged.\n- Targeted tests pass.\n",
+  "sections": [
+    "Overview",
+    "Scope",
+    "Required Behavior",
+    "Tests",
+    "Acceptance Criteria"
+  ],
+  "open_questions": [],
+  "ready_for_coder": true,
+  "summary": "Implementation-ready T21 spec narrows the change to strategy-improve-report and preserves daily-selection semantics.",
+  "next_action": "Send the spec update to Manager for coder execution.",
+  "success": true
+}

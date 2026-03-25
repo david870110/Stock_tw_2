@@ -1,0 +1,10 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "planner",
+  "status": "DONE",
+  "decision": "SPEC_READY",
+  "spec_path": "specs/task-011-strategy-improve-random-year-range.md",
+  "summary": "Specified random year sampling without replacement from a configurable year range, with sample-start-year defaulting to 2014.",
+  "success": true
+}

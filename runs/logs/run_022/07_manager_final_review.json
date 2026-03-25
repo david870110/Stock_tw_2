@@ -1,0 +1,11 @@
+{
+  "task_id": "T22",
+  "task_title": "Stock report expanded metrics",
+  "role": "manager",
+  "status": "DONE",
+  "decision": "COMPLETE",
+  "instruction": "Manager final review complete. T22 is closed with approved spec, implementation, QA PASS, and final workflow evidence in run_022.",
+  "summary": "Stock-report now outputs expanded technical, strategy-analysis, candle/volume, and metadata fields.",
+  "next_action": "Provide the user with the implementation summary and example usage.",
+  "success": true
+}

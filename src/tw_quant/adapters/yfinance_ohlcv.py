@@ -6,6 +6,10 @@ import logging
 from typing import Any
 
 
+class YFinanceRateLimitError(RuntimeError):
+    """Raised when Yahoo Finance explicitly rate-limits a request."""
+
+
 def yfinance_fetcher(
     symbol: str,
     start: Any,
@@ -32,7 +36,9 @@ def yfinance_fetcher(
                 auto_adjust=True,
                 actions=False,
             )
-        except Exception:
+        except Exception as exc:
+            if _is_yfinance_rate_limit_error(exc):
+                raise YFinanceRateLimitError(str(exc)) from exc
             continue
 
         if candidate_df is not None and not candidate_df.empty:
@@ -62,3 +68,9 @@ def _build_symbol_candidates(symbol: str) -> list[str]:
     if raw.endswith(".TWO"):
         return [raw, f"{raw[:-4]}.TW"]
     return [raw]
+
+
+def _is_yfinance_rate_limit_error(exc: Exception) -> bool:
+    name = exc.__class__.__name__.lower()
+    message = str(exc).lower()
+    return "yfratelimiterror" in name or "rate limited" in message or "too many requests" in message

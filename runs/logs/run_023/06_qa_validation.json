@@ -1,0 +1,15 @@
+{
+  "task_id": "T23",
+  "task_title": "Strategy improve all-signal forward evaluation",
+  "role": "qa",
+  "status": "PASS",
+  "decision": "PASS",
+  "instruction": "Validated all-signal forward behavior with regression tests and targeted compile verification.",
+  "evidence": {
+    "tests": [
+      "pytest -q tests/test_tw_quant_runner_strategy_improve_report.py tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_selection_forward_report.py",
+      "python -m compileall src\\tw_quant\\runner.py tests\\test_tw_quant_runner_strategy_improve_report.py"
+    ]
+  },
+  "success": true
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "T25",
+  "task_title": "Strategy improve random year range",
+  "role": "manager",
+  "status": "APPROVED_FOR_QA",
+  "decision": "ROUTE_TO_QA",
+  "instruction": "Validate random year sampling from the configured year range, including deterministic output and range validation.",
+  "success": true
+}

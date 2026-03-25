@@ -1,0 +1,10 @@
+{
+  "task_id": "T24",
+  "task_title": "Strategy improve refresh analysis provider",
+  "role": "planner",
+  "status": "DONE",
+  "decision": "SPEC_READY",
+  "spec_path": "specs/task-010-strategy-improve-refresh-analysis-provider.md",
+  "summary": "Specified that strategy-improve must refresh the market-data provider before forward evaluation and stock-report generation to avoid all-missing forward rows after Step0.",
+  "success": true
+}

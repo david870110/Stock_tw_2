@@ -1,0 +1,11 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_QA",
+  "instruction": "## Task: Strategy improve threshold skip behavior\n\n**Description:** Validate that strategy-improve-report now warns and skips sampled dates that exceed missing-history-threshold, while leaving daily-selection behavior unchanged.\n\n**Specification:**\n- strategy-improve-report no longer aborts the entire run on a per-date threshold breach.\n- A warning is emitted to stdout.\n- skipped-date metadata is recorded in the final manifest/output JSON.\n- Later sampled dates continue processing.\n- daily-selection command behavior remains unchanged.\n\n**Implementation Log:**\nCoder updated `src/tw_quant/runner.py` to convert per-date threshold failures into warning + skip records only within strategy-improve-report, and added regression coverage in `tests/test_tw_quant_runner_strategy_improve_report.py`.\n\n**Your Task:**\nPlease validate the implementation against the approved T21 scope and return PASS, FAIL, or SPEC_GAP.\n\nReturn valid JSON only.",
+  "summary": "Routing T21 to QA with targeted regression evidence for the skip-with-warning path.",
+  "next_action": "Wait for QA verdict.",
+  "success": true
+}

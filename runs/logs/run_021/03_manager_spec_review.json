@@ -1,0 +1,11 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "manager",
+  "status": "READY",
+  "decision": "SEND_TO_CODER",
+  "instruction": "## Task: Strategy improve threshold skip behavior\n\n**Description:** Implement the approved change so strategy-improve-report warns and skips threshold-breaching sampled dates instead of aborting the entire workflow.\n\n**Specification:**\n- Change strategy-improve-report only.\n- Keep threshold calculation unchanged, but convert per-date breaches into warnings plus skipped-date records.\n- Continue later sampled dates.\n- Record skipped-date metadata in the final manifest.\n- Do not change daily-selection command behavior.\n- Add regression tests for the skip path.\n\n**Your Task:**\nPlease implement the solution according to the specification above.\n\nReturn valid JSON only.",
+  "summary": "Planner update approved; routing T21 to Coder with a narrow skip-with-warning scope.",
+  "next_action": "Wait for Coder implementation and test evidence.",
+  "success": true
+}

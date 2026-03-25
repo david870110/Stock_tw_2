@@ -1,0 +1,18 @@
+{
+  "task_id": "T21",
+  "task_title": "Strategy improve threshold skip behavior",
+  "role": "qa",
+  "status": "PASS",
+  "findings": [
+    "Task-007 spec now explicitly documents skip-with-warning behavior for strategy-improve-report while preserving daily-selection semantics.",
+    "Implementation in `src/tw_quant/runner.py` records skipped dates, emits stdout warnings, and continues the strategy-improve loop instead of raising a terminal SystemExit for the whole workflow.",
+    "The threshold message formatting remains centralized and daily-selection still uses the existing aborting helper path.",
+    "Regression coverage in `tests/test_tw_quant_runner_strategy_improve_report.py` verifies warning output, skipped-date metadata, and continued processing after a threshold breach.",
+    "Targeted validation passed: `pytest -q tests/test_tw_quant_runner_selection_forward_report.py tests/test_tw_quant_runner_params.py tests/test_tw_quant_runner_strategy_improve_report.py`."
+  ],
+  "failed_criteria": [],
+  "required_fixes": [],
+  "summary": "T21 satisfies the approved skip-with-warning behavior change without broadening scope or altering daily-selection semantics.",
+  "next_action": "Return QA PASS result to Manager.",
+  "success": true
+}
