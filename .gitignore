@@ -34,3 +34,6 @@ runs/summaries/*.json
 !runs/summaries/.gitkeep
 .DS_Store
 *.log
+
+*.vcd
+*.vvp
